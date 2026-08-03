@@ -1,6 +1,6 @@
-from server.src.app.routers.classes.league_classes import LeagueInvitationItem
-from server.src.app.routers.leagues.responses.league_item import league_item
-from server.src.store.sql.leagues.read_models import LeagueInvitationRow
+from src.app.routers.classes.league_classes import LeagueInvitationItem
+from src.app.routers.leagues.responses.league_item import league_item
+from src.store.sql.leagues.read_models import LeagueInvitationRow
 
 def invitation_item(invitation: LeagueInvitationRow) -> LeagueInvitationItem:
     return LeagueInvitationItem(

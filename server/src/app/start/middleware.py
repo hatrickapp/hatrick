@@ -1,9 +1,9 @@
 from fastapi import FastAPI, HTTPException, Request
 
-from server.src.app.config.cloudflare_ip_ranges import is_cloudflare_ip
-from server.src.app.config.settings import settings
-from server.src.app.errors.handler import http_error_response
-from server.src.app.middleware.middleware_chain import MiddlewareChain
+from src.app.config.cloudflare_ip_ranges import is_cloudflare_ip
+from src.app.config.settings import settings
+from src.app.errors.handler import http_error_response
+from src.app.middleware.middleware_chain import MiddlewareChain
 
 async def cloudflare_only_guard(request: Request, call_next):
     if not settings.cf_guard_enabled:

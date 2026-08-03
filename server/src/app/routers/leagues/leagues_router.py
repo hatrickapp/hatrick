@@ -2,26 +2,26 @@ from uuid import UUID
 
 from fastapi import APIRouter, Query
 
-from server.src.app.routers.classes.base import BaseResponse
-from server.src.app.routers.classes.league_classes import CreateLeagueInvitationRequest, CreateLeagueRequest, LeagueInvitationResponse, LeagueInvitationsResponse, LeagueLimitItem, LeagueResponse, LeagueScoringItem, LeagueScoringPresetItem, LeagueStandingsResponse, LeaguesConfigResponse, LeaguesHomeResponse, PlanLimitItem, PlusOfferingItem, UpdateLeagueRequest
-from server.src.app.routers.dependencies.router_dependencies import HTTPDep, PoolDep, UserDep
-from server.src.app.routers.leagues.responses.invitation_item import invitation_item
-from server.src.app.routers.leagues.responses.league_item import league_item
-from server.src.app.routers.leagues.responses.scoring_settings import scoring_settings
-from server.src.app.routers.leagues.responses.standing_item import standing_item
-from server.src.app.routers.realtime.realtime_router import notify_dashboard_refresh_users
-from server.src.logic.leagues.actions.create_league import create_league
-from server.src.logic.leagues.actions.get_league_detail import get_league_detail
-from server.src.logic.leagues.actions.get_league_invitations import get_league_invitations
-from server.src.logic.leagues.actions.get_league_standings import get_league_standings
-from server.src.logic.leagues.actions.get_leagues_config import get_leagues_config
-from server.src.logic.leagues.actions.get_leagues_home import get_leagues_home
-from server.src.logic.leagues.actions.invite_user_to_league import invite_user_to_league
-from server.src.logic.leagues.actions.join_league_invitation import join_league_invitation
-from server.src.logic.leagues.actions.leave_league import leave_league
-from server.src.logic.leagues.actions.reject_league_invitation import reject_league_invitation
-from server.src.logic.leagues.actions.remove_league_member import remove_league_member
-from server.src.logic.leagues.actions.update_league import update_league
+from src.app.routers.classes.base import BaseResponse
+from src.app.routers.classes.league_classes import CreateLeagueInvitationRequest, CreateLeagueRequest, LeagueInvitationResponse, LeagueInvitationsResponse, LeagueLimitItem, LeagueResponse, LeagueScoringItem, LeagueScoringPresetItem, LeagueStandingsResponse, LeaguesConfigResponse, LeaguesHomeResponse, PlanLimitItem, PlusOfferingItem, UpdateLeagueRequest
+from src.app.routers.dependencies.router_dependencies import HTTPDep, PoolDep, UserDep
+from src.app.routers.leagues.responses.invitation_item import invitation_item
+from src.app.routers.leagues.responses.league_item import league_item
+from src.app.routers.leagues.responses.scoring_settings import scoring_settings
+from src.app.routers.leagues.responses.standing_item import standing_item
+from src.app.routers.realtime.realtime_router import notify_dashboard_refresh_users
+from src.logic.leagues.actions.create_league import create_league
+from src.logic.leagues.actions.get_league_detail import get_league_detail
+from src.logic.leagues.actions.get_league_invitations import get_league_invitations
+from src.logic.leagues.actions.get_league_standings import get_league_standings
+from src.logic.leagues.actions.get_leagues_config import get_leagues_config
+from src.logic.leagues.actions.get_leagues_home import get_leagues_home
+from src.logic.leagues.actions.invite_user_to_league import invite_user_to_league
+from src.logic.leagues.actions.join_league_invitation import join_league_invitation
+from src.logic.leagues.actions.leave_league import leave_league
+from src.logic.leagues.actions.reject_league_invitation import reject_league_invitation
+from src.logic.leagues.actions.remove_league_member import remove_league_member
+from src.logic.leagues.actions.update_league import update_league
 
 router = APIRouter(prefix="/v1")
 

@@ -1,10 +1,10 @@
 from asyncpg import Pool
 
-from server.src.logic.leagues.actions.refresh_league_standings_for_match import refresh_league_standings_for_match
-from server.src.store.sql.predictions.refresh_user_stats import refresh_user_stats
-from server.src.store.sql.predictions.settle_match_predictions import settle_match_predictions
-from server.src.store.sql.sports.select_settleable_matches import select_settleable_matches
-from server.src.store.sql.sports.users_for_match_predictions import users_for_match_predictions
+from src.logic.leagues.actions.refresh_league_standings_for_match import refresh_league_standings_for_match
+from src.store.sql.predictions.refresh_user_stats import refresh_user_stats
+from src.store.sql.predictions.settle_match_predictions import settle_match_predictions
+from src.store.sql.sports.select_settleable_matches import select_settleable_matches
+from src.store.sql.sports.users_for_match_predictions import users_for_match_predictions
 
 async def settle_due_matches(pool: Pool) -> None:
     async with pool.acquire() as conn:

@@ -2,7 +2,7 @@ from uuid import UUID
 
 from cachetools import TTLCache
 
-from server.src.store.sql.authentication.sessions.select_session_by_token_hash import SessionByTokenHash
+from src.store.sql.authentication.sessions.select_session_by_token_hash import SessionByTokenHash
 
 def get_memory_session(session_cache: TTLCache, session_token_hash: str) -> SessionByTokenHash | None:
     return session_cache.get(f"session:{session_token_hash}")

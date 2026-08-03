@@ -1,6 +1,6 @@
 from uuid import UUID
 
-from server.src.store.sql.leagues.read_models import LeagueMemberScoreRow, LeaguePredictionScoreRow, LeagueScoredStanding, LeagueScoringSettings
+from src.store.sql.leagues.read_models import LeagueMemberScoreRow, LeaguePredictionScoreRow, LeagueScoredStanding, LeagueScoringSettings
 
 OUTCOME_POINTS = 10
 BTTS_POINTS = 10

@@ -7,8 +7,8 @@ import httpx
 from redis.asyncio import Redis
 from starlette.requests import Request
 
-from server.src.app.config.lua_manager import LuaScriptManager
-from server.src.app.events.pubsub.event_publisher import RedisEventPublisher
+from src.app.config.lua_manager import LuaScriptManager
+from src.app.events.pubsub.event_publisher import RedisEventPublisher
 
 def get_psql_pool(request: Request) -> Pool:
     return request.app.state.psql_pool

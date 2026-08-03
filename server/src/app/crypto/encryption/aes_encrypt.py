@@ -3,7 +3,7 @@ import os
 
 from cryptography.hazmat.primitives.ciphers.aead import AESGCM
 
-from server.src.app.config.settings import settings
+from src.app.config.settings import settings
 
 aesgcm = AESGCM(settings.aes_key)
 

@@ -1,6 +1,6 @@
-from server.src.app.logging.logger_setup import get_logger
-from server.src.logic.sports.api_football_client import ApiFootballError
-from server.src.logic.workers.helper.sports_sync_schedule import is_rate_limit_error
+from src.app.logging.logger_setup import get_logger
+from src.logic.sports.api_football_client import ApiFootballError
+from src.logic.workers.helper.sports_sync_schedule import is_rate_limit_error
 
 logger = get_logger(__name__)
 

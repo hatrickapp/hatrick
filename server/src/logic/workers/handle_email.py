@@ -1,7 +1,7 @@
 import httpx
 from pydantic import BaseModel
 
-from server.src.logic.authentication.shared.send_email import send_email
+from src.logic.authentication.shared.send_email import send_email
 
 class EmailEventPayload(BaseModel):
     email: str

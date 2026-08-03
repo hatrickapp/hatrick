@@ -3,11 +3,11 @@ from cachetools import TTLCache
 from fastapi import HTTPException
 from redis.asyncio import Redis
 
-from server.src.app.config.lua_manager import LuaScriptManager
-from server.src.app.logging.logger_setup import get_logger
-from server.src.app.middleware.phases.phase1.request_context import RequestContext
-from server.src.store.sql.authentication.sessions.select_session_by_token_hash import select_session_by_token_hash
-from server.src.store.sql.authentication.sessions.shared.resolve_session_by_token_hash import resolve_session_by_token_hash
+from src.app.config.lua_manager import LuaScriptManager
+from src.app.logging.logger_setup import get_logger
+from src.app.middleware.phases.phase1.request_context import RequestContext
+from src.store.sql.authentication.sessions.select_session_by_token_hash import select_session_by_token_hash
+from src.store.sql.authentication.sessions.shared.resolve_session_by_token_hash import resolve_session_by_token_hash
 
 logger = get_logger(__name__)
 

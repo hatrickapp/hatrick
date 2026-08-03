@@ -3,11 +3,11 @@ from uuid import UUID, uuid7
 
 from asyncpg import Connection
 
-from server.src.store.sql.leagues.cleanup_league_invitations_for_user import cleanup_league_invitations_for_user
-from server.src.store.sql.leagues.map_invitation import map_invitation
-from server.src.store.sql.leagues.read_models import LeagueInvitationRow, LeagueMemberScoreRow, LeaguePredictionScoreRow, LeagueRow, LeagueScoredStanding, LeagueScoringSettings, LeagueStandingRow
-from server.src.store.sql.leagues.select_league_competitions import select_league_competitions
-from server.src.store.sql.sports.read_models import CompetitionRow
+from src.store.sql.leagues.cleanup_league_invitations_for_user import cleanup_league_invitations_for_user
+from src.store.sql.leagues.map_invitation import map_invitation
+from src.store.sql.leagues.read_models import LeagueInvitationRow, LeagueMemberScoreRow, LeaguePredictionScoreRow, LeagueRow, LeagueScoredStanding, LeagueScoringSettings, LeagueStandingRow
+from src.store.sql.leagues.select_league_competitions import select_league_competitions
+from src.store.sql.sports.read_models import CompetitionRow
 
 async def list_league_invitations(conn: Connection, invited_user_id: UUID) -> list[LeagueInvitationRow]:
     await cleanup_league_invitations_for_user(conn, invited_user_id)

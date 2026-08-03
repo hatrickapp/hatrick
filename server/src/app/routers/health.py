@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-from server.src.app.routers.classes.base import BaseResponse
+from src.app.routers.classes.base import BaseResponse
 
 router = APIRouter(prefix="/v1")
 

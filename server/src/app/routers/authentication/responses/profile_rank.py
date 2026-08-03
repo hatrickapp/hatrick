@@ -1,4 +1,4 @@
-from server.src.app.routers.classes.authentication_classes import UserProfileRank
+from src.app.routers.classes.authentication_classes import UserProfileRank
 
 def profile_rank(
     rank_key: str | None,

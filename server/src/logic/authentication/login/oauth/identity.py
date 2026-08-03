@@ -4,9 +4,9 @@ from uuid import UUID
 
 from asyncpg import Connection
 
-from server.src.app.crypto.encryption.aes_decrypt import decrypt
-from server.src.app.crypto.encryption.hash_blake2s import hash_blake2s
-from server.src.store.sql.authentication.users.select_user_by_email_hash import select_user_by_email_hash
+from src.app.crypto.encryption.aes_decrypt import decrypt
+from src.app.crypto.encryption.hash_blake2s import hash_blake2s
+from src.store.sql.authentication.users.select_user_by_email_hash import select_user_by_email_hash
 
 @dataclass
 class OAuthIdentity:

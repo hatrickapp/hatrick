@@ -4,9 +4,9 @@ from uuid import UUID
 
 from asyncpg import Connection, UniqueViolationError
 
-from server.src.logic.authentication.profile.update_profile_username import username_hash
-from server.src.logic.authentication.shared.issue_session_with_device import IssuedSessionWithDevice, issue_session_with_device
-from server.src.store.sql.authentication.users.insert_user import Provider, insert_user
+from src.logic.authentication.profile.update_profile_username import username_hash
+from src.logic.authentication.shared.issue_session_with_device import IssuedSessionWithDevice, issue_session_with_device
+from src.store.sql.authentication.users.insert_user import Provider, insert_user
 
 @dataclass
 class BootstrappedUser:

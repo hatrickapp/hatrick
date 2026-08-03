@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from server.src.app.routers.classes.base import BaseResponse
+from src.app.routers.classes.base import BaseResponse
 
 class BillingSyncResponse(BaseResponse):
     plan: str

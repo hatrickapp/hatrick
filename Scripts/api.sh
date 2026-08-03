@@ -10,6 +10,5 @@ if [ ! -x "$PYTHON_BIN" ]; then
   exit 1
 fi
 
-cd "$ROOT_DIR"
-exec "$PYTHON_BIN" -m uvicorn server.main:app --host 0.0.0.0 --port 8000 --workers 1 --loop uvloop
-
+cd "$ROOT_DIR/server"
+exec "$PYTHON_BIN" -m uvicorn main:app --host 0.0.0.0 --port 8000 --workers 1 --loop uvloop

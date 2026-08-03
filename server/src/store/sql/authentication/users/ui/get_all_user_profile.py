@@ -4,7 +4,7 @@ from uuid import UUID
 
 from asyncpg import Connection
 
-from server.src.app.crypto.encryption.aes_decrypt import decrypt
+from src.app.crypto.encryption.aes_decrypt import decrypt
 
 @dataclass
 class UserProfile:

@@ -1,8 +1,8 @@
 from datetime import datetime, timedelta
 
-from server.src.logic.sports.api_football_client import ApiFootballError
-from server.src.logic.workers.helper.sports_sync_constants import FINISHED_STATUSES, SCHEDULED_STATUSES, VOID_STATUSES
-from server.src.store.sql.sports.claim_due_match_sync_jobs import MatchSyncJob
+from src.logic.sports.api_football_client import ApiFootballError
+from src.logic.workers.helper.sports_sync_constants import FINISHED_STATUSES, SCHEDULED_STATUSES, VOID_STATUSES
+from src.store.sql.sports.claim_due_match_sync_jobs import MatchSyncJob
 
 def should_sync_events(job: MatchSyncJob, status: str, now: datetime) -> bool:
     if status in FINISHED_STATUSES:

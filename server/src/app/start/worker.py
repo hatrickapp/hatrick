@@ -4,18 +4,18 @@ from fastapi import FastAPI
 import httpx
 from redis.asyncio import Redis
 
-from server.src.app.config.settings import settings
-from server.src.app.crons.refresh_cloudflare_ips import cloudflare_ip_refresh_cron
-from server.src.logic.workers.handle_dummy_email import handle_dummy_email
-from server.src.logic.workers.handle_email import handle_email_event
-from server.src.logic.workers.redis.handle_device_sessions_expire import handle_device_sessions_expire
-from server.src.logic.workers.redis.handle_session_expire import handle_session_expire
-from server.src.logic.workers.redis.handle_session_hash_expire import handle_session_hash_expire
-from server.src.logic.workers.redis.handle_user_sessions_expire import handle_user_sessions_expire
-from server.src.logic.workers.redis.handle_user_sessions_expire_except import handle_user_sessions_expire_except
-from server.src.logic.workers.session_memory_invalidation_listener import session_memory_invalidation_listener
-from server.src.logic.workers.sports_sync_worker import sports_sync_cron
-from server.src.logic.workers.worker_event_loop import run_worker_loop
+from src.app.config.settings import settings
+from src.app.crons.refresh_cloudflare_ips import cloudflare_ip_refresh_cron
+from src.logic.workers.handle_dummy_email import handle_dummy_email
+from src.logic.workers.handle_email import handle_email_event
+from src.logic.workers.redis.handle_device_sessions_expire import handle_device_sessions_expire
+from src.logic.workers.redis.handle_session_expire import handle_session_expire
+from src.logic.workers.redis.handle_session_hash_expire import handle_session_hash_expire
+from src.logic.workers.redis.handle_user_sessions_expire import handle_user_sessions_expire
+from src.logic.workers.redis.handle_user_sessions_expire_except import handle_user_sessions_expire_except
+from src.logic.workers.session_memory_invalidation_listener import session_memory_invalidation_listener
+from src.logic.workers.sports_sync_worker import sports_sync_cron
+from src.logic.workers.worker_event_loop import run_worker_loop
 
 def start_background_workers(
     app: FastAPI,

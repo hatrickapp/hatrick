@@ -2,9 +2,9 @@ from uuid import UUID
 
 from asyncpg import Pool
 
-from server.src.logic.users.public_profiles.normalize_user_search_query import normalize_user_search_query
-from server.src.store.sql.users.list_followers import FollowUserItem
-from server.src.store.sql.users.list_following import list_following
+from src.logic.users.public_profiles.normalize_user_search_query import normalize_user_search_query
+from src.store.sql.users.list_followers import FollowUserItem
+from src.store.sql.users.list_following import list_following
 
 async def get_following(
     pool: Pool,

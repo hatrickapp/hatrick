@@ -3,15 +3,15 @@ from uuid import UUID
 
 from asyncpg import Pool
 
-from server.src.app.errors.domains.sports_errors import MatchNotFoundError
-from server.src.logic.predictions.date_window import local_date_window
-from server.src.store.sql.sports.list_competitions import list_competitions
-from server.src.store.sql.sports.list_match_goals import list_match_goals
-from server.src.store.sql.sports.list_match_players import list_match_players
-from server.src.store.sql.sports.list_matches import list_matches
-from server.src.store.sql.sports.read_models import CompetitionRow, MatchGoalRow, MatchPlayerRow, MatchRow
-from server.src.store.sql.sports.select_match import select_match
-from server.src.store.sql.sports.select_user_timezone import select_user_timezone
+from src.app.errors.domains.sports_errors import MatchNotFoundError
+from src.logic.predictions.date_window import local_date_window
+from src.store.sql.sports.list_competitions import list_competitions
+from src.store.sql.sports.list_match_goals import list_match_goals
+from src.store.sql.sports.list_match_players import list_match_players
+from src.store.sql.sports.list_matches import list_matches
+from src.store.sql.sports.read_models import CompetitionRow, MatchGoalRow, MatchPlayerRow, MatchRow
+from src.store.sql.sports.select_match import select_match
+from src.store.sql.sports.select_user_timezone import select_user_timezone
 
 async def get_competitions(pool: Pool) -> list[CompetitionRow]:
     async with pool.acquire() as conn:

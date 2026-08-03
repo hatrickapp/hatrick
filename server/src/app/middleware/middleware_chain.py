@@ -2,19 +2,19 @@ from fastapi import HTTPException
 from starlette.requests import Request
 from starlette.responses import JSONResponse
 
-from server.src.app.errors.base import AppError
-from server.src.app.errors.handler import build_error_content, http_error_response
-from server.src.app.logging.logger_setup import get_logger
-from server.src.app.middleware.phases.phase1.endpoint_matrix import get_endpoint_config, get_route_template
-from server.src.app.middleware.phases.phase1.execute import execute_phase_1
-from server.src.app.middleware.phases.phase1.extract_identity import extract_ip
-from server.src.app.middleware.phases.phase2.execute import execute_phase_2
-from server.src.app.middleware.phases.phase3.execute import execute_phase_3
-from server.src.app.middleware.security.execute import execute_ip_rate_limit, execute_user_rate_limit
-from server.src.app.middleware.security.web.cors_handler import handle_cors_preflight
-from server.src.app.middleware.security.web.csp_handler import generate_csp_nonce
-from server.src.app.middleware.security.web.response_headers import build_response_headers
-from server.src.store.cache.idempotency import delete_idempotency_key
+from src.app.errors.base import AppError
+from src.app.errors.handler import build_error_content, http_error_response
+from src.app.logging.logger_setup import get_logger
+from src.app.middleware.phases.phase1.endpoint_matrix import get_endpoint_config, get_route_template
+from src.app.middleware.phases.phase1.execute import execute_phase_1
+from src.app.middleware.phases.phase1.extract_identity import extract_ip
+from src.app.middleware.phases.phase2.execute import execute_phase_2
+from src.app.middleware.phases.phase3.execute import execute_phase_3
+from src.app.middleware.security.execute import execute_ip_rate_limit, execute_user_rate_limit
+from src.app.middleware.security.web.cors_handler import handle_cors_preflight
+from src.app.middleware.security.web.csp_handler import generate_csp_nonce
+from src.app.middleware.security.web.response_headers import build_response_headers
+from src.store.cache.idempotency import delete_idempotency_key
 
 logger = get_logger(__name__)
 

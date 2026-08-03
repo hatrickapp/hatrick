@@ -2,8 +2,8 @@ from dataclasses import dataclass
 
 from redis.asyncio import Redis
 
-from server.src.app.config.lua_manager import LuaScriptManager
-from server.src.app.crypto.encryption.hash_blake2s import hash_blake2s
+from src.app.config.lua_manager import LuaScriptManager
+from src.app.crypto.encryption.hash_blake2s import hash_blake2s
 
 @dataclass
 class IdempotencyResult:

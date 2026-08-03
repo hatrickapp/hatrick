@@ -4,11 +4,11 @@ from uuid import UUID
 
 from asyncpg import Pool
 
-from server.src.logic.predictions.date_window import local_date_window
-from server.src.store.sql.predictions.list_prediction_history import list_prediction_history
-from server.src.store.sql.predictions.upsert_prediction import upsert_prediction
-from server.src.store.sql.sports.read_models import PredictionHistoryRow, PredictionRow
-from server.src.store.sql.sports.select_user_timezone import select_user_timezone
+from src.logic.predictions.date_window import local_date_window
+from src.store.sql.predictions.list_prediction_history import list_prediction_history
+from src.store.sql.predictions.upsert_prediction import upsert_prediction
+from src.store.sql.sports.read_models import PredictionHistoryRow, PredictionRow
+from src.store.sql.sports.select_user_timezone import select_user_timezone
 
 @dataclass(frozen=True)
 class RankingAccuracy:

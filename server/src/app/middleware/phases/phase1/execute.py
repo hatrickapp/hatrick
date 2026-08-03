@@ -1,9 +1,9 @@
 from starlette.requests import Request
 
-from server.src.app.middleware.phases.phase1.endpoint_matrix import get_endpoint_config, get_route_template
-from server.src.app.middleware.phases.phase1.extract_identity import extract_identity
-from server.src.app.middleware.phases.phase1.helpers.classify_ip_type import IPClassification
-from server.src.app.middleware.phases.phase1.request_context import RequestContext
+from src.app.middleware.phases.phase1.endpoint_matrix import get_endpoint_config, get_route_template
+from src.app.middleware.phases.phase1.extract_identity import extract_identity
+from src.app.middleware.phases.phase1.helpers.classify_ip_type import IPClassification
+from src.app.middleware.phases.phase1.request_context import RequestContext
 
 async def execute_phase_1(request: Request, ip: str, ip_classification: IPClassification | None) -> RequestContext:
     method = request.method

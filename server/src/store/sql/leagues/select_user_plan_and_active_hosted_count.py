@@ -3,8 +3,8 @@ from uuid import UUID, uuid7
 
 from asyncpg import Connection
 
-from server.src.store.sql.leagues.read_models import LeagueInvitationRow, LeagueMemberScoreRow, LeaguePredictionScoreRow, LeagueRow, LeagueScoredStanding, LeagueScoringSettings, LeagueStandingRow
-from server.src.store.sql.sports.read_models import CompetitionRow
+from src.store.sql.leagues.read_models import LeagueInvitationRow, LeagueMemberScoreRow, LeaguePredictionScoreRow, LeagueRow, LeagueScoredStanding, LeagueScoringSettings, LeagueStandingRow
+from src.store.sql.sports.read_models import CompetitionRow
 
 async def select_user_plan_and_active_hosted_count(conn: Connection, user_id: UUID) -> tuple[str, int] | None:
     user = await conn.fetchrow(

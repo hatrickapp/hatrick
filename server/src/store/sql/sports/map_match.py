@@ -1,9 +1,9 @@
 from asyncpg import Record
 
-from server.src.store.sql.sports.map_competition import map_competition
-from server.src.store.sql.sports.map_prediction import map_prediction
-from server.src.store.sql.sports.map_team import map_team
-from server.src.store.sql.sports.read_models import CompetitionRow, MatchGoalRow, MatchPlayerRow, MatchRow, PredictionRow, TeamRow
+from src.store.sql.sports.map_competition import map_competition
+from src.store.sql.sports.map_prediction import map_prediction
+from src.store.sql.sports.map_team import map_team
+from src.store.sql.sports.read_models import CompetitionRow, MatchGoalRow, MatchPlayerRow, MatchRow, PredictionRow, TeamRow
 
 def map_match(row: Record) -> MatchRow:
     return MatchRow(

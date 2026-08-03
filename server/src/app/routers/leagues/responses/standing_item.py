@@ -1,5 +1,5 @@
-from server.src.app.routers.classes.league_classes import LeagueStandingItem
-from server.src.store.sql.leagues.read_models import LeagueStandingRow
+from src.app.routers.classes.league_classes import LeagueStandingItem
+from src.store.sql.leagues.read_models import LeagueStandingRow
 
 def standing_item(row: LeagueStandingRow) -> LeagueStandingItem:
     return LeagueStandingItem(

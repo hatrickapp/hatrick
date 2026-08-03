@@ -1,10 +1,10 @@
 from fastapi import APIRouter, HTTPException, Request
 import orjson
 
-from server.src.app.routers.classes.base import BaseResponse
-from server.src.app.routers.classes.billing_classes import BillingStatusResponse, BillingSyncResponse
-from server.src.app.routers.dependencies.router_dependencies import HTTPDep, PoolDep, UserDep
-from server.src.logic.billing.revenuecat import get_revenuecat_billing_status, handle_revenuecat_webhook, parse_revenuecat_webhook, sync_revenuecat_customer, verify_revenuecat_webhook
+from src.app.routers.classes.base import BaseResponse
+from src.app.routers.classes.billing_classes import BillingStatusResponse, BillingSyncResponse
+from src.app.routers.dependencies.router_dependencies import HTTPDep, PoolDep, UserDep
+from src.logic.billing.revenuecat import get_revenuecat_billing_status, handle_revenuecat_webhook, parse_revenuecat_webhook, sync_revenuecat_customer, verify_revenuecat_webhook
 
 router = APIRouter(prefix="/v1")
 

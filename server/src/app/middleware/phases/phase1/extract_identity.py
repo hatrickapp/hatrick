@@ -3,10 +3,10 @@ import asyncio
 from fastapi import HTTPException
 from starlette.requests import Request
 
-from server.src.app.config.settings import settings
-from server.src.app.middleware.phases.phase1.helpers.classify_ip_type import IPClassification, classify_ip_type
-from server.src.app.middleware.phases.phase1.helpers.extract_country import extract_country
-from server.src.app.middleware.phases.phase1.helpers.extract_device import extract_device
+from src.app.config.settings import settings
+from src.app.middleware.phases.phase1.helpers.classify_ip_type import IPClassification, classify_ip_type
+from src.app.middleware.phases.phase1.helpers.extract_country import extract_country
+from src.app.middleware.phases.phase1.helpers.extract_device import extract_device
 
 def extract_ip(request: Request) -> tuple[str, IPClassification]:
     if not request.client:

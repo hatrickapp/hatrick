@@ -2,17 +2,17 @@ from uuid import UUID
 
 from fastapi import APIRouter, HTTPException, Query
 
-from server.src.app.routers.classes.authentication_classes import UserProfileRank, UserProfileStats
-from server.src.app.routers.classes.prediction_classes import RankingAccuracyItem, RankingItem
-from server.src.app.routers.classes.user_classes import FollowListResponse, FollowStatusResponse, FollowUserItem, PublicUserProfileResponse, PublicUserSearchItem, PublicUserSearchResponse
-from server.src.app.routers.dependencies.router_dependencies import PoolDep, UserDep
-from server.src.app.routers.realtime.realtime_router import notify_profile_refresh_users
-from server.src.logic.users.public_profiles.follow_public_user import follow_public_user
-from server.src.logic.users.public_profiles.get_followers import get_followers
-from server.src.logic.users.public_profiles.get_following import get_following
-from server.src.logic.users.public_profiles.get_public_profile import get_public_profile
-from server.src.logic.users.public_profiles.search_users import search_users
-from server.src.logic.users.public_profiles.unfollow_public_user import unfollow_public_user
+from src.app.routers.classes.authentication_classes import UserProfileRank, UserProfileStats
+from src.app.routers.classes.prediction_classes import RankingAccuracyItem, RankingItem
+from src.app.routers.classes.user_classes import FollowListResponse, FollowStatusResponse, FollowUserItem, PublicUserProfileResponse, PublicUserSearchItem, PublicUserSearchResponse
+from src.app.routers.dependencies.router_dependencies import PoolDep, UserDep
+from src.app.routers.realtime.realtime_router import notify_profile_refresh_users
+from src.logic.users.public_profiles.follow_public_user import follow_public_user
+from src.logic.users.public_profiles.get_followers import get_followers
+from src.logic.users.public_profiles.get_following import get_following
+from src.logic.users.public_profiles.get_public_profile import get_public_profile
+from src.logic.users.public_profiles.search_users import search_users
+from src.logic.users.public_profiles.unfollow_public_user import unfollow_public_user
 
 router = APIRouter(prefix="/v1")
 

@@ -2,8 +2,8 @@ import hashlib
 import hmac
 import time
 
-from server.src.app.config.settings import settings
-from server.src.app.errors.domains.billing_errors import BillingConfigurationError, RevenueCatWebhookUnauthorizedError
+from src.app.config.settings import settings
+from src.app.errors.domains.billing_errors import BillingConfigurationError, RevenueCatWebhookUnauthorizedError
 
 def verify_revenuecat_webhook(raw_body: bytes, authorization: str | None, signature: str | None) -> None:
     rc_settings = settings.revenuecat

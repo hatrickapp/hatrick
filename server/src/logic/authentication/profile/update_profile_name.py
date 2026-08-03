@@ -3,10 +3,10 @@ from uuid import UUID
 
 from asyncpg import Pool
 
-from server.src.app.errors.domains.authentication_errors import InvalidProfileNameError, ProfileNameUpdateNotAllowedError, UserNotFoundError
-from server.src.store.sql.authentication.users.insert_name import insert_name
-from server.src.store.sql.authentication.users.select_profile_mutation_state import select_profile_mutation_state
-from server.src.store.sql.authentication.users.update_name import update_name
+from src.app.errors.domains.authentication_errors import InvalidProfileNameError, ProfileNameUpdateNotAllowedError, UserNotFoundError
+from src.store.sql.authentication.users.insert_name import insert_name
+from src.store.sql.authentication.users.select_profile_mutation_state import select_profile_mutation_state
+from src.store.sql.authentication.users.update_name import update_name
 
 PROFILE_NAME_MAX_LENGTH = 128
 

@@ -2,8 +2,8 @@ from uuid import UUID
 
 from pydantic import BaseModel, Field
 
-from server.src.app.routers.classes.base import BaseResponse
-from server.src.app.routers.classes.sports_classes import MatchListItem, MatchPredictionItem, PlayerItem
+from src.app.routers.classes.base import BaseResponse
+from src.app.routers.classes.sports_classes import MatchListItem, MatchPredictionItem, PlayerItem
 
 class UpsertPredictionRequest(BaseModel):
     outcome_pick: str = Field(..., pattern="^(home|draw|away)$")

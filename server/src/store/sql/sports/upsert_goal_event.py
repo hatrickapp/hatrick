@@ -4,7 +4,7 @@ from uuid import UUID, uuid7
 
 from asyncpg import Connection
 
-from server.src.store.sql.sports.upsert_player import upsert_player
+from src.store.sql.sports.upsert_player import upsert_player
 
 async def upsert_goal_event(conn: Connection, match_id: UUID, event: dict[str, Any]) -> None:
     if event.get("type") != "Goal":

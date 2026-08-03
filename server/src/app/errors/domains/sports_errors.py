@@ -1,4 +1,4 @@
-from server.src.app.errors.base import AppError
+from src.app.errors.base import AppError
 
 class MatchNotFoundError(AppError):
     code = "MATCH_NOT_FOUND"

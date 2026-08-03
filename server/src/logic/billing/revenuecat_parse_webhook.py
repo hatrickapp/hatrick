@@ -1,8 +1,8 @@
 import time
 from typing import Any
 
-from server.src.logic.billing.revenuecat_models import RevenueCatEvent
-from server.src.logic.billing.revenuecat_values import datetime_from_ms, event_string
+from src.logic.billing.revenuecat_models import RevenueCatEvent
+from src.logic.billing.revenuecat_values import datetime_from_ms, event_string
 
 def parse_revenuecat_webhook(payload: dict[str, Any]) -> RevenueCatEvent:
     event = payload.get("event")

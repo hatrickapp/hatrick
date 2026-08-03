@@ -4,9 +4,9 @@ from uuid import UUID
 from cachetools import TTLCache
 from redis.asyncio import Redis
 
-from server.src.app.events.pubsub.event_subscriber import RedisEventSubscriber
-from server.src.app.logging.logger_setup import get_logger
-from server.src.store.cache.authentication.memory.session_memory_cache import delete_memory_session, delete_memory_sessions_by_devices, delete_memory_sessions_by_user, delete_memory_sessions_by_user_except
+from src.app.events.pubsub.event_subscriber import RedisEventSubscriber
+from src.app.logging.logger_setup import get_logger
+from src.store.cache.authentication.memory.session_memory_cache import delete_memory_session, delete_memory_sessions_by_devices, delete_memory_sessions_by_user, delete_memory_sessions_by_user_except
 
 logger = get_logger(__name__)
 

@@ -4,15 +4,15 @@ from asyncpg import Pool
 import httpx
 from redis.asyncio import Redis
 
-from server.src.app.config.email_templates import OAuthWelcomeTemplate
-from server.src.app.config.google_http import verify_google_id_token
-from server.src.app.config.lua_manager import LuaScriptManager
-from server.src.app.errors.domains.authentication_errors import OAuthEmailNotVerifiedError, OAuthProviderError
-from server.src.app.events.event_emitter import event_emitter
-from server.src.app.events.pubsub.event_publisher import RedisEventPublisher
-from server.src.app.logging.logger_setup import get_logger
-from server.src.app.validation.validate_email import validate_email
-from server.src.logic.authentication.login.oauth.complete_oauth import OAuthCompleteResult, complete_oauth_session
+from src.app.config.email_templates import OAuthWelcomeTemplate
+from src.app.config.google_http import verify_google_id_token
+from src.app.config.lua_manager import LuaScriptManager
+from src.app.errors.domains.authentication_errors import OAuthEmailNotVerifiedError, OAuthProviderError
+from src.app.events.event_emitter import event_emitter
+from src.app.events.pubsub.event_publisher import RedisEventPublisher
+from src.app.logging.logger_setup import get_logger
+from src.app.validation.validate_email import validate_email
+from src.logic.authentication.login.oauth.complete_oauth import OAuthCompleteResult, complete_oauth_session
 
 logger = get_logger(__name__)
 

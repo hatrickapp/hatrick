@@ -1,13 +1,13 @@
 from datetime import UTC, datetime
 from uuid import UUID
 
-from server.src.logic.leagues.league_scoring import score_league_standings, winner_user_id
-from server.src.store.sql.leagues.finish_league import finish_league
-from server.src.store.sql.leagues.read_models import LeagueStandingRow
-from server.src.store.sql.leagues.replace_league_standings import replace_league_standings
-from server.src.store.sql.leagues.select_league_detail_for_scoring import select_league_detail_for_scoring
-from server.src.store.sql.leagues.select_league_members_for_scoring import select_league_members_for_scoring
-from server.src.store.sql.leagues.select_league_predictions_for_scoring import select_league_predictions_for_scoring
+from src.logic.leagues.league_scoring import score_league_standings, winner_user_id
+from src.store.sql.leagues.finish_league import finish_league
+from src.store.sql.leagues.read_models import LeagueStandingRow
+from src.store.sql.leagues.replace_league_standings import replace_league_standings
+from src.store.sql.leagues.select_league_detail_for_scoring import select_league_detail_for_scoring
+from src.store.sql.leagues.select_league_members_for_scoring import select_league_members_for_scoring
+from src.store.sql.leagues.select_league_predictions_for_scoring import select_league_predictions_for_scoring
 
 async def refresh_league_standings(conn, league_id: UUID) -> list[LeagueStandingRow] | None:
     league = await select_league_detail_for_scoring(conn, league_id)

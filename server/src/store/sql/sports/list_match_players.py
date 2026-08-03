@@ -3,10 +3,10 @@ from uuid import UUID
 
 from asyncpg import Connection
 
-from server.src.store.sql.sports.map_match import map_match
-from server.src.store.sql.sports.map_match_goal import map_match_goal
-from server.src.store.sql.sports.map_match_player import map_match_player
-from server.src.store.sql.sports.read_models import MatchGoalRow, MatchPlayerRow, MatchRow
+from src.store.sql.sports.map_match import map_match
+from src.store.sql.sports.map_match_goal import map_match_goal
+from src.store.sql.sports.map_match_player import map_match_player
+from src.store.sql.sports.read_models import MatchGoalRow, MatchPlayerRow, MatchRow
 
 async def list_match_players(conn: Connection, match_id: UUID) -> list[MatchPlayerRow]:
     query = """

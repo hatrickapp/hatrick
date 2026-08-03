@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from datetime import datetime
 from uuid import UUID
 
-from server.src.store.sql.sports.read_models import CompetitionRow
+from src.store.sql.sports.read_models import CompetitionRow
 
 @dataclass
 class LeagueScoringSettings:

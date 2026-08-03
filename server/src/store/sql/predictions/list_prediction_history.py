@@ -3,9 +3,9 @@ from uuid import UUID
 
 from asyncpg import Connection
 
-from server.src.store.sql.sports.map_match import map_match
-from server.src.store.sql.sports.match_select import MATCH_SELECT
-from server.src.store.sql.sports.read_models import MatchPlayerRow, PredictionHistoryRow
+from src.store.sql.sports.map_match import map_match
+from src.store.sql.sports.match_select import MATCH_SELECT
+from src.store.sql.sports.read_models import MatchPlayerRow, PredictionHistoryRow
 
 async def list_prediction_history(
     conn: Connection,

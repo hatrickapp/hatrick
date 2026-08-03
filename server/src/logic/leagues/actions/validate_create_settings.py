@@ -1,9 +1,9 @@
 from datetime import datetime
 from uuid import UUID
 
-from server.src.app.errors.domains.league_errors import InvalidLeagueSettingsError
-from server.src.app.validation.validate_league import validate_competition_ids, validate_league_period, validate_max_members
-from server.src.store.sql.leagues.read_models import LeagueScoringSettings
+from src.app.errors.domains.league_errors import InvalidLeagueSettingsError
+from src.app.validation.validate_league import validate_competition_ids, validate_league_period, validate_max_members
+from src.store.sql.leagues.read_models import LeagueScoringSettings
 
 def validate_create_settings(
     competition_ids: list[UUID],

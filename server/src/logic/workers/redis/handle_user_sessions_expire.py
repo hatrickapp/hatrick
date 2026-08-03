@@ -3,10 +3,10 @@ from uuid import UUID
 
 from redis.asyncio import Redis
 
-from server.src.app.config.lua_manager import LuaScriptManager
-from server.src.app.logging.logger_setup import get_logger
-from server.src.logic.workers.redis.session_expire_retries import ALL_SESSIONS_RETRIES
-from server.src.store.cache.authentication.expire_all_redis_sessions import expire_all_redis_sessions
+from src.app.config.lua_manager import LuaScriptManager
+from src.app.logging.logger_setup import get_logger
+from src.logic.workers.redis.session_expire_retries import ALL_SESSIONS_RETRIES
+from src.store.cache.authentication.expire_all_redis_sessions import expire_all_redis_sessions
 
 logger = get_logger(__name__)
 

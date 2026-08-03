@@ -4,8 +4,8 @@ from uuid import UUID, uuid7
 
 from asyncpg import Connection
 
-from server.src.app.config.settings import settings
-from server.src.app.crypto.encryption.hash_blake2s import hash_blake2s
+from src.app.config.settings import settings
+from src.app.crypto.encryption.hash_blake2s import hash_blake2s
 
 @dataclass
 class InsertedSession:

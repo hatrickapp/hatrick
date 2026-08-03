@@ -3,7 +3,7 @@ from uuid import UUID
 
 from pydantic import BaseModel
 
-from server.src.app.routers.classes.base import BaseResponse
+from src.app.routers.classes.base import BaseResponse
 
 class CompetitionItem(BaseModel):
     competition_id: UUID

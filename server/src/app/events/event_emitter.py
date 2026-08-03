@@ -3,8 +3,8 @@ from dataclasses import dataclass
 import orjson
 from redis.asyncio import Redis
 
-from server.src.app.crypto.tokens.event_tokens import generate_event_token
-from server.src.app.logging.logger_setup import get_logger
+from src.app.crypto.tokens.event_tokens import generate_event_token
+from src.app.logging.logger_setup import get_logger
 
 logger = get_logger(__name__)
 

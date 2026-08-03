@@ -3,8 +3,8 @@ from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 from asyncpg import Pool
 
-from server.src.app.errors.domains.authentication_errors import InvalidTimezoneError
-from server.src.store.sql.authentication.users.update_timezone import update_user_timezone
+from src.app.errors.domains.authentication_errors import InvalidTimezoneError
+from src.store.sql.authentication.users.update_timezone import update_user_timezone
 
 def validate_timezone(timezone: str) -> str:
     cleaned = timezone.strip()

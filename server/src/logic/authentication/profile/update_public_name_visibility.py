@@ -2,7 +2,7 @@ from uuid import UUID
 
 from asyncpg import Pool
 
-from server.src.store.sql.authentication.users.update_public_name_visibility import update_public_name_visibility
+from src.store.sql.authentication.users.update_public_name_visibility import update_public_name_visibility
 
 async def update_public_name_visibility_logic(pool: Pool, user_id: UUID, show_name_publicly: bool) -> bool:
     async with pool.acquire() as conn:

@@ -1,8 +1,8 @@
 from typing import Any
 
-from server.src.store.sql.sports.claim_due_team_roster_sync_jobs import TeamRosterSyncJob
-from server.src.store.sql.sports.upsert_player import upsert_player
-from server.src.store.sql.sports.upsert_team_player import upsert_team_player
+from src.store.sql.sports.claim_due_team_roster_sync_jobs import TeamRosterSyncJob
+from src.store.sql.sports.upsert_player import upsert_player
+from src.store.sql.sports.upsert_team_player import upsert_team_player
 
 async def apply_team_roster(conn, job: TeamRosterSyncJob, squads: list[dict[str, Any]]) -> None:
     for squad in squads:

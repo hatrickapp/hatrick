@@ -3,16 +3,16 @@ from datetime import datetime, timezone
 from asyncpg import Pool
 import orjson
 
-from server.src.app.logging.logger_setup import get_logger
-from server.src.logic.sports.api_football_client import ApiFootballClient, ApiFootballError
-from server.src.logic.workers.helper.sports_sync_constants import FIXTURE_SYNC_SECONDS, FIXTURE_SYNC_TYPE
-from server.src.store.sql.sports.ensure_match_sync_state import ensure_match_sync_state
-from server.src.store.sql.sports.ensure_team_roster_sync_state import ensure_team_roster_sync_state
-from server.src.store.sql.sports.get_enabled_competitions import get_enabled_competitions
-from server.src.store.sql.sports.record_sync_finish import record_sync_finish
-from server.src.store.sql.sports.record_sync_start import record_sync_start
-from server.src.store.sql.sports.should_run_sync import should_run_sync
-from server.src.store.sql.sports.upsert_match_fixture import upsert_match_fixture
+from src.app.logging.logger_setup import get_logger
+from src.logic.sports.api_football_client import ApiFootballClient, ApiFootballError
+from src.logic.workers.helper.sports_sync_constants import FIXTURE_SYNC_SECONDS, FIXTURE_SYNC_TYPE
+from src.store.sql.sports.ensure_match_sync_state import ensure_match_sync_state
+from src.store.sql.sports.ensure_team_roster_sync_state import ensure_team_roster_sync_state
+from src.store.sql.sports.get_enabled_competitions import get_enabled_competitions
+from src.store.sql.sports.record_sync_finish import record_sync_finish
+from src.store.sql.sports.record_sync_start import record_sync_start
+from src.store.sql.sports.should_run_sync import should_run_sync
+from src.store.sql.sports.upsert_match_fixture import upsert_match_fixture
 
 logger = get_logger(__name__)
 

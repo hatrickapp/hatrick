@@ -3,10 +3,10 @@ from uuid import UUID
 
 from fastapi import APIRouter
 
-from server.src.app.routers.classes.sports_classes import CompetitionsResponse, MatchDetailResponse, MatchesResponse
-from server.src.app.routers.dependencies.router_dependencies import PoolDep, UserDep
-from server.src.logic.sports.get_sports_data import get_competitions, get_match_detail_for_user, get_matches_for_user
-from server.src.logic.sports.responses import competition_item, match_detail_response, match_item
+from src.app.routers.classes.sports_classes import CompetitionsResponse, MatchDetailResponse, MatchesResponse
+from src.app.routers.dependencies.router_dependencies import PoolDep, UserDep
+from src.logic.sports.get_sports_data import get_competitions, get_match_detail_for_user, get_matches_for_user
+from src.logic.sports.responses import competition_item, match_detail_response, match_item
 
 router = APIRouter(prefix="/v1/sports")
 

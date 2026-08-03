@@ -2,9 +2,9 @@ from uuid import UUID, uuid7
 
 from asyncpg import Connection
 
-from server.src.app.errors.domains.sports_errors import InvalidPredictionPlayerError, MatchNotFoundError, PredictionLockedError
-from server.src.store.sql.sports.map_prediction import map_prediction
-from server.src.store.sql.sports.read_models import PredictionRow
+from src.app.errors.domains.sports_errors import InvalidPredictionPlayerError, MatchNotFoundError, PredictionLockedError
+from src.store.sql.sports.map_prediction import map_prediction
+from src.store.sql.sports.read_models import PredictionRow
 
 async def upsert_prediction(
     conn: Connection,

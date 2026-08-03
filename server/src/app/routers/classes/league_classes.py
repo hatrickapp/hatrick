@@ -3,8 +3,8 @@ from uuid import UUID
 
 from pydantic import BaseModel, ConfigDict, Field
 
-from server.src.app.routers.classes.base import BaseResponse
-from server.src.app.routers.classes.sports_classes import CompetitionItem
+from src.app.routers.classes.base import BaseResponse
+from src.app.routers.classes.sports_classes import CompetitionItem
 
 class LeagueScoringItem(BaseModel):
     include_outcome_points: bool

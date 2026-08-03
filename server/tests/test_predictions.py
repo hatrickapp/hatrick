@@ -1,8 +1,8 @@
 import unittest
 from datetime import datetime, timezone
 
-from server.src.logic.predictions.scoring import resolve_btts, resolve_outcome, score_prediction
-from server.src.logic.predictions.week import local_week_bounds
+from src.logic.predictions.scoring import resolve_btts, resolve_outcome, score_prediction
+from src.logic.predictions.week import local_week_bounds
 
 
 class PredictionScoringTests(unittest.TestCase):

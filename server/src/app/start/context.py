@@ -4,18 +4,18 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 import uvloop
 
-from server.src.app.config.cache_manager import create_memory_cache
-from server.src.app.config.cloudflare_ip_ranges import load_from_json, refresh_cloudflare_ips
-from server.src.app.config.db_client import create_psql_pool
-from server.src.app.config.geoip_client import create_geoip_reader
-from server.src.app.config.http_client import create_http_client
-from server.src.app.config.redis_client import create_redis_client
-from server.src.app.config.redis_pubsub_client import create_redis_pubsub_client
-from server.src.app.config.settings import settings
-from server.src.app.events.pubsub.event_publisher import RedisEventPublisher
-from server.src.app.logging.logger_setup import get_logger
-from server.src.app.start.lua import initialize_lua
-from server.src.app.start.worker import start_background_workers
+from src.app.config.cache_manager import create_memory_cache
+from src.app.config.cloudflare_ip_ranges import load_from_json, refresh_cloudflare_ips
+from src.app.config.db_client import create_psql_pool
+from src.app.config.geoip_client import create_geoip_reader
+from src.app.config.http_client import create_http_client
+from src.app.config.redis_client import create_redis_client
+from src.app.config.redis_pubsub_client import create_redis_pubsub_client
+from src.app.config.settings import settings
+from src.app.events.pubsub.event_publisher import RedisEventPublisher
+from src.app.logging.logger_setup import get_logger
+from src.app.start.lua import initialize_lua
+from src.app.start.worker import start_background_workers
 
 logger = get_logger(__name__)
 

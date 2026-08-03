@@ -4,10 +4,10 @@ from uuid import UUID
 from asyncpg import Pool
 from redis.asyncio import Redis
 
-from server.src.app.config.lua_manager import LuaScriptManager
-from server.src.app.events.pubsub.event_publisher import RedisEventPublisher
-from server.src.store.cache.authentication.expire_redis_device_sessions import expire_redis_device_sessions
-from server.src.store.sql.authentication.devices.soft_delete_devices import soft_delete_devices
+from src.app.config.lua_manager import LuaScriptManager
+from src.app.events.pubsub.event_publisher import RedisEventPublisher
+from src.store.cache.authentication.expire_redis_device_sessions import expire_redis_device_sessions
+from src.store.sql.authentication.devices.soft_delete_devices import soft_delete_devices
 
 @dataclass
 class DeviceDeletionResult:

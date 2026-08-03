@@ -5,16 +5,16 @@ from uuid import UUID
 from asyncpg import Pool
 from redis.asyncio import Redis
 
-from server.src.app.config.email_templates import DeletionTemplate
-from server.src.app.config.lua_manager import LuaScriptManager
-from server.src.app.crypto.encryption.aes_decrypt import decrypt
-from server.src.app.crypto.encryption.hash_blake2s import hash_blake2s
-from server.src.app.crypto.secrets.generate_otp import generate_otp
-from server.src.app.errors.domains.authentication_errors import UserNotFoundError
-from server.src.app.events.event_emitter import event_emitter
-from server.src.store.cache.authentication.pending_deletion import store_pending_deletion
-from server.src.store.cache.authentication.store_otp import store_otp
-from server.src.store.sql.authentication.users.select_user_by_id import select_user_by_id
+from src.app.config.email_templates import DeletionTemplate
+from src.app.config.lua_manager import LuaScriptManager
+from src.app.crypto.encryption.aes_decrypt import decrypt
+from src.app.crypto.encryption.hash_blake2s import hash_blake2s
+from src.app.crypto.secrets.generate_otp import generate_otp
+from src.app.errors.domains.authentication_errors import UserNotFoundError
+from src.app.events.event_emitter import event_emitter
+from src.store.cache.authentication.pending_deletion import store_pending_deletion
+from src.store.cache.authentication.store_otp import store_otp
+from src.store.sql.authentication.users.select_user_by_id import select_user_by_id
 
 @dataclass
 class InitiateDeletionResult:

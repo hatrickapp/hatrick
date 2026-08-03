@@ -3,8 +3,8 @@ from uuid import UUID
 
 from asyncpg import Connection
 
-from server.src.store.sql.users.map_stats import map_stats
-from server.src.store.sql.users.upsert_best_global_rank import upsert_best_global_rank
+from src.store.sql.users.map_stats import map_stats
+from src.store.sql.users.upsert_best_global_rank import upsert_best_global_rank
 
 @dataclass
 class PublicUserStats:

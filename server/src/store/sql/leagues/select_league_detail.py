@@ -3,11 +3,11 @@ from uuid import UUID, uuid7
 
 from asyncpg import Connection
 
-from server.src.store.sql.leagues.league_select import league_select
-from server.src.store.sql.leagues.map_league import map_league
-from server.src.store.sql.leagues.read_models import LeagueInvitationRow, LeagueMemberScoreRow, LeaguePredictionScoreRow, LeagueRow, LeagueScoredStanding, LeagueScoringSettings, LeagueStandingRow
-from server.src.store.sql.leagues.select_league_competitions import select_league_competitions
-from server.src.store.sql.sports.read_models import CompetitionRow
+from src.store.sql.leagues.league_select import league_select
+from src.store.sql.leagues.map_league import map_league
+from src.store.sql.leagues.read_models import LeagueInvitationRow, LeagueMemberScoreRow, LeaguePredictionScoreRow, LeagueRow, LeagueScoredStanding, LeagueScoringSettings, LeagueStandingRow
+from src.store.sql.leagues.select_league_competitions import select_league_competitions
+from src.store.sql.sports.read_models import CompetitionRow
 
 async def select_league_detail(conn: Connection, league_id: UUID, viewer_user_id: UUID) -> LeagueRow | None:
     query = league_select(viewer_user_id) + """

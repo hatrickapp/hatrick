@@ -1,5 +1,5 @@
-from server.src.app.routers.classes.sports_classes import CompetitionItem, MatchDetailResponse, MatchGoalItem, MatchListItem, MatchPredictionItem, PlayerItem, TeamItem
-from server.src.store.sql.sports.read_models import CompetitionRow, MatchGoalRow, MatchPlayerRow, MatchRow, PredictionRow, TeamRow
+from src.app.routers.classes.sports_classes import CompetitionItem, MatchDetailResponse, MatchGoalItem, MatchListItem, MatchPredictionItem, PlayerItem, TeamItem
+from src.store.sql.sports.read_models import CompetitionRow, MatchGoalRow, MatchPlayerRow, MatchRow, PredictionRow, TeamRow
 
 def competition_item(row: CompetitionRow) -> CompetitionItem:
     return CompetitionItem(

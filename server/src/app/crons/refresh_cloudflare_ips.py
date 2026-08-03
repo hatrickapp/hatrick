@@ -3,8 +3,8 @@ import asyncio
 from fastapi import FastAPI
 import httpx
 
-from server.src.app.config.cloudflare_ip_ranges import load_from_json, refresh_cloudflare_ips
-from server.src.app.logging.logger_setup import get_logger
+from src.app.config.cloudflare_ip_ranges import load_from_json, refresh_cloudflare_ips
+from src.app.logging.logger_setup import get_logger
 
 logger = get_logger(__name__)
 

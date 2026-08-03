@@ -2,7 +2,7 @@ from fastapi import HTTPException, Request
 from fastapi.exceptions import RequestValidationError
 from starlette.responses import JSONResponse
 
-from server.src.app.errors.base import AppError
+from src.app.errors.base import AppError
 
 HTTP_ERROR_MESSAGES = {
     "ADMIN_REQUIRED": "You do not have permission to access this admin resource.",

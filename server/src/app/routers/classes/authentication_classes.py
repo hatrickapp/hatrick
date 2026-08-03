@@ -3,7 +3,7 @@ from uuid import UUID
 
 from pydantic import BaseModel, ConfigDict, Field
 
-from server.src.app.routers.classes.base import BaseResponse
+from src.app.routers.classes.base import BaseResponse
 
 # --- Request Classes ---
 

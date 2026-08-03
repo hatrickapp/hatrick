@@ -2,10 +2,10 @@ import asyncio
 
 from redis.asyncio import Redis
 
-from server.src.app.config.lua_manager import LuaScriptManager
-from server.src.app.logging.logger_setup import get_logger
-from server.src.logic.workers.redis.session_expire_retries import SINGLE_SESSION_RETRIES
-from server.src.store.cache.authentication.expire_redis_session import expire_redis_session
+from src.app.config.lua_manager import LuaScriptManager
+from src.app.logging.logger_setup import get_logger
+from src.logic.workers.redis.session_expire_retries import SINGLE_SESSION_RETRIES
+from src.store.cache.authentication.expire_redis_session import expire_redis_session
 
 logger = get_logger(__name__)
 

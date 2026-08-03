@@ -4,8 +4,8 @@ from uuid import UUID
 
 from asyncpg import Connection
 
-from server.src.app.crypto.tokens.session_tokens import generate_session_token
-from server.src.store.sql.authentication.sessions.insert_session import insert_session
+from src.app.crypto.tokens.session_tokens import generate_session_token
+from src.store.sql.authentication.sessions.insert_session import insert_session
 
 @dataclass
 class IssuedSession:

@@ -3,9 +3,9 @@ from uuid import UUID, uuid7
 
 from asyncpg import Connection
 
-from server.src.store.sql.leagues.map_league import map_league
-from server.src.store.sql.leagues.read_models import LeagueInvitationRow, LeagueMemberScoreRow, LeaguePredictionScoreRow, LeagueRow, LeagueScoredStanding, LeagueScoringSettings, LeagueStandingRow
-from server.src.store.sql.sports.read_models import CompetitionRow
+from src.store.sql.leagues.map_league import map_league
+from src.store.sql.leagues.read_models import LeagueInvitationRow, LeagueMemberScoreRow, LeaguePredictionScoreRow, LeagueRow, LeagueScoredStanding, LeagueScoringSettings, LeagueStandingRow
+from src.store.sql.sports.read_models import CompetitionRow
 
 async def select_league_detail_for_scoring(conn: Connection, league_id: UUID) -> LeagueRow | None:
     row = await conn.fetchrow(

@@ -5,7 +5,7 @@ from typing import Any
 from redis.asyncio import Redis
 from redis.exceptions import ResponseError
 
-from server.src.app.logging.logger_setup import get_logger
+from src.app.logging.logger_setup import get_logger
 
 logger = get_logger(__name__)
 

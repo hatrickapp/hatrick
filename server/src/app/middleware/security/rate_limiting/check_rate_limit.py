@@ -1,8 +1,8 @@
 from cachetools import TTLCache
 from redis.asyncio import Redis
 
-from server.src.app.config.lua_manager import LuaScriptManager
-from server.src.store.cache.authentication.memory.rate_limit_memory_cache import get_blocked_key, set_blocked_key
+from src.app.config.lua_manager import LuaScriptManager
+from src.store.cache.authentication.memory.rate_limit_memory_cache import get_blocked_key, set_blocked_key
 
 async def check_rate_limit(
     lua_manager: LuaScriptManager,

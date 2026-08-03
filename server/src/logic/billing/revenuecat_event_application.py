@@ -3,15 +3,15 @@ from uuid import UUID
 
 from asyncpg import Connection, Pool
 
-from server.src.app.config.settings import settings
-from server.src.logic.billing.revenuecat_models import ACTIVE_EVENT_TYPES, ALLOWED_STORES, DEMOTE_EVENT_TYPES, PASSIVE_EVENT_TYPES, RevenueCatEvent
-from server.src.logic.billing.revenuecat_values import event_string, uuid_from_app_user_id
-from server.src.store.sql.billing.insert_revenuecat_webhook_event import insert_revenuecat_webhook_event
-from server.src.store.sql.billing.select_revenuecat_customer import select_revenuecat_customer
-from server.src.store.sql.billing.select_user_exists import select_user_exists
-from server.src.store.sql.billing.update_user_plan import update_user_plan
-from server.src.store.sql.billing.upsert_revenuecat_customer import upsert_revenuecat_customer
-from server.src.store.sql.billing.upsert_revenuecat_subscription import upsert_revenuecat_subscription
+from src.app.config.settings import settings
+from src.logic.billing.revenuecat_models import ACTIVE_EVENT_TYPES, ALLOWED_STORES, DEMOTE_EVENT_TYPES, PASSIVE_EVENT_TYPES, RevenueCatEvent
+from src.logic.billing.revenuecat_values import event_string, uuid_from_app_user_id
+from src.store.sql.billing.insert_revenuecat_webhook_event import insert_revenuecat_webhook_event
+from src.store.sql.billing.select_revenuecat_customer import select_revenuecat_customer
+from src.store.sql.billing.select_user_exists import select_user_exists
+from src.store.sql.billing.update_user_plan import update_user_plan
+from src.store.sql.billing.upsert_revenuecat_customer import upsert_revenuecat_customer
+from src.store.sql.billing.upsert_revenuecat_subscription import upsert_revenuecat_subscription
 
 async def handle_revenuecat_webhook(pool: Pool, event: RevenueCatEvent) -> None:
     user_id = uuid_from_app_user_id(event.app_user_id)

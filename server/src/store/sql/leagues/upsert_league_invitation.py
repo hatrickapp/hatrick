@@ -3,8 +3,8 @@ from uuid import UUID, uuid7
 
 from asyncpg import Connection
 
-from server.src.store.sql.leagues.read_models import LeagueInvitationRow, LeagueMemberScoreRow, LeaguePredictionScoreRow, LeagueRow, LeagueScoredStanding, LeagueScoringSettings, LeagueStandingRow
-from server.src.store.sql.sports.read_models import CompetitionRow
+from src.store.sql.leagues.read_models import LeagueInvitationRow, LeagueMemberScoreRow, LeaguePredictionScoreRow, LeagueRow, LeagueScoredStanding, LeagueScoringSettings, LeagueStandingRow
+from src.store.sql.sports.read_models import CompetitionRow
 
 async def upsert_league_invitation(conn: Connection, league_id: UUID, invited_user_id: UUID, invited_by_user_id: UUID):
     return await conn.fetchrow(

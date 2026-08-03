@@ -12,7 +12,7 @@ def categorize_import(module_name):
             return 1
             
     # Category 3: INTERNAL (Absolute and Relative)
-    if module_name.startswith('server.src') or module_name.startswith('.'):
+    if module_name.startswith('src') or module_name.startswith('.'):
         return 3
         
     # Category 2: THIRD PARTY

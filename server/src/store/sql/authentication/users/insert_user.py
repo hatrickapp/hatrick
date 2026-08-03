@@ -5,8 +5,8 @@ from uuid import UUID, uuid7
 
 from asyncpg import Connection
 
-from server.src.app.crypto.encryption.aes_encrypt import encrypt
-from server.src.app.crypto.encryption.hash_blake2s import hash_blake2s
+from src.app.crypto.encryption.aes_encrypt import encrypt
+from src.app.crypto.encryption.hash_blake2s import hash_blake2s
 
 Provider = Literal["google", "apple"]
 

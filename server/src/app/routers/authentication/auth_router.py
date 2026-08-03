@@ -2,23 +2,23 @@ from datetime import timedelta
 
 from fastapi import APIRouter, HTTPException, Response
 
-from server.src.app.routers.authentication.cookie_policy import remove_session_cookie
-from server.src.app.routers.authentication.responses.profile_rank import profile_rank
-from server.src.app.routers.classes.authentication_classes import AuthenticatedUserResponse, CompleteDeletionRequest, CompleteLogoutRequest, DeleteDevicesRequest, InitiateDeletionRequest, MobileAuthResponse, NativeAppleOAuthRequest, NativeGoogleOAuthRequest, ProfileNameResponse, ProfileTimezoneResponse, ProfileUsernameResponse, ProfileVisibilityResponse, UpdateProfileNameRequest, UpdateProfileTimezoneRequest, UpdateProfileUsernameRequest, UpdateProfileVisibilityRequest, UserDeviceItem, UserDevicesResponse, UserIdResponse, UserProfileResponse, UserProfileStats, UserSessionItem, UserSessionsResponse
-from server.src.app.routers.classes.base import BaseResponse
-from server.src.app.routers.dependencies.router_dependencies import CountryDep, DeviceDep, EventPublisherDep, HTTPDep, LuaManagerDep, OsDep, PoolDep, RedisDep, SessionTokenDep, UserDep
-from server.src.logic.authentication.deletion.complete_deletion import complete_deletion
-from server.src.logic.authentication.deletion.initiate_deletion import initiate_deletion
-from server.src.logic.authentication.device.complete_deletion import delete_devices
-from server.src.logic.authentication.login.oauth.apple.complete_apple_oauth import complete_native_apple_oauth
-from server.src.logic.authentication.login.oauth.google.complete_google_oauth import complete_native_google_oauth
-from server.src.logic.authentication.logout.logout import logout
-from server.src.logic.authentication.profile.update_profile_name import update_profile_name_logic
-from server.src.logic.authentication.profile.update_profile_timezone import update_profile_timezone_logic
-from server.src.logic.authentication.profile.update_profile_username import update_profile_username_logic
-from server.src.logic.authentication.profile.update_public_name_visibility import update_public_name_visibility_logic
-from server.src.logic.authentication.shared.resolve_current_user import resolve_current_user
-from server.src.logic.authentication.shared.ui.get_auth_functions import get_user_devices_data, get_user_profile_data, get_user_sessions_data
+from src.app.routers.authentication.cookie_policy import remove_session_cookie
+from src.app.routers.authentication.responses.profile_rank import profile_rank
+from src.app.routers.classes.authentication_classes import AuthenticatedUserResponse, CompleteDeletionRequest, CompleteLogoutRequest, DeleteDevicesRequest, InitiateDeletionRequest, MobileAuthResponse, NativeAppleOAuthRequest, NativeGoogleOAuthRequest, ProfileNameResponse, ProfileTimezoneResponse, ProfileUsernameResponse, ProfileVisibilityResponse, UpdateProfileNameRequest, UpdateProfileTimezoneRequest, UpdateProfileUsernameRequest, UpdateProfileVisibilityRequest, UserDeviceItem, UserDevicesResponse, UserIdResponse, UserProfileResponse, UserProfileStats, UserSessionItem, UserSessionsResponse
+from src.app.routers.classes.base import BaseResponse
+from src.app.routers.dependencies.router_dependencies import CountryDep, DeviceDep, EventPublisherDep, HTTPDep, LuaManagerDep, OsDep, PoolDep, RedisDep, SessionTokenDep, UserDep
+from src.logic.authentication.deletion.complete_deletion import complete_deletion
+from src.logic.authentication.deletion.initiate_deletion import initiate_deletion
+from src.logic.authentication.device.complete_deletion import delete_devices
+from src.logic.authentication.login.oauth.apple.complete_apple_oauth import complete_native_apple_oauth
+from src.logic.authentication.login.oauth.google.complete_google_oauth import complete_native_google_oauth
+from src.logic.authentication.logout.logout import logout
+from src.logic.authentication.profile.update_profile_name import update_profile_name_logic
+from src.logic.authentication.profile.update_profile_timezone import update_profile_timezone_logic
+from src.logic.authentication.profile.update_profile_username import update_profile_username_logic
+from src.logic.authentication.profile.update_public_name_visibility import update_public_name_visibility_logic
+from src.logic.authentication.shared.resolve_current_user import resolve_current_user
+from src.logic.authentication.shared.ui.get_auth_functions import get_user_devices_data, get_user_profile_data, get_user_sessions_data
 
 router = APIRouter(prefix="/v1")
 

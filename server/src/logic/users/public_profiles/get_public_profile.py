@@ -2,9 +2,9 @@ from uuid import UUID
 
 from asyncpg import Pool
 
-from server.src.logic.predictions.prediction_actions import ranking_accuracy_rows, ranking_rules
-from server.src.logic.users.public_profiles.public_profile_ranking import PublicProfileRanking
-from server.src.store.sql.users.select_public_user_profile import select_public_user_profile
+from src.logic.predictions.prediction_actions import ranking_accuracy_rows, ranking_rules
+from src.logic.users.public_profiles.public_profile_ranking import PublicProfileRanking
+from src.store.sql.users.select_public_user_profile import select_public_user_profile
 
 async def get_public_profile(pool: Pool, username: str, viewer_user_id: UUID) -> PublicProfileRanking | None:
     normalized = username.strip().lower()

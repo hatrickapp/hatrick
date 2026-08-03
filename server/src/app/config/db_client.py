@@ -1,6 +1,6 @@
 import asyncpg
 
-from server.src.app.config.settings import settings
+from src.app.config.settings import settings
 
 async def create_psql_pool() -> asyncpg.Pool:
     pool = await asyncpg.create_pool(

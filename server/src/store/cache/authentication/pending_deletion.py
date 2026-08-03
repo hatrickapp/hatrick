@@ -2,8 +2,8 @@ from dataclasses import dataclass
 
 from redis.asyncio import Redis
 
-from server.src.app.config.lua_manager import LuaScriptManager
-from server.src.app.config.settings import settings
+from src.app.config.lua_manager import LuaScriptManager
+from src.app.config.settings import settings
 
 @dataclass
 class PendingDeletion:

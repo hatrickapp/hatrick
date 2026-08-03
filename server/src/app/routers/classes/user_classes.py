@@ -2,9 +2,9 @@ from uuid import UUID
 
 from pydantic import BaseModel
 
-from server.src.app.routers.classes.authentication_classes import UserProfileRank, UserProfileStats
-from server.src.app.routers.classes.base import BaseResponse
-from server.src.app.routers.classes.prediction_classes import RankingAccuracyItem, RankingItem
+from src.app.routers.classes.authentication_classes import UserProfileRank, UserProfileStats
+from src.app.routers.classes.base import BaseResponse
+from src.app.routers.classes.prediction_classes import RankingAccuracyItem, RankingItem
 
 class PublicUserSearchItem(BaseModel):
     user_id: UUID

@@ -1,6 +1,6 @@
 import logging.config
 
-from server.src.app.logging.logger_config import LOGGING_CONFIG
+from src.app.logging.logger_config import LOGGING_CONFIG
 
 def setup_logging():
     logging.config.dictConfig(LOGGING_CONFIG)

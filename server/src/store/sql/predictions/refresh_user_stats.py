@@ -2,7 +2,7 @@ from uuid import UUID
 
 from asyncpg import Connection
 
-from server.src.logic.predictions.scoring import score_prediction
+from src.logic.predictions.scoring import score_prediction
 
 async def refresh_user_stats(conn: Connection, user_id: UUID) -> None:
     query = """

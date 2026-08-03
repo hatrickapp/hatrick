@@ -4,8 +4,8 @@ from typing import Any
 import httpx
 import orjson
 
-from server.src.app.config.settings import settings
-from server.src.app.logging.logger_setup import get_logger
+from src.app.config.settings import settings
+from src.app.logging.logger_setup import get_logger
 
 logger = get_logger(__name__)
 API_FOOTBALL_REQUEST_TOTAL = 0

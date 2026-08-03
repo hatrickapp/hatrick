@@ -1,6 +1,6 @@
 import redis.asyncio as redis_module
 
-from server.src.app.config.settings import settings
+from src.app.config.settings import settings
 
 async def create_redis_client() -> redis_module.Redis:
     client = redis_module.from_url(

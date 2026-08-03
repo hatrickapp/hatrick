@@ -4,7 +4,7 @@ from urllib.parse import urlparse
 
 from starlette.responses import Response
 
-from server.src.app.config.settings import settings
+from src.app.config.settings import settings
 
 ALLOWED_HEADERS = [
     "Authorization",

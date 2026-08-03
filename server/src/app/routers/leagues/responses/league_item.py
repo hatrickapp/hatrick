@@ -1,6 +1,6 @@
-from server.src.app.routers.classes.league_classes import LeagueScoringItem, LeagueSummaryItem
-from server.src.app.routers.classes.sports_classes import CompetitionItem
-from server.src.store.sql.leagues.read_models import LeagueRow
+from src.app.routers.classes.league_classes import LeagueScoringItem, LeagueSummaryItem
+from src.app.routers.classes.sports_classes import CompetitionItem
+from src.store.sql.leagues.read_models import LeagueRow
 
 def league_item(league: LeagueRow) -> LeagueSummaryItem:
     return LeagueSummaryItem(

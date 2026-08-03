@@ -5,12 +5,12 @@ from asyncpg import Pool
 from cachetools import TTLCache
 from redis.asyncio import Redis
 
-from server.src.app.config.lua_manager import LuaScriptManager
-from server.src.app.crypto.encryption.hash_blake2s import hash_blake2s
-from server.src.app.logging.logger_setup import get_logger
-from server.src.store.cache.authentication.memory.session_memory_cache import get_memory_session, set_memory_session
-from server.src.store.cache.authentication.set_redis_session import set_redis_session
-from server.src.store.sql.authentication.sessions.select_session_by_token_hash import SessionByTokenHash, select_session_by_token_hash
+from src.app.config.lua_manager import LuaScriptManager
+from src.app.crypto.encryption.hash_blake2s import hash_blake2s
+from src.app.logging.logger_setup import get_logger
+from src.store.cache.authentication.memory.session_memory_cache import get_memory_session, set_memory_session
+from src.store.cache.authentication.set_redis_session import set_redis_session
+from src.store.sql.authentication.sessions.select_session_by_token_hash import SessionByTokenHash, select_session_by_token_hash
 
 logger = get_logger(__name__)
 

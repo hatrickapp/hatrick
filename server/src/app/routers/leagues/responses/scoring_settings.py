@@ -1,5 +1,5 @@
-from server.src.app.routers.classes.league_classes import LeagueScoringItem
-from server.src.store.sql.leagues.read_models import LeagueScoringSettings
+from src.app.routers.classes.league_classes import LeagueScoringItem
+from src.store.sql.leagues.read_models import LeagueScoringSettings
 
 def scoring_settings(scoring: LeagueScoringItem) -> LeagueScoringSettings:
     return LeagueScoringSettings(

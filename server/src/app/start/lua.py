@@ -2,8 +2,8 @@ from pathlib import Path
 
 from fastapi import FastAPI
 
-from server.src.app.config.lua_manager import LuaScriptManager
-from server.src.app.logging.logger_setup import get_logger
+from src.app.config.lua_manager import LuaScriptManager
+from src.app.logging.logger_setup import get_logger
 
 logger = get_logger(__name__)
 

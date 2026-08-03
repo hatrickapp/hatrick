@@ -6,7 +6,7 @@ from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.asymmetric import padding, rsa
 import httpx
 
-from server.src.app.config.settings import settings
+from src.app.config.settings import settings
 
 GOOGLE_ISSUERS = {"accounts.google.com", "https://accounts.google.com"}
 

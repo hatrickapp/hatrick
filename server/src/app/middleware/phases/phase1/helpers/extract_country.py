@@ -3,8 +3,8 @@ from functools import lru_cache
 
 from starlette.requests import Request
 
-from server.src.app.crypto.encryption.hash_blake2s import hash_blake2s
-from server.src.app.logging.logger_setup import get_logger
+from src.app.crypto.encryption.hash_blake2s import hash_blake2s
+from src.app.logging.logger_setup import get_logger
 
 logger = get_logger(__name__)
 

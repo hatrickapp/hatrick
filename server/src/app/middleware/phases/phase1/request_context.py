@@ -1,8 +1,8 @@
 from dataclasses import dataclass
 from uuid import UUID
 
-from server.src.app.middleware.phases.phase1.endpoint_matrix import EndpointConfig
-from server.src.app.middleware.phases.phase1.helpers.classify_ip_type import IPClassification
+from src.app.middleware.phases.phase1.endpoint_matrix import EndpointConfig
+from src.app.middleware.phases.phase1.helpers.classify_ip_type import IPClassification
 
 @dataclass
 class RequestContext:

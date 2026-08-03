@@ -6,13 +6,13 @@ from uuid import UUID
 from asyncpg import Pool
 import httpx
 
-from server.src.app.config.settings import settings
-from server.src.app.errors.domains.billing_errors import BillingConfigurationError, BillingProviderError
-from server.src.logic.billing.revenuecat_models import RevenueCatSyncResult
-from server.src.logic.billing.revenuecat_values import datetime_from_ms
-from server.src.store.sql.billing.select_revenuecat_customer import select_revenuecat_customer
-from server.src.store.sql.billing.update_user_plan import update_user_plan
-from server.src.store.sql.billing.upsert_revenuecat_customer import upsert_revenuecat_customer
+from src.app.config.settings import settings
+from src.app.errors.domains.billing_errors import BillingConfigurationError, BillingProviderError
+from src.logic.billing.revenuecat_models import RevenueCatSyncResult
+from src.logic.billing.revenuecat_values import datetime_from_ms
+from src.store.sql.billing.select_revenuecat_customer import select_revenuecat_customer
+from src.store.sql.billing.update_user_plan import update_user_plan
+from src.store.sql.billing.upsert_revenuecat_customer import upsert_revenuecat_customer
 
 async def sync_revenuecat_customer(pool: Pool, http: httpx.AsyncClient, user_id: UUID) -> RevenueCatSyncResult:
     rc_settings = settings.revenuecat

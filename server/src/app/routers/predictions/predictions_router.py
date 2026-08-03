@@ -3,10 +3,10 @@ from uuid import UUID
 
 from fastapi import APIRouter, Query
 
-from server.src.app.routers.classes.prediction_classes import PredictionHistoryItem, PredictionResponse, PredictionsHistoryResponse, UpsertPredictionRequest
-from server.src.app.routers.dependencies.router_dependencies import PoolDep, UserDep
-from server.src.logic.predictions.prediction_actions import get_prediction_history, save_prediction
-from server.src.logic.sports.responses import match_item, player_item, prediction_item
+from src.app.routers.classes.prediction_classes import PredictionHistoryItem, PredictionResponse, PredictionsHistoryResponse, UpsertPredictionRequest
+from src.app.routers.dependencies.router_dependencies import PoolDep, UserDep
+from src.logic.predictions.prediction_actions import get_prediction_history, save_prediction
+from src.logic.sports.responses import match_item, player_item, prediction_item
 
 router = APIRouter(prefix="/v1")
 

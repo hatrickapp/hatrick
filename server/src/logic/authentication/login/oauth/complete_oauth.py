@@ -4,13 +4,13 @@ from datetime import datetime
 from asyncpg import Pool
 from redis.asyncio import Redis
 
-from server.src.app.config.lua_manager import LuaScriptManager
-from server.src.app.events.pubsub.event_publisher import RedisEventPublisher
-from server.src.logic.authentication.login.oauth.identity import Provider, lookup_oauth_identity
-from server.src.logic.authentication.shared.bootstrap_new_user import bootstrap_new_user
-from server.src.logic.authentication.shared.issue_session import issue_session
-from server.src.store.cache.authentication.expire_redis_session_by_hash import expire_redis_session_by_hash
-from server.src.store.cache.authentication.set_redis_session import set_redis_session
+from src.app.config.lua_manager import LuaScriptManager
+from src.app.events.pubsub.event_publisher import RedisEventPublisher
+from src.logic.authentication.login.oauth.identity import Provider, lookup_oauth_identity
+from src.logic.authentication.shared.bootstrap_new_user import bootstrap_new_user
+from src.logic.authentication.shared.issue_session import issue_session
+from src.store.cache.authentication.expire_redis_session_by_hash import expire_redis_session_by_hash
+from src.store.cache.authentication.set_redis_session import set_redis_session
 
 @dataclass
 class OAuthCompleteResult:

@@ -1,8 +1,8 @@
 from redis.asyncio import Redis
 
-from server.src.app.config.lua_manager import LuaScriptManager
-from server.src.app.events.event_emitter import event_emitter
-from server.src.app.logging.logger_setup import get_logger
+from src.app.config.lua_manager import LuaScriptManager
+from src.app.events.event_emitter import event_emitter
+from src.app.logging.logger_setup import get_logger
 
 logger = get_logger(__name__)
 

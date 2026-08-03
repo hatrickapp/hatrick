@@ -2,7 +2,7 @@ from datetime import UTC, datetime, timedelta
 import re
 from uuid import UUID
 
-from server.src.app.validation.validate_username import OFFENSIVE_WORDS
+from src.app.validation.validate_username import OFFENSIVE_WORDS
 
 LEAGUE_NAME_RE = re.compile(r"^[A-Za-z0-9 _.'&-]{3,60}$", re.ASCII)
 

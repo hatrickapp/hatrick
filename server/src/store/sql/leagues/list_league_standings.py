@@ -3,8 +3,8 @@ from uuid import UUID, uuid7
 
 from asyncpg import Connection
 
-from server.src.store.sql.leagues.read_models import LeagueInvitationRow, LeagueMemberScoreRow, LeaguePredictionScoreRow, LeagueRow, LeagueScoredStanding, LeagueScoringSettings, LeagueStandingRow
-from server.src.store.sql.sports.read_models import CompetitionRow
+from src.store.sql.leagues.read_models import LeagueInvitationRow, LeagueMemberScoreRow, LeaguePredictionScoreRow, LeagueRow, LeagueScoredStanding, LeagueScoringSettings, LeagueStandingRow
+from src.store.sql.sports.read_models import CompetitionRow
 
 async def list_league_standings(conn: Connection, league_id: UUID, viewer_user_id: UUID, cursor: UUID | None, limit: int) -> list[LeagueStandingRow]:
     cursor_rank = None

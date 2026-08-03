@@ -1,6 +1,6 @@
 from asyncpg import Connection
 
-from server.src.store.sql.sports.read_models import CompetitionRow
+from src.store.sql.sports.read_models import CompetitionRow
 
 async def list_competitions(conn: Connection) -> list[CompetitionRow]:
     query = """

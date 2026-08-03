@@ -4,8 +4,8 @@ from typing import Awaitable, Callable
 import orjson
 from redis.asyncio import Redis
 
-from server.src.app.events.event_emitter import OutboundEvent
-from server.src.app.logging.logger_setup import get_logger
+from src.app.events.event_emitter import OutboundEvent
+from src.app.logging.logger_setup import get_logger
 
 logger = get_logger(__name__)
 

@@ -2,10 +2,10 @@ from uuid import UUID
 
 from asyncpg import Pool
 
-from server.src.app.errors.domains.league_errors import InvalidLeagueInviteError
-from server.src.store.sql.leagues.cleanup_league_invitations_for_user import cleanup_league_invitations_for_user
-from server.src.store.sql.leagues.select_league_invitation_for_update import select_league_invitation_for_update
-from server.src.store.sql.leagues.update_league_invitation_status import update_league_invitation_status
+from src.app.errors.domains.league_errors import InvalidLeagueInviteError
+from src.store.sql.leagues.cleanup_league_invitations_for_user import cleanup_league_invitations_for_user
+from src.store.sql.leagues.select_league_invitation_for_update import select_league_invitation_for_update
+from src.store.sql.leagues.update_league_invitation_status import update_league_invitation_status
 
 async def reject_league_invitation(pool: Pool, user_id: UUID, league_invitation_id: UUID) -> None:
     async with pool.acquire() as conn:

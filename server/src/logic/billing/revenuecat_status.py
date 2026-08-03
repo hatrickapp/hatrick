@@ -3,9 +3,9 @@ from uuid import UUID
 from asyncpg import Pool
 import httpx
 
-from server.src.logic.billing.revenuecat_models import RevenueCatBillingStatus
-from server.src.logic.billing.revenuecat_provider import sync_revenuecat_customer_if_ready
-from server.src.store.sql.billing.select_revenuecat_billing_status import select_revenuecat_billing_status
+from src.logic.billing.revenuecat_models import RevenueCatBillingStatus
+from src.logic.billing.revenuecat_provider import sync_revenuecat_customer_if_ready
+from src.store.sql.billing.select_revenuecat_billing_status import select_revenuecat_billing_status
 
 async def get_revenuecat_billing_status(pool: Pool, http: httpx.AsyncClient, user_id: UUID) -> RevenueCatBillingStatus:
     await sync_revenuecat_customer_if_ready(pool, http, user_id)

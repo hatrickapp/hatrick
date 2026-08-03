@@ -1,6 +1,6 @@
 from fastapi import Response
 
-from server.src.app.config.settings import settings
+from src.app.config.settings import settings
 
 COOKIE_OPTS = dict(
     httponly=True,

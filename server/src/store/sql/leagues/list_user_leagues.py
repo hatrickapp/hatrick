@@ -3,10 +3,10 @@ from uuid import UUID, uuid7
 
 from asyncpg import Connection
 
-from server.src.store.sql.leagues.league_select import league_select
-from server.src.store.sql.leagues.map_league import map_league
-from server.src.store.sql.leagues.read_models import LeagueInvitationRow, LeagueMemberScoreRow, LeaguePredictionScoreRow, LeagueRow, LeagueScoredStanding, LeagueScoringSettings, LeagueStandingRow
-from server.src.store.sql.sports.read_models import CompetitionRow
+from src.store.sql.leagues.league_select import league_select
+from src.store.sql.leagues.map_league import map_league
+from src.store.sql.leagues.read_models import LeagueInvitationRow, LeagueMemberScoreRow, LeaguePredictionScoreRow, LeagueRow, LeagueScoredStanding, LeagueScoringSettings, LeagueStandingRow
+from src.store.sql.sports.read_models import CompetitionRow
 
 async def list_user_leagues(conn: Connection, viewer_user_id: UUID) -> tuple[list[LeagueRow], list[LeagueRow]]:
     query = league_select(viewer_user_id) + """

@@ -1,8 +1,8 @@
 from dataclasses import dataclass
 from uuid import UUID
 
-from server.src.logic.predictions.prediction_actions import RankingAccuracy
-from server.src.store.sql.users.select_public_user_profile import PublicUserStats
+from src.logic.predictions.prediction_actions import RankingAccuracy
+from src.store.sql.users.select_public_user_profile import PublicUserStats
 
 @dataclass
 class PublicProfileRanking:

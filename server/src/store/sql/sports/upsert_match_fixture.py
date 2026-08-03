@@ -4,9 +4,9 @@ from uuid import UUID, uuid7
 
 from asyncpg import Connection
 
-from server.src.store.sql.sports.parse_provider_datetime import parse_provider_datetime
-from server.src.store.sql.sports.upsert_competition_season import upsert_competition_season
-from server.src.store.sql.sports.upsert_team import upsert_team
+from src.store.sql.sports.parse_provider_datetime import parse_provider_datetime
+from src.store.sql.sports.upsert_competition_season import upsert_competition_season
+from src.store.sql.sports.upsert_team import upsert_team
 
 async def upsert_match_fixture(conn: Connection, fixture_payload: dict[str, Any]) -> UUID | None:
     league = fixture_payload.get("league") or {}

@@ -1,10 +1,10 @@
 from asyncpg import Pool
 
-from server.src.app.errors.domains.league_errors import InvalidLeagueSettingsError
-from server.src.store.sql.app_config.select_all_plan_limits import select_all_plan_limits
-from server.src.store.sql.app_config.select_league_limits import select_league_limits
-from server.src.store.sql.app_config.select_league_scoring_presets import select_league_scoring_presets
-from server.src.store.sql.app_config.select_plus_offering import select_plus_offering
+from src.app.errors.domains.league_errors import InvalidLeagueSettingsError
+from src.store.sql.app_config.select_all_plan_limits import select_all_plan_limits
+from src.store.sql.app_config.select_league_limits import select_league_limits
+from src.store.sql.app_config.select_league_scoring_presets import select_league_scoring_presets
+from src.store.sql.app_config.select_plus_offering import select_plus_offering
 
 async def get_leagues_config(pool: Pool):
     async with pool.acquire() as conn:

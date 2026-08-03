@@ -3,14 +3,14 @@ from uuid import UUID
 
 from asyncpg import Pool
 
-from server.src.app.crypto.encryption.hash_blake2s import hash_blake2s
-from server.src.app.errors.domains.authentication_errors import InvalidUsernameError, UserNotFoundError, UsernameChangeRequiresPlusError, UsernameChangeTooSoonError, UsernameUnavailableError
-from server.src.app.validation.validate_username import validate_username
-from server.src.store.sql.authentication.users.complete_username_setup import complete_username_setup
-from server.src.store.sql.authentication.users.reserve_username import reserve_username
-from server.src.store.sql.authentication.users.select_username_mutation_state import select_username_mutation_state
-from server.src.store.sql.authentication.users.update_username import update_username
-from server.src.store.sql.authentication.users.username_is_available import username_is_available
+from src.app.crypto.encryption.hash_blake2s import hash_blake2s
+from src.app.errors.domains.authentication_errors import InvalidUsernameError, UserNotFoundError, UsernameChangeRequiresPlusError, UsernameChangeTooSoonError, UsernameUnavailableError
+from src.app.validation.validate_username import validate_username
+from src.store.sql.authentication.users.complete_username_setup import complete_username_setup
+from src.store.sql.authentication.users.reserve_username import reserve_username
+from src.store.sql.authentication.users.select_username_mutation_state import select_username_mutation_state
+from src.store.sql.authentication.users.update_username import update_username
+from src.store.sql.authentication.users.username_is_available import username_is_available
 
 USERNAME_CHANGE_INTERVAL = timedelta(days=30)
 

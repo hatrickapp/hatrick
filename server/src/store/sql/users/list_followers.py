@@ -3,7 +3,7 @@ from uuid import UUID, uuid7
 
 from asyncpg import Connection
 
-from server.src.store.sql.users.follow_user_item import follow_user_item
+from src.store.sql.users.follow_user_item import follow_user_item
 
 @dataclass
 class FollowCounts:

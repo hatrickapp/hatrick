@@ -1,6 +1,6 @@
 from asyncpg import Connection
 
-from server.src.app.crypto.encryption.hash_blake2s import hash_blake2s
+from src.app.crypto.encryption.hash_blake2s import hash_blake2s
 
 async def expire_session(conn: Connection, session_token: str) -> None:
     session_token_hash = hash_blake2s(session_token)

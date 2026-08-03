@@ -5,9 +5,9 @@ from uuid import UUID
 from fastapi import APIRouter, WebSocket, status
 from starlette.websockets import WebSocketDisconnect
 
-from server.src.app.logging.logger_setup import get_logger
-from server.src.app.routers.realtime.helpers.connection_registry import REFRESH_INTERVAL_SECONDS, connect_user, disconnect_user, notify_refresh_users
-from server.src.store.sql.authentication.sessions.select_session_by_token_hash import select_session_by_token_hash
+from src.app.logging.logger_setup import get_logger
+from src.app.routers.realtime.helpers.connection_registry import REFRESH_INTERVAL_SECONDS, connect_user, disconnect_user, notify_refresh_users
+from src.store.sql.authentication.sessions.select_session_by_token_hash import select_session_by_token_hash
 
 logger = get_logger(__name__)
 router = APIRouter(prefix="/v1/realtime")

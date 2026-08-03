@@ -4,18 +4,18 @@ from asyncpg import Pool
 from fastapi import FastAPI
 import httpx
 
-from server.src.app.config.settings import settings
-from server.src.app.logging.logger_setup import get_logger
-from server.src.logic.sports.api_football_client import ApiFootballClient
-from server.src.logic.workers.helper.process_due_match_sync_jobs import process_due_match_sync_jobs
-from server.src.logic.workers.helper.process_due_team_roster_sync_jobs import process_due_team_roster_sync_jobs
-from server.src.logic.workers.helper.settle_due_matches import settle_due_matches
-from server.src.logic.workers.helper.sports_sync_constants import INTERVAL_SECONDS
-from server.src.logic.workers.helper.sync_fixtures_if_due import sync_fixtures_if_due
-from server.src.store.sql.sports.ensure_match_sync_state import ensure_match_sync_state
-from server.src.store.sql.sports.ensure_team_roster_sync_state import ensure_team_roster_sync_state
-from server.src.store.sql.sports.lock_due_matches import lock_due_matches
-from server.src.store.sql.sports.stop_settled_match_sync import stop_settled_match_sync
+from src.app.config.settings import settings
+from src.app.logging.logger_setup import get_logger
+from src.logic.sports.api_football_client import ApiFootballClient
+from src.logic.workers.helper.process_due_match_sync_jobs import process_due_match_sync_jobs
+from src.logic.workers.helper.process_due_team_roster_sync_jobs import process_due_team_roster_sync_jobs
+from src.logic.workers.helper.settle_due_matches import settle_due_matches
+from src.logic.workers.helper.sports_sync_constants import INTERVAL_SECONDS
+from src.logic.workers.helper.sync_fixtures_if_due import sync_fixtures_if_due
+from src.store.sql.sports.ensure_match_sync_state import ensure_match_sync_state
+from src.store.sql.sports.ensure_team_roster_sync_state import ensure_team_roster_sync_state
+from src.store.sql.sports.lock_due_matches import lock_due_matches
+from src.store.sql.sports.stop_settled_match_sync import stop_settled_match_sync
 
 logger = get_logger(__name__)
 

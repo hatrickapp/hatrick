@@ -2,7 +2,7 @@ import hmac
 
 from redis.asyncio import Redis
 
-from server.src.app.crypto.encryption.hash_blake2s import hash_blake2s
+from src.app.crypto.encryption.hash_blake2s import hash_blake2s
 
 async def verify_otp(cache: Redis, email_hash: str, otp: str) -> bool:
     key = f"otp:{email_hash}"
