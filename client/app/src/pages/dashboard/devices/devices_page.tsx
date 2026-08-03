@@ -34,11 +34,15 @@ interface DeviceRowProps {
 
 function DeviceRow({ device, on_delete }: DeviceRowProps) {
   const [deleting, set_deleting] = useState(false)
+  const [error, set_error] = useState<string | null>(null)
 
   const handle_confirm = async () => {
     set_deleting(true)
+    set_error(null)
     try {
       await on_delete(device.device_id)
+    } catch (err) {
+      set_error(err instanceof Error ? err.message : 'Could not revoke this device.')
     } finally {
       set_deleting(false)
     }
@@ -78,11 +82,17 @@ function DeviceRow({ device, on_delete }: DeviceRowProps) {
             <AlertDialogDescription className="text-xs">
               This trusted device will be removed, its active sessions will be ended, and this app will return to sign in.
             </AlertDialogDescription>
+            {error ? (
+              <p className="text-xs font-medium text-destructive">{error}</p>
+            ) : null}
           </AlertDialogHeader>
           <AlertDialogFooter className="mt-4">
             <AlertDialogCancel className="text-xs h-8">Cancel</AlertDialogCancel>
             <AlertDialogAction
-              onClick={handle_confirm}
+              onClick={(event) => {
+                event.preventDefault()
+                void handle_confirm()
+              }}
               className="bg-destructive text-destructive-foreground  h-8 text-xs font-bold"
             >
               Revoke Device

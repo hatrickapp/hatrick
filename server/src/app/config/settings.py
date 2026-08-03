@@ -137,7 +137,14 @@ class Settings(BaseSettings):
     @cached_property
     def cors_allowed_origins(self) -> list[str]:
         return [
-            "https://api.hatrick.app",]
+            "https://hatrick.app",
+            "https://www.hatrick.app",
+            "capacitor://localhost",
+            "ionic://localhost",
+            "http://localhost:3000",
+            "http://localhost",
+            "https://localhost",
+        ]
 
     @cached_property
     def google(self) -> GoogleConfig:
