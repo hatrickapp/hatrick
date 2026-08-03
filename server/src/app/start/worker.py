@@ -8,7 +8,6 @@ from src.app.config.settings import settings
 from src.app.crons.refresh_cloudflare_ips import cloudflare_ip_refresh_cron
 from src.logic.workers.handle_dummy_email import handle_dummy_email
 from src.logic.workers.handle_email import handle_email_event
-from src.logic.workers.redis.handle_device_sessions_expire import handle_device_sessions_expire
 from src.logic.workers.redis.handle_session_expire import handle_session_expire
 from src.logic.workers.redis.handle_session_hash_expire import handle_session_hash_expire
 from src.logic.workers.redis.handle_user_sessions_expire import handle_user_sessions_expire
@@ -32,7 +31,6 @@ def start_background_workers(
         "SESSION_HASH_EXPIRE_FAILED": lambda payload: handle_session_hash_expire(redis, lua_manager, payload),
         "USER_SESSIONS_EXPIRE_FAILED": lambda payload: handle_user_sessions_expire(redis, lua_manager, payload),
         "USER_SESSIONS_EXPIRE_EXCEPT_FAILED": lambda payload: handle_user_sessions_expire_except(redis, lua_manager, payload),
-        "DEVICE_SESSIONS_EXPIRE_FAILED": lambda payload: handle_device_sessions_expire(redis, lua_manager, payload),
     }
 
     tasks: list[asyncio.Task] = []

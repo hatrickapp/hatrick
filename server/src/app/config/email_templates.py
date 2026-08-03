@@ -38,7 +38,6 @@ class BaseTemplate:
 @dataclass
 class DeletionTemplate(BaseTemplate):
     otp: str
-    device: str
     country: str
     timestamp: str
     template_file = "deletion.html"
@@ -49,7 +48,6 @@ class DeletionTemplate(BaseTemplate):
 
 @dataclass
 class AccountDeletionSuccessTemplate(BaseTemplate):
-    device: str
     country: str
     timestamp: str
     template_file = "deletion_success.html"
@@ -61,7 +59,6 @@ class AccountDeletionSuccessTemplate(BaseTemplate):
 @dataclass
 class OAuthWelcomeTemplate(BaseTemplate):
     provider: str
-    device: str
     country: str
     timestamp: str
     template_file = "oauth_welcome.html"

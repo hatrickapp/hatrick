@@ -20,7 +20,7 @@ from src.store.sql.authentication.users.select_user_by_id import select_user_by_
 class InitiateDeletionResult:
     user_id: UUID
 
-async def initiate_deletion(pool: Pool, cache: Redis, lua_manager: LuaScriptManager, user_id: UUID, country: str, device: str) -> InitiateDeletionResult:
+async def initiate_deletion(pool: Pool, cache: Redis, lua_manager: LuaScriptManager, user_id: UUID, country: str) -> InitiateDeletionResult:
     async with pool.acquire() as conn:
         user = await select_user_by_id(conn, user_id)
 
@@ -35,7 +35,7 @@ async def initiate_deletion(pool: Pool, cache: Redis, lua_manager: LuaScriptMana
     await store_otp(cache, email_hash, otp)
     
     timestamp = datetime.now(timezone.utc).strftime("%B %d, %Y at %H:%M UTC")
-    template = DeletionTemplate(otp=otp, device=device, country=country, timestamp=timestamp)
+    template = DeletionTemplate(otp=otp, country=country, timestamp=timestamp)
     await event_emitter(cache, "SEND_EMAIL_MESSAGE", {
         "email": email, 
         "subject": template.subject, 

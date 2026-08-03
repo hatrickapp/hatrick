@@ -6,14 +6,13 @@ from redis.asyncio import Redis
 
 from src.app.events.pubsub.event_subscriber import RedisEventSubscriber
 from src.app.logging.logger_setup import get_logger
-from src.store.cache.authentication.memory.session_memory_cache import delete_memory_session, delete_memory_sessions_by_devices, delete_memory_sessions_by_user, delete_memory_sessions_by_user_except
+from src.store.cache.authentication.memory.session_memory_cache import delete_memory_session, delete_memory_sessions_by_user, delete_memory_sessions_by_user_except
 
 logger = get_logger(__name__)
 
 SESSION_INVALIDATION_CHANNEL = "session:invalidation"
 EXPIRE_SINGLE_SESSION_MEMORY = "EXPIRE_SINGLE_SESSION_MEMORY"
 EXPIRE_USER_SESSIONS_MEMORY = "EXPIRE_USER_SESSIONS_MEMORY"
-EXPIRE_DEVICE_SESSIONS_MEMORY = "EXPIRE_DEVICE_SESSIONS_MEMORY"
 EXPIRE_USER_SESSIONS_EXCEPT_MEMORY = "EXPIRE_USER_SESSIONS_EXCEPT_MEMORY"
 
 
@@ -42,17 +41,6 @@ async def session_memory_invalidation_listener(redis: Redis, session_cache: TTLC
                     )
                     continue
                 delete_memory_sessions_by_user(session_cache, UUID(raw_user_id))
-
-            elif event_type == EXPIRE_DEVICE_SESSIONS_MEMORY:
-                raw_device_ids = event["payload"].get("device_ids")
-                if not raw_device_ids:
-                    logger.warning(
-                        "session_memory_invalidation_missing_device_ids",
-                        extra={"event_id": event.get("event_id")},
-                    )
-                    continue
-                device_ids = {UUID(d) for d in raw_device_ids}
-                delete_memory_sessions_by_devices(session_cache, device_ids)
 
             elif event_type == EXPIRE_USER_SESSIONS_EXCEPT_MEMORY:
                 raw_user_id = event["payload"].get("user_id")

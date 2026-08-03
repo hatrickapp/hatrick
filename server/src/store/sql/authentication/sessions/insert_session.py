@@ -20,8 +20,6 @@ async def insert_session(
     user_id: UUID,
     session_token: str,
     country: str,
-    device: str,
-    device_id: UUID | None = None,
 ) -> InsertedSession:
     session_token_hash = hash_blake2s(session_token)
     session_id = uuid7()
@@ -43,8 +41,8 @@ async def insert_session(
         RETURNING session_token_hash
     ),
     inserted AS (
-        INSERT INTO sessions (session_id, user_id, device_id, session_token_hash, country, device, expires_at)
-        VALUES ($1, $2, $3, $4, $5, $6, $7)
+        INSERT INTO sessions (session_id, user_id, session_token_hash, country, expires_at)
+        VALUES ($1, $2, $3, $4, $5)
         RETURNING session_id, expires_at
     )
     SELECT 
@@ -54,7 +52,7 @@ async def insert_session(
     FROM inserted i
     """
 
-    row = await conn.fetchrow(query, session_id, user_id, device_id, session_token_hash, country, device, expires_at)
+    row = await conn.fetchrow(query, session_id, user_id, session_token_hash, country, expires_at)
 
     return InsertedSession(
         session_id=row["session_id"],

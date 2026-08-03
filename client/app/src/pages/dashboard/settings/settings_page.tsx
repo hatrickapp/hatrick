@@ -14,10 +14,7 @@ export function SettingsPage() {
     {
       title: "Security",
       href: ROUTES.DASHBOARD_SETTINGS_SECURITY,
-      active: ([
-        ROUTES.DASHBOARD_SETTINGS_SECURITY,
-        ROUTES.DASHBOARD_DEVICES,
-      ] as string[]).includes(location.pathname),
+      active: location.pathname === ROUTES.DASHBOARD_SETTINGS_SECURITY,
     },
     {
       title: "Billing",

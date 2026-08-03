@@ -106,7 +106,6 @@ class MiddlewareChain:
             request.state.ip = ctx.ip
             request.state.session_token = ctx.session_token
             request.state.country = ctx.country
-            request.state.device = ctx.device
             request.state.client_type = ctx.client_type
 
         except AppError as exc:

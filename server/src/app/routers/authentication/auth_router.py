@@ -4,12 +4,11 @@ from fastapi import APIRouter, HTTPException, Response
 
 from src.app.routers.authentication.cookie_policy import remove_session_cookie
 from src.app.routers.authentication.responses.profile_rank import profile_rank
-from src.app.routers.classes.authentication_classes import AuthenticatedUserResponse, CompleteDeletionRequest, CompleteLogoutRequest, DeleteDevicesRequest, InitiateDeletionRequest, MobileAuthResponse, NativeAppleOAuthRequest, NativeGoogleOAuthRequest, ProfileNameResponse, ProfileTimezoneResponse, ProfileUsernameResponse, ProfileVisibilityResponse, UpdateProfileNameRequest, UpdateProfileTimezoneRequest, UpdateProfileUsernameRequest, UpdateProfileVisibilityRequest, UserDeviceItem, UserDevicesResponse, UserIdResponse, UserProfileResponse, UserProfileStats, UserSessionItem, UserSessionsResponse
+from src.app.routers.classes.authentication_classes import AuthenticatedUserResponse, CompleteDeletionRequest, CompleteLogoutRequest, InitiateDeletionRequest, MobileAuthResponse, NativeAppleOAuthRequest, NativeGoogleOAuthRequest, ProfileNameResponse, ProfileTimezoneResponse, ProfileUsernameResponse, ProfileVisibilityResponse, UpdateProfileNameRequest, UpdateProfileTimezoneRequest, UpdateProfileUsernameRequest, UpdateProfileVisibilityRequest, UserIdResponse, UserProfileResponse, UserProfileStats, UserSessionItem, UserSessionsResponse
 from src.app.routers.classes.base import BaseResponse
-from src.app.routers.dependencies.router_dependencies import CountryDep, DeviceDep, EventPublisherDep, HTTPDep, LuaManagerDep, OsDep, PoolDep, RedisDep, SessionTokenDep, UserDep
+from src.app.routers.dependencies.router_dependencies import CountryDep, EventPublisherDep, HTTPDep, LuaManagerDep, OsDep, PoolDep, RedisDep, SessionTokenDep, UserDep
 from src.logic.authentication.deletion.complete_deletion import complete_deletion
 from src.logic.authentication.deletion.initiate_deletion import initiate_deletion
-from src.logic.authentication.device.complete_deletion import delete_devices
 from src.logic.authentication.login.oauth.apple.complete_apple_oauth import complete_native_apple_oauth
 from src.logic.authentication.login.oauth.google.complete_google_oauth import complete_native_google_oauth
 from src.logic.authentication.logout.logout import logout
@@ -18,7 +17,7 @@ from src.logic.authentication.profile.update_profile_timezone import update_prof
 from src.logic.authentication.profile.update_profile_username import update_profile_username_logic
 from src.logic.authentication.profile.update_public_name_visibility import update_public_name_visibility_logic
 from src.logic.authentication.shared.resolve_current_user import resolve_current_user
-from src.logic.authentication.shared.ui.get_auth_functions import get_user_devices_data, get_user_profile_data, get_user_sessions_data
+from src.logic.authentication.shared.ui.get_auth_functions import get_user_profile_data, get_user_sessions_data
 
 router = APIRouter(prefix="/v1")
 
@@ -26,13 +25,13 @@ router = APIRouter(prefix="/v1")
 # --- Account Deletion ---
 
 @router.post("/auth/account/delete/initiate", response_model=UserIdResponse)
-async def deletion_initiate(body: InitiateDeletionRequest, cache: RedisDep, lua_manager: LuaManagerDep, pool: PoolDep, user_id: UserDep, country: CountryDep, device: DeviceDep):
-    result = await initiate_deletion(pool, cache, lua_manager, user_id, country, device)
+async def deletion_initiate(body: InitiateDeletionRequest, cache: RedisDep, lua_manager: LuaManagerDep, pool: PoolDep, user_id: UserDep, country: CountryDep):
+    result = await initiate_deletion(pool, cache, lua_manager, user_id, country)
     return UserIdResponse(user_id=result.user_id)
 
 @router.post("/auth/account/delete/complete", response_model=BaseResponse)
-async def deletion_complete(body: CompleteDeletionRequest, cache: RedisDep, lua_manager: LuaManagerDep, pool: PoolDep, user_id: UserDep, country: CountryDep, device: DeviceDep, publisher: EventPublisherDep):
-    await complete_deletion(pool, cache, lua_manager, user_id, body.otp, country, device, publisher)
+async def deletion_complete(body: CompleteDeletionRequest, cache: RedisDep, lua_manager: LuaManagerDep, pool: PoolDep, user_id: UserDep, country: CountryDep, publisher: EventPublisherDep):
+    await complete_deletion(pool, cache, lua_manager, user_id, body.otp, country, publisher)
     return BaseResponse()
 
 # --- User Resolution ---
@@ -120,18 +119,8 @@ async def get_user_sessions_endpoint(pool: PoolDep, user_id: UserDep):
     sessions = await get_user_sessions_data(pool, user_id)
     return UserSessionsResponse(
         sessions=[
-            UserSessionItem(session_id=s.session_id, device_id=s.device_id, country=s.country, device=s.device, created_at=s.created_at, expires_at=s.expires_at)
+            UserSessionItem(session_id=s.session_id, country=s.country, created_at=s.created_at, expires_at=s.expires_at)
             for s in sessions
-        ]
-    )
-
-@router.get("/auth/user/devices", response_model=UserDevicesResponse)
-async def get_user_devices_endpoint(pool: PoolDep, user_id: UserDep):
-    devices = await get_user_devices_data(pool, user_id)
-    return UserDevicesResponse(
-        devices=[
-            UserDeviceItem(device_id=d.device_id, device_name=d.device_name, created_at=d.created_at, expires_at=d.expires_at)
-            for d in devices
         ]
     )
 
@@ -153,20 +142,6 @@ async def logout_complete(
         remove_session_cookie(response)
     return BaseResponse()
 
-# --- Device Management ---
-
-@router.post("/auth/devices/delete", response_model=BaseResponse)
-async def devices_delete(
-    body: DeleteDevicesRequest,
-    pool: PoolDep,
-    cache: RedisDep,
-    lua_manager: LuaManagerDep,
-    user_id: UserDep,
-    publisher: EventPublisherDep,
-):
-    await delete_devices(pool, cache, lua_manager, user_id, body.device_ids, publisher)
-    return BaseResponse()
-
 # --- OAuth ---
 
 @router.post("/auth/oauth/google/native", response_model=MobileAuthResponse)
@@ -177,15 +152,14 @@ async def google_native_oauth_callback(
     lua_manager: LuaManagerDep,
     http: HTTPDep,
     country: CountryDep,
-    device: DeviceDep,
     publisher: EventPublisherDep,
     os: OsDep,
 ):
     if os != "mobile":
         raise HTTPException(status_code=404, detail="NOT_FOUND")
 
-    result = await complete_native_google_oauth(pool, cache, lua_manager, http, body.id_token, country, device, publisher)
-    return MobileAuthResponse(session_token=result.session_token, device_token=result.device_token, expires_at=result.expires_at)
+    result = await complete_native_google_oauth(pool, cache, lua_manager, http, body.id_token, country, publisher)
+    return MobileAuthResponse(session_token=result.session_token, expires_at=result.expires_at)
 
 @router.post("/auth/oauth/apple/native", response_model=MobileAuthResponse)
 async def apple_native_oauth_callback(
@@ -195,7 +169,6 @@ async def apple_native_oauth_callback(
     lua_manager: LuaManagerDep,
     http: HTTPDep,
     country: CountryDep,
-    device: DeviceDep,
     publisher: EventPublisherDep,
     os: OsDep,
 ):
@@ -212,7 +185,6 @@ async def apple_native_oauth_callback(
         body.email,
         body.full_name,
         country,
-        device,
         publisher,
     )
-    return MobileAuthResponse(session_token=result.session_token, device_token=result.device_token, expires_at=result.expires_at)
+    return MobileAuthResponse(session_token=result.session_token, expires_at=result.expires_at)

@@ -8,10 +8,7 @@ COOKIE_OPTS = dict(
     samesite=settings.session.cookie_samesite,
     path="/",
 )
-
-DEVICE_COOKIE_OPTS = dict(
-    **COOKIE_OPTS,
-)
+LEGACY_AUTH_COOKIES = ("X-" + "Device" + "-Token",)
 
 def set_session_cookie(response: Response, token: str, expires_at) -> None:
     response.set_cookie(
@@ -21,15 +18,6 @@ def set_session_cookie(response: Response, token: str, expires_at) -> None:
         max_age=settings.session.expire_days * 24 * 60 * 60,
         **COOKIE_OPTS,
     )
-
-def set_device_cookie(response: Response, token: str) -> None:
-    response.set_cookie(
-        key="X-Device-Token",
-        value=token,
-        **DEVICE_COOKIE_OPTS,
-        max_age=365 * 24 * 60 * 60,  # 1 year, matches DB expires_at
-    )
-
 def remove_session_cookie(response: Response) -> None:
     response.delete_cookie(
         key="X-Session-Token",
@@ -37,3 +25,10 @@ def remove_session_cookie(response: Response) -> None:
         secure=settings.session.cookie_secure,
         samesite=settings.session.cookie_samesite,
     )
+    for key in LEGACY_AUTH_COOKIES:
+        response.delete_cookie(
+            key=key,
+            path="/",
+            secure=settings.session.cookie_secure,
+            samesite=settings.session.cookie_samesite,
+        )

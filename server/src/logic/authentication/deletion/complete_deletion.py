@@ -18,7 +18,7 @@ from src.store.sql.authentication.users.select_user_by_id import select_user_by_
 from src.store.sql.authentication.users.soft_delete_user import soft_delete_user
 from src.store.sql.leagues.delete_hosted_leagues_for_user import delete_hosted_leagues_for_user
 
-async def complete_deletion(pool: Pool, cache: Redis, lua_manager: LuaScriptManager, user_id: UUID, otp: str, country: str, device: str, publisher: RedisEventPublisher) -> None:
+async def complete_deletion(pool: Pool, cache: Redis, lua_manager: LuaScriptManager, user_id: UUID, otp: str, country: str, publisher: RedisEventPublisher) -> None:
     pending = await get_pending_deletion(cache, str(user_id))
     if pending is None:
         raise PendingUserDeletionNotFoundError()
@@ -50,7 +50,7 @@ async def complete_deletion(pool: Pool, cache: Redis, lua_manager: LuaScriptMana
     await delete_pending_deletion(cache, str(user_id))
 
     timestamp = datetime.now(timezone.utc).strftime("%B %d, %Y at %H:%M UTC")
-    template = AccountDeletionSuccessTemplate(device=device, country=country, timestamp=timestamp)
+    template = AccountDeletionSuccessTemplate(country=country, timestamp=timestamp)
     
     await event_emitter(cache, "SEND_EMAIL_MESSAGE", {
         "email": email,

@@ -11,7 +11,6 @@ class SessionByTokenHash:
     session_id: UUID
     user_id: UUID
     expires_at: datetime
-    device_id: UUID | None
     account_status: str
     role: str
 
@@ -23,7 +22,6 @@ async def select_session_by_token_hash(conn: Connection, session_token: str) -> 
         s.session_id, 
         s.user_id, 
         s.expires_at,
-        s.device_id,
         u.account_status,
         u.role
     FROM sessions s
@@ -42,7 +40,6 @@ async def select_session_by_token_hash(conn: Connection, session_token: str) -> 
         session_id=row["session_id"],
         user_id=row["user_id"],
         expires_at=row["expires_at"],
-        device_id=row["device_id"],
         account_status=row["account_status"],
         role=row["role"],
     )

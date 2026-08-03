@@ -27,7 +27,6 @@ export const ROUTES = {
   DASHBOARD_PROFILE: '/dashboard/settings/profile',
   DASHBOARD_SETTINGS_SECURITY: '/dashboard/settings/security',
   DASHBOARD_SETTINGS_BILLING: '/dashboard/settings/billing',
-  DASHBOARD_DEVICES: '/dashboard/settings/devices',
   DASHBOARD_SETTINGS_DELETE: '/dashboard/settings/delete',
 } as const
 

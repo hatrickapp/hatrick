@@ -3,13 +3,11 @@ import type { UserProfileRank, UserProfileStats } from './user_types'
 
 export interface SessionResponse extends BaseResponse {
   session_token?: string
-  device_token?: string | null
   expires_at: string
 }
 
 export interface MobileAuthResponse extends BaseResponse {
   session_token: string
-  device_token: string | null
   expires_at: string
 }
 
@@ -55,26 +53,13 @@ export interface UserProfileResponse extends BaseResponse {
 
 export interface UserSessionItem {
   session_id: string
-  device_id: string | null
   country: string
-  device: string
   created_at: string
   expires_at: string
 }
 
 export interface UserSessionsResponse extends BaseResponse {
   sessions: UserSessionItem[]
-}
-
-export interface UserDeviceItem {
-  device_id: string
-  device_name: string | null
-  created_at: string
-  expires_at: string | null
-}
-
-export interface UserDevicesResponse extends BaseResponse {
-  devices: UserDeviceItem[]
 }
 
 export interface UpdateProfileNameRequest {
@@ -107,10 +92,6 @@ export interface UpdateProfileTimezoneRequest {
 
 export interface ProfileTimezoneResponse extends BaseResponse {
   timezone: string
-}
-
-export interface DeleteDevicesRequest {
-  device_ids: string[]
 }
 
 export interface NativeGoogleOAuthRequest {

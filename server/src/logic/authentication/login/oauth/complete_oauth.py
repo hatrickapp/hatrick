@@ -16,7 +16,6 @@ from src.store.cache.authentication.set_redis_session import set_redis_session
 class OAuthCompleteResult:
     session_token: str
     expires_at: datetime
-    device_token: str | None = None
 
 
 async def complete_oauth_session(
@@ -29,7 +28,6 @@ async def complete_oauth_session(
     provider_subject: str | None,
     email: str | None,
     country: str,
-    device: str,
     name: str | None = None,
     avatar_url: str | None = None,
 ) -> OAuthCompleteResult:
@@ -38,11 +36,10 @@ async def complete_oauth_session(
 
         async with conn.transaction():
             if existing is not None:
-                session = await issue_session(conn, existing.user_id, country, device)
+                session = await issue_session(conn, existing.user_id, country)
                 session_user_id = existing.user_id
                 account_status = existing.account_status
                 role = existing.role
-                device_token = None
             else:
                 if email is None:
                     raise ValueError("OAuth email is required when creating a new user.")
@@ -51,7 +48,6 @@ async def complete_oauth_session(
                     email=email,
                     provider=provider,
                     country=country,
-                    device=device,
                     name=name,
                     avatar_url=avatar_url,
                     oauth_subject=provider_subject,
@@ -60,7 +56,6 @@ async def complete_oauth_session(
                 session_user_id = bootstrap.user_id
                 account_status = "active"
                 role = "consumer"
-                device_token = bootstrap.device_token
 
     await set_redis_session(
         lua_manager,
@@ -70,7 +65,6 @@ async def complete_oauth_session(
         session.expires_at,
         account_status=account_status,
         role=role,
-        device_id=session.device_id,
     )
     if session.killed_session_token_hash:
         await expire_redis_session_by_hash(cache, lua_manager, session.killed_session_token_hash)
@@ -83,5 +77,4 @@ async def complete_oauth_session(
     return OAuthCompleteResult(
         session_token=session.session_token,
         expires_at=session.expires_at,
-        device_token=device_token,
     )

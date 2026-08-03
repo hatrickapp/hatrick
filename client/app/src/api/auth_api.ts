@@ -1,5 +1,5 @@
 import { api_request } from './client'
-import type { AuthenticatedUserResponse, DeleteDevicesRequest, MobileAuthResponse, NativeAppleOAuthRequest, NativeGoogleOAuthRequest, ProfileVisibilityResponse, ProfileNameResponse, ProfileUsernameResponse, UpdateProfileNameRequest, UpdateProfileTimezoneRequest, UpdateProfileUsernameRequest, UpdateProfileVisibilityRequest, UserDevicesResponse, UserIdResponse, UserProfileResponse, UserSessionsResponse, ProfileTimezoneResponse } from '@/types/authentication_types'
+import type { AuthenticatedUserResponse, MobileAuthResponse, NativeAppleOAuthRequest, NativeGoogleOAuthRequest, ProfileVisibilityResponse, ProfileNameResponse, ProfileUsernameResponse, UpdateProfileNameRequest, UpdateProfileTimezoneRequest, UpdateProfileUsernameRequest, UpdateProfileVisibilityRequest, UserIdResponse, UserProfileResponse, UserSessionsResponse, ProfileTimezoneResponse } from '@/types/authentication_types'
 import type { BaseResponse } from '@/types/base_types'
 
 const AUTH = '/v1/auth'
@@ -60,10 +60,6 @@ export async function get_sessions(): Promise<UserSessionsResponse> {
   return api_request<UserSessionsResponse>(`${AUTH}/user/sessions`)
 }
 
-export async function get_devices(): Promise<UserDevicesResponse> {
-  return api_request<UserDevicesResponse>(`${AUTH}/user/devices`)
-}
-
 export async function logout(idempotency_key: string): Promise<BaseResponse> {
   return api_request<BaseResponse>(`${AUTH}/logout`, {
     method: 'POST',
@@ -85,17 +81,6 @@ export async function account_delete_complete(
   idempotency_key: string,
 ): Promise<BaseResponse> {
   return api_request<BaseResponse>(`${AUTH}/account/delete/complete`, {
-    method: 'POST',
-    body: body as unknown as Record<string, unknown>,
-    idempotency_key,
-  })
-}
-
-export async function delete_devices(
-  body: DeleteDevicesRequest,
-  idempotency_key: string,
-): Promise<BaseResponse> {
-  return api_request<BaseResponse>(`${AUTH}/devices/delete`, {
     method: 'POST',
     body: body as unknown as Record<string, unknown>,
     idempotency_key,

@@ -27,7 +27,6 @@ async def complete_native_apple_oauth(
     email: str | None,
     full_name: str | None,
     country: str,
-    device: str,
     publisher: RedisEventPublisher,
 ) -> OAuthCompleteResult:
     try:
@@ -68,7 +67,6 @@ async def complete_native_apple_oauth(
             provider_subject=provider_subject,
             email=normalized_email,
             country=country,
-            device=device,
             name=full_name,
             avatar_url=None,
         )
@@ -79,7 +77,6 @@ async def complete_native_apple_oauth(
         timestamp = datetime.now(timezone.utc).strftime("%B %d, %Y at %H:%M UTC")
         template = OAuthWelcomeTemplate(
             provider="Apple",
-            device=device,
             country=country,
             timestamp=timestamp,
         )

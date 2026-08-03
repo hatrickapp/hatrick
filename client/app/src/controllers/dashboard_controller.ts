@@ -8,7 +8,6 @@ import { load_authenticated_profile } from '@/controllers/profile_bootstrap'
 
 let profile_request: Promise<void> | null = null
 let sessions_request: Promise<void> | null = null
-let devices_request: Promise<void> | null = null
 
 export async function load_profile(syncBilling = true): Promise<void> {
   if (!profile_request) {
@@ -58,31 +57,6 @@ export async function load_sessions(): Promise<void> {
   return sessions_request
 }
 
-export async function load_devices(): Promise<void> {
-  if (!devices_request) {
-    devices_request = auth_api.get_devices()
-      .then((result) => {
-        use_dashboard_store.getState().set_devices(result.devices)
-      })
-      .finally(() => {
-        devices_request = null
-      })
-  }
-  return devices_request
-}
-
-export async function handle_delete_devices(device_ids: string[]): Promise<void> {
-  const key = generate_idempotency_key()
-  await auth_api.delete_devices({ device_ids }, key)
-  await clear_auth_tokens()
-  await log_out_revenuecat()
-  use_auth_store.getState().clear()
-  const ds = use_dashboard_store.getState()
-  ds.set_profile(null)
-  ds.set_sessions([])
-  ds.set_devices([])
-}
-
 export async function handle_account_delete_initiate(): Promise<void> {
   const key = generate_idempotency_key()
   await auth_api.account_delete_initiate(key)
@@ -97,5 +71,4 @@ export async function handle_account_delete_complete(otp: string): Promise<void>
   const ds = use_dashboard_store.getState()
   ds.set_profile(null)
   ds.set_sessions([])
-  ds.set_devices([])
 }

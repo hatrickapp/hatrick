@@ -15,7 +15,7 @@ const sections = [
   },
   {
     title: 'How do user accounts work?',
-    body: 'You can create or access an account using Google or Apple sign in. You are responsible for protecting your devices, sessions, and account access. You must choose and maintain a username that is accurate, lawful, not offensive, not abusive, not misleading, and not intended to impersonate another person or brand. If you believe your account has been accessed without permission, contact Hatrick promptly.',
+    body: 'You can create or access an account using Google or Apple sign in. You are responsible for protecting your sessions and account access. You must choose and maintain a username that is accurate, lawful, not offensive, not abusive, not misleading, and not intended to impersonate another person or brand. If you believe your account has been accessed without permission, contact Hatrick promptly.',
   },
   {
     title: 'How do public profiles work?',
@@ -51,7 +51,7 @@ const sections = [
   },
   {
     title: 'How can you contact us?',
-    body: 'For Terms questions, account issues, or support requests, contact Hatrick at support@hatrick.app or by phone at + 962 79 2820 779. Hatrick may ask for information needed to verify your account before acting on account or legal requests.',
+    body: 'For Terms questions, account issues, or support requests, contact Hatrick at support@hatrick.app. Hatrick may ask for information needed to verify your account before acting on account or legal requests.',
   },
 ]
 

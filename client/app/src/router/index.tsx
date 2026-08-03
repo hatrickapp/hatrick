@@ -14,7 +14,6 @@ import { APP_NAME, ROUTES } from '@/lib/constants'
 const SettingsPage = lazy(() => import('@/pages/dashboard/settings/settings_page').then(m => ({ default: m.SettingsPage })))
 const SessionsPage = lazy(() => import('@/pages/dashboard/sessions/sessions_page').then(m => ({ default: m.SessionsPage })))
 const ProfilePage = lazy(() => import('@/pages/dashboard/profile/profile_page').then(m => ({ default: m.ProfilePage })))
-const DevicesPage = lazy(() => import('@/pages/dashboard/devices/devices_page').then(m => ({ default: m.DevicesPage })))
 const MatchesPage = lazy(() => import('@/pages/dashboard/matches/matches_page').then(m => ({ default: m.MatchesPage })))
 const MatchDetailPage = lazy(() => import('@/pages/dashboard/matches/match_detail_page').then(m => ({ default: m.MatchDetailPage })))
 const PredictionsPage = lazy(() => import('@/pages/dashboard/predictions/predictions_page').then(m => ({ default: m.PredictionsPage })))
@@ -92,7 +91,6 @@ export const router = createBrowserRouter([
               { path: 'profile', element: <RouteTitle title={`${APP_NAME} | Account Profile`}><ProfilePage /></RouteTitle> },
               { path: 'billing', element: <RouteTitle title={`${APP_NAME} | Billing`}><BillingSettingsPage /></RouteTitle> },
               { path: 'security', element: <RouteTitle title={`${APP_NAME} | Security`}><SecuritySettingsPage /></RouteTitle> },
-              { path: 'devices', element: <RouteTitle title={`${APP_NAME} | Trusted Devices`}><DevicesPage /></RouteTitle> },
               { path: 'sessions', element: <RouteTitle title={`${APP_NAME} | Sessions`}><SessionsPage /></RouteTitle> },
               { path: 'delete', element: <RouteTitle title={`${APP_NAME} | Delete Account`}><DeleteAccountPage /></RouteTitle> },
             ],

@@ -43,7 +43,7 @@ const sections = [
   },
   {
     title: 'Who can you contact about pricing?',
-    body: 'For pricing questions, Plus access issues, or subscription support, contact Hatrick at support@hatrick.com or by phone at + 962 79 2820 779. For payment method issues, charge disputes, receipts, or refunds, you may also need to use Apple App Store or Google Play support because they manage the purchase.',
+    body: 'For pricing questions, Plus access issues, or subscription support, contact Hatrick at support@hatrick.app. For payment method issues, charge disputes, receipts, or refunds, you may also need to use Apple App Store or Google Play support because they manage the purchase.',
   },
 ]
 

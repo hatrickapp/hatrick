@@ -7,11 +7,11 @@ import { ROUTES } from '@/lib/constants'
 const sections = [
   {
     title: 'What information does Hatrick collect?',
-    body: 'Hatrick collects the information needed to create and protect your account, run predictions, show rankings, and keep the app reliable. This may include your name, email address provided by Google or Apple, authentication provider, timezone, account status, trusted device records, session records, and basic device details. Hatrick also stores your username, username history controls, temporary username reservations, predictions, prediction revisions, points, match results, rank progress, public profile settings, follower and following relationships, and account activity timestamps.',
+    body: 'Hatrick collects the information needed to create and protect your account, run predictions, show rankings, and keep the app reliable. This may include your name, email address provided by Google or Apple, authentication provider, timezone, account status, session records, and basic request details. Hatrick also stores your username, username history controls, temporary username reservations, predictions, prediction revisions, points, match results, rank progress, public profile settings, follower and following relationships, and account activity timestamps.',
   },
   {
     title: 'What profile information is public?',
-    body: 'Hatrick is built with public football profiles. Your username, profile picture if added, prediction rank, public ranking statistics, follower count, following count, followers list, and following list may be visible to other signed in users. Your full name is shown publicly only if you choose to enable the public name setting in your profile. Email address, trusted devices, session records, authentication details, and security information are not shown on public profiles.',
+    body: 'Hatrick is built with public football profiles. Your username, profile picture if added, prediction rank, public ranking statistics, follower count, following count, followers list, and following list may be visible to other signed in users. Your full name is shown publicly only if you choose to enable the public name setting in your profile. Email address, session records, authentication details, and security information are not shown on public profiles.',
   },
   {
     title: 'How do user search and following work?',
@@ -23,7 +23,7 @@ const sections = [
   },
   {
     title: 'What app storage do we use?',
-    body: 'Hatrick uses secure device storage for session tokens and trusted device tokens. The app may also cache app data for a faster interface, such as matchweek, ranking, prediction, league, and profile views. Clearing app storage may sign you out or remove cached app data.',
+    body: 'Hatrick uses secure app storage for session tokens. The app may also cache app data for a faster interface, such as matchweek, ranking, prediction, league, and profile views. Clearing app storage may sign you out or remove cached app data.',
   },
   {
     title: 'How is information shared?',
@@ -31,11 +31,11 @@ const sections = [
   },
   {
     title: 'How do we protect and retain data?',
-    body: 'Hatrick uses security measures such as secure mobile token storage, trusted device controls, session expiration, provider based sign in, and access controls. No app can guarantee perfect security, but Hatrick is designed to reduce risk and limit unnecessary exposure. We retain account, prediction, ranking, public profile, follower, following, security, and operational records for as long as needed to provide the service, protect the app, resolve disputes, satisfy legal requirements, or maintain fair competition history.',
+    body: 'Hatrick uses security measures such as secure mobile token storage, session expiration, provider based sign in, and access controls. No app can guarantee perfect security, but Hatrick is designed to reduce risk and limit unnecessary exposure. We retain account, prediction, ranking, public profile, follower, following, security, and operational records for as long as needed to provide the service, protect the app, resolve disputes, satisfy legal requirements, or maintain fair competition history.',
   },
   {
     title: 'What rights do you have?',
-    body: 'You may access your account information, update your profile, manage trusted devices, and delete your account through the app where those features are available. You may also contact Hatrick to ask privacy questions or request help with your data. Requests are handled according to applicable law in Jordan and the information needed to verify the request.',
+    body: 'You may access your account information, update your profile, review active sessions, and delete your account through the app where those features are available. You may also contact Hatrick to ask privacy questions or request help with your data. Requests are handled according to applicable law in Jordan and the information needed to verify the request.',
   },
   {
     title: 'How are policy changes handled?',
@@ -43,7 +43,7 @@ const sections = [
   },
   {
     title: 'How can you contact us?',
-    body: 'For privacy questions, account requests, or data concerns, contact Hatrick at support@hatrick.app or by phone at + 962 79 2820 779. We may ask for information needed to verify your identity before acting on account or privacy requests.',
+    body: 'For privacy questions, account requests, or data concerns, contact Hatrick at support@hatrick.app. We may ask for information needed to verify your identity before acting on account or privacy requests.',
   },
 ]
 

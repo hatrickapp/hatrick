@@ -49,7 +49,6 @@ export async function handle_logout(): Promise<void> {
   const ds = use_dashboard_store.getState()
   ds.set_profile(null)
   ds.set_sessions([])
-  ds.set_devices([])
 }
 
 export async function handle_google_native_sign_in(): Promise<AuthenticatedUser | null> {

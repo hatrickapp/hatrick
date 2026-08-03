@@ -46,15 +46,6 @@ def get_current_admin_user(request: Request) -> UUID:
 def get_country(request: Request) -> str:
     return getattr(request.state, "country", "Unknown")
 
-def get_device(request: Request) -> str:
-    return getattr(request.state, "device", "Unknown")
-
-def get_device_token(request: Request) -> str | None:
-    token = request.cookies.get("X-Device-Token") or None
-    if not token:
-        token = request.headers.get("X-Device-Token") or None
-    return token
-
 def get_os(request: Request) -> str:
     return getattr(request.state, "client_type", "web")
 
@@ -65,8 +56,6 @@ PoolDep = Annotated[Pool, Depends(get_psql_pool)]
 HTTPDep = Annotated[httpx.AsyncClient, Depends(get_http_client)]
 SessionTokenDep = Annotated[str, Depends(get_current_session_token)]
 CountryDep = Annotated[str, Depends(get_country)]
-DeviceDep = Annotated[str, Depends(get_device)]
-DeviceTokenDep = Annotated[str | None, Depends(get_device_token)]
 LuaManagerDep = Annotated[LuaScriptManager, Depends(get_lua_manager)]
 EventPublisherDep = Annotated[RedisEventPublisher, Depends(get_event_publisher)]
 OsDep = Annotated[str, Depends(get_os)]

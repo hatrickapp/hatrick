@@ -1,4 +1,4 @@
-import type { AuthenticatedUser, UserProfileResponse, UserSessionItem, UserDeviceItem } from './authentication_types'
+import type { AuthenticatedUser, UserProfileResponse, UserSessionItem } from './authentication_types'
 
 export interface AuthStoreState {
   user: AuthenticatedUser | null
@@ -12,10 +12,8 @@ export interface AuthStoreState {
 export interface DashboardStoreState {
   profile: UserProfileResponse | null
   sessions: UserSessionItem[]
-  devices: UserDeviceItem[]
   set_profile: (profile: UserProfileResponse | null) => void
   set_sessions: (sessions: UserSessionItem[]) => void
-  set_devices: (devices: UserDeviceItem[]) => void
 }
 
 export interface UiStoreState {

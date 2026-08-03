@@ -15,19 +15,17 @@ async def set_redis_session(
     expires_at: datetime,
     account_status: str = "active",
     role: str = "consumer",
-    device_id: UUID | None = None,
 ) -> None:
     session_token_hash = hash_blake2s(session_token)
     ttl_seconds = 86400
 
     session_key = f"session:{session_token_hash}"
     user_key = f"user_sessions:{user_id}"
-    device_key = f"device_sessions:{device_id}" if device_id else ""
 
     try:
         await lua_manager.execute(
             "authentication/set_redis_session",
-            [session_key, user_key, device_key],
+            [session_key, user_key],
             [
                 session_token_hash,
                 str(session_id),
@@ -35,7 +33,6 @@ async def set_redis_session(
                 expires_at.isoformat(),
                 account_status,
                 role,
-                str(device_id) if device_id else "",
                 str(ttl_seconds),
             ]
         )

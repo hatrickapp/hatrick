@@ -5,12 +5,6 @@ from pydantic import BaseModel, ConfigDict, Field
 
 from src.app.routers.classes.base import BaseResponse
 
-# --- Request Classes ---
-
-class DeleteDevicesRequest(BaseModel):
-    device_ids: list[UUID] = Field(..., min_length=1, max_length=50)
-
-
 class CompleteDeletionRequest(BaseModel):
     otp: str
 
@@ -64,7 +58,6 @@ class SessionResponse(BaseResponse):
 
 class MobileAuthResponse(BaseResponse):
     session_token: str
-    device_token: str | None
     expires_at: datetime
 
 class UserIdResponse(BaseResponse):
@@ -127,23 +120,10 @@ class UserProfileResponse(BaseResponse):
 
 class UserSessionItem(BaseModel):
     session_id: UUID
-    device_id: UUID | None
     country: str
-    device: str
     created_at: datetime
     expires_at: datetime
 
 
 class UserSessionsResponse(BaseResponse):
     sessions: list[UserSessionItem]
-
-
-class UserDeviceItem(BaseModel):
-    device_id: UUID
-    device_name: str | None
-    created_at: datetime
-    expires_at: datetime | None
-
-
-class UserDevicesResponse(BaseResponse):
-    devices: list[UserDeviceItem]

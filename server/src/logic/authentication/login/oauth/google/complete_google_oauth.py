@@ -24,7 +24,6 @@ async def complete_native_google_oauth(
     http: httpx.AsyncClient,
     id_token: str,
     country: str,
-    device: str,
     publisher: RedisEventPublisher,
 ) -> OAuthCompleteResult:
     try:
@@ -61,7 +60,6 @@ async def complete_native_google_oauth(
         provider_subject=provider_subject,
         email=normalized_email,
         country=country,
-        device=device,
         name=name,
         avatar_url=avatar_url,
     )
@@ -69,7 +67,6 @@ async def complete_native_google_oauth(
     timestamp = datetime.now(timezone.utc).strftime("%B %d, %Y at %H:%M UTC")
     template = OAuthWelcomeTemplate(
         provider="Google",
-        device=device,
         country=country,
         timestamp=timestamp,
     )

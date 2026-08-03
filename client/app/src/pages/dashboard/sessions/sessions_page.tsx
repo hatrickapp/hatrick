@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { Globe, Monitor, Clock, Smartphone } from 'lucide-react'
+import { Globe, Clock, KeyRound } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { SettingsListSkeleton } from '@/components/shared/dashboard_skeletons'
 import { load_sessions } from '@/controllers/dashboard_controller'
@@ -21,15 +21,11 @@ function SessionRow({ session, is_current }: { session: UserSessionItem; is_curr
     <div className="flex flex-col gap-3 px-4 py-3 text-xs transition-all  group sm:flex-row sm:items-center sm:justify-between sm:gap-4 sm:px-5">
       <div className="flex min-w-0 items-start gap-3 sm:items-center">
         <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-muted/40 border border-border/50  transition-colors">
-          {(() => {
-            const name = (session.device || '').toLowerCase()
-            const Icon = (name.includes('iphone') || name.includes('ipad') || name.includes('ios')) ? Smartphone : Monitor
-            return <Icon className="h-3.5 w-3.5 text-muted-foreground/60  transition-colors" />
-          })()}
+          <KeyRound className="h-3.5 w-3.5 text-muted-foreground/60  transition-colors" />
         </div>
         <div className="min-w-0">
           <div className="flex flex-wrap items-center gap-2">
-            <p className="truncate font-medium tracking-tight text-foreground">{session.device || 'Unknown browser'}</p>
+            <p className="truncate font-medium tracking-tight text-foreground">Account session</p>
             {is_current && (
               <Badge variant="secondary" className="h-5 px-1.5 text-xs font-black uppercase tracking-tighter bg-primary/20 text-primary border-primary/20">
                 ACTIVE

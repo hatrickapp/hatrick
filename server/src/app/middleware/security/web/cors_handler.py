@@ -11,7 +11,6 @@ ALLOWED_HEADERS = [
     "Content-Type",
     "X-Idempotency-Key",
     "X-Client-Type",
-    "X-Device-Token",
     "X-Requested-With",
     "Accept",
     "Origin",

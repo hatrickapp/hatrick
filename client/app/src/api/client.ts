@@ -33,7 +33,6 @@ function handle_session_expired(): never {
     const ds = use_dashboard_store.getState()
     ds.set_profile(null)
     ds.set_sessions([])
-    ds.set_devices([])
 
     window.dispatchEvent(new Event('session-expired'))
   }
@@ -52,10 +51,6 @@ export async function api_request<T>(path: string, options: RequestOptions = {})
 
   if (tokens.session_token) {
     headers.Authorization = `Bearer ${tokens.session_token}`
-  }
-
-  if (tokens.device_token) {
-    headers['X-Device-Token'] = tokens.device_token
   }
 
   if (body && !(body instanceof FormData)) {

@@ -14,7 +14,6 @@ class RequestContext:
     session_token: str | None
     idempotency_key: str | None
     country: str
-    device: str
     ip_classification: IPClassification | None = None
     user_id: UUID | None = None
     user_role: str | None = None

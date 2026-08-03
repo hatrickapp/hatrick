@@ -17,7 +17,7 @@ async def execute_phase_1(request: Request, ip: str, ip_classification: IPClassi
         if auth_header.startswith("Bearer "):
             session_token = auth_header[7:].strip() or None
 
-    country, device = await extract_identity(request, ip)
+    country = await extract_identity(request, ip)
     idempotency_key = request.headers.get("X-Idempotency-Key")
 
     client_type_raw = request.headers.get("X-Client-Type", "web").lower().strip()
@@ -32,7 +32,6 @@ async def execute_phase_1(request: Request, ip: str, ip_classification: IPClassi
         session_token=session_token,
         idempotency_key=idempotency_key,
         country=country,
-        device=device,
         ip_classification=ip_classification,
         client_type=client_type,
     )

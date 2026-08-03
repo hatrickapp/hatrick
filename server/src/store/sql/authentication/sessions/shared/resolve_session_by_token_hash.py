@@ -39,7 +39,6 @@ async def resolve_session_by_token_hash(
                 expires_at=datetime.fromisoformat(data["expires_at"]),
                 account_status=data["account_status"],
                 role=data.get("role") or "consumer",
-                device_id=UUID(data["device_id"]) if data.get("device_id") else None,
             )
             set_memory_session(session_cache, session_token_hash, session)
             return session
@@ -61,7 +60,6 @@ async def resolve_session_by_token_hash(
         session.expires_at,
         account_status=session.account_status,
         role=session.role,
-        device_id=session.device_id,
     )
     set_memory_session(session_cache, session_token_hash, session)
 

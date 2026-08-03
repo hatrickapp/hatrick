@@ -12,17 +12,13 @@ export async function warm_authenticated_app_cache(): Promise<void> {
       if (!profile.username_setup_completed) return
 
       const store = use_dashboard_store.getState()
-      const [sessionsResult, devicesResult] = await Promise.allSettled([
+      const [sessionsResult] = await Promise.allSettled([
         auth_api.get_sessions(),
-        auth_api.get_devices(),
         warm_hatrick_data_caches(true),
       ])
 
       if (sessionsResult.status === 'fulfilled') {
         store.set_sessions(sessionsResult.value.sessions)
-      }
-      if (devicesResult.status === 'fulfilled') {
-        store.set_devices(devicesResult.value.devices)
       }
     })().finally(() => {
       bootCacheRequest = null

@@ -5,15 +5,14 @@ from uuid import UUID
 from asyncpg import Connection, UniqueViolationError
 
 from src.logic.authentication.profile.update_profile_username import username_hash
-from src.logic.authentication.shared.issue_session_with_device import IssuedSessionWithDevice, issue_session_with_device
+from src.logic.authentication.shared.issue_session import IssuedSession, issue_session
 from src.store.sql.authentication.users.insert_user import Provider, insert_user
 
 @dataclass
 class BootstrappedUser:
     user_id: UUID
     email: str
-    device_token: str
-    session: IssuedSessionWithDevice
+    session: IssuedSession
 
 
 def generate_default_username() -> str:
@@ -26,7 +25,6 @@ async def bootstrap_new_user(
     email: str,
     provider: Provider,
     country: str,
-    device: str,
     name: str | None = None,
     avatar_url: str | None = None,
     oauth_subject: str | None = None,
@@ -52,11 +50,10 @@ async def bootstrap_new_user(
     if user is None:
         raise RuntimeError("Could not generate a unique username.")
 
-    session = await issue_session_with_device(conn, user.user_id, country, device)
+    session = await issue_session(conn, user.user_id, country)
 
     return BootstrappedUser(
         user_id=user.user_id,
         email=email,
-        device_token=session.device_token,
         session=session,
     )

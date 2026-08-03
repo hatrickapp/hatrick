@@ -1,12 +1,9 @@
-import asyncio
-
 from fastapi import HTTPException
 from starlette.requests import Request
 
 from src.app.config.settings import settings
 from src.app.middleware.phases.phase1.helpers.classify_ip_type import IPClassification, classify_ip_type
 from src.app.middleware.phases.phase1.helpers.extract_country import extract_country
-from src.app.middleware.phases.phase1.helpers.extract_device import extract_device
 
 def extract_ip(request: Request) -> tuple[str, IPClassification]:
     if not request.client:
@@ -29,10 +26,5 @@ def extract_ip(request: Request) -> tuple[str, IPClassification]:
     return ip, classify_ip_type(ip)
 
 
-async def extract_identity(request: Request, ip: str) -> tuple[str, str]:
-    raw_user_agent = request.headers.get("User-Agent", "")[:256]
-    country, device = await asyncio.gather(
-        extract_country(request, ip),
-        extract_device(raw_user_agent),
-    )
-    return country, device
+async def extract_identity(request: Request, ip: str) -> str:
+    return await extract_country(request, ip)

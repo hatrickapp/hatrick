@@ -34,11 +34,9 @@ ROUTE_MATRIX: list[RouteEntry] = [
     ("POST", "/v1/auth/user/profile/visibility", EndpointConfig(access="authenticated", rate_by="user", rate_hits=10, rate_window=300, max_body_bytes=128, idempotency=True)),
     ("POST", "/v1/auth/user/profile/timezone", EndpointConfig(access="authenticated", rate_by="user", rate_hits=10, rate_window=300, max_body_bytes=256, idempotency=True)),
     ("GET", "/v1/auth/user/sessions", EndpointConfig(access="authenticated", rate_by="user", rate_hits=60, rate_window=60, max_body_bytes=0, csp=True)),
-    ("GET", "/v1/auth/user/devices", EndpointConfig(access="authenticated", rate_by="user", rate_hits=60, rate_window=60, max_body_bytes=0, csp=True)),
     ("POST", "/v1/auth/logout", EndpointConfig(access="authenticated", rate_by="user", rate_hits=10, rate_window=60, max_body_bytes=64, idempotency=True)),
     ("POST", "/v1/auth/account/delete/initiate", EndpointConfig(access="authenticated", rate_by="user", rate_hits=3, rate_window=3600, max_body_bytes=64, idempotency=True)),
     ("POST", "/v1/auth/account/delete/complete", EndpointConfig(access="authenticated", rate_by="user", rate_hits=5, rate_window=3600, max_body_bytes=128, idempotency=True)),
-    ("POST", "/v1/auth/devices/delete", EndpointConfig(access="authenticated", rate_by="user", rate_hits=5, rate_window=60, max_body_bytes=4096, idempotency=True)),
     ("POST", "/v1/auth/oauth/google/native", EndpointConfig(access="public", rate_by="ip", rate_hits=10, rate_window=60, max_body_bytes=4096)),
     ("POST", "/v1/auth/oauth/apple/native", EndpointConfig(access="public", rate_by="ip", rate_hits=10, rate_window=60, max_body_bytes=8192)),
 
