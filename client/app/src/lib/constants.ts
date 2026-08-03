@@ -1,5 +1,5 @@
 const api_origin = import.meta.env.VITE_API_BASE_URL
-export const BASE_URL = api_origin || `${window.location.protocol}//${window.location.hostname}:8000`
+export const BASE_URL = api_origin || 'https://api.hatrick.app'
 export const APP_NAME = 'Hatrick'
 
 export const ROUTES = {
