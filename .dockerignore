@@ -1,7 +1,0 @@
-.git
-**/.DS_Store
-**/__pycache__
-**/*.pyc
-**/.venv
-client
-server/tests
