@@ -1,7 +1,9 @@
 from dataclasses import dataclass
 from secrets import token_hex
 from typing import Literal
-from uuid import UUID, uuid7
+from uuid import UUID
+
+from src.app.crypto.ids import uuid7
 
 from asyncpg import Connection
 

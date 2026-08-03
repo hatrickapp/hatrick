@@ -2,11 +2,11 @@ import asyncio
 from dataclasses import dataclass, field
 import time
 from typing import Any
-import uuid
 
 import orjson
 from redis.asyncio import Redis
 
+from src.app.crypto.ids import uuid7
 from src.app.logging.logger_setup import get_logger
 
 logger = get_logger(__name__)
@@ -15,7 +15,7 @@ logger = get_logger(__name__)
 class PubSubEvent:
     event_type: str
     payload: dict[str, Any]
-    event_id: str = field(default_factory=lambda: str(uuid.uuid7()))
+    event_id: str = field(default_factory=lambda: str(uuid7()))
     timestamp: int = field(default_factory=lambda: int(time.time() * 1000))
     version: int = 1
 
