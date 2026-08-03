@@ -1,10 +1,33 @@
 from functools import lru_cache
+import re
 
 from fastapi import HTTPException
 from user_agents import parse
 
 class BotDetected(Exception):
     pass
+
+
+ANDROID_EMULATOR_MODEL_MAP = {
+    "gphone16k": "Pixel 8",
+    "gphone64": "Pixel",
+    "gphone": "Pixel",
+}
+
+
+def clean_device_token(value: str) -> str:
+    return re.sub(r"[_-]+", " ", value).strip()
+
+
+def readable_android_model(model: str) -> str:
+    normalized = model.lower()
+    for token, label in ANDROID_EMULATOR_MODEL_MAP.items():
+        if token in normalized:
+            return label
+    if normalized.startswith("sdk "):
+        return "Android Emulator"
+    return clean_device_token(model)
+
 
 @lru_cache(maxsize=2000)
 def parse_and_extract(user_agent_string: str) -> str:
@@ -31,6 +54,14 @@ def parse_and_extract(user_agent_string: str) -> str:
     # Brand and model for mobile/tablet
     brand = ua.device.brand or ""
     model = ua.device.model or ""
+    if ua.os.family == "Android" and model:
+        model = readable_android_model(model)
+        normalized_brand = brand.lower().replace("_", "").replace("-", "").replace(" ", "")
+        brand = "" if normalized_brand in {"generic", "genericandroid"} else brand
+    else:
+        model = clean_device_token(model)
+        brand = clean_device_token(brand)
+
     device_full = f"{brand} {model}".strip() if brand or model else device
 
     # OS with version

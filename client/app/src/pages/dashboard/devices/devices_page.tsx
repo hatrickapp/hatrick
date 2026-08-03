@@ -49,7 +49,13 @@ function DeviceRow({ device, on_delete }: DeviceRowProps) {
       <div className="flex min-w-0 items-start gap-3 sm:items-center sm:gap-4">
         {(() => {
           const name = (device.device_name || '').toLowerCase()
-          const Icon = (name.includes('iphone') || name.includes('ipad') || name.includes('ios')) ? Smartphone : Monitor
+          const Icon = (
+            name.includes('iphone') ||
+            name.includes('ipad') ||
+            name.includes('ios') ||
+            name.includes('android') ||
+            name.includes('pixel')
+          ) ? Smartphone : Monitor
           return <Icon className="mt-0.5 h-5 w-5 shrink-0 text-primary transition-colors sm:mt-0" />
         })()}
         <div className="min-w-0">
