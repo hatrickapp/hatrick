@@ -1,0 +1,17 @@
+{
+  "name": "hatrick-apple-sign-in",
+  "version": "0.0.0",
+  "private": true,
+  "files": [
+    "ios/Sources/",
+    "Package.swift"
+  ],
+  "peerDependencies": {
+    "@capacitor/core": ">=8.0.0"
+  },
+  "capacitor": {
+    "ios": {
+      "src": "ios"
+    }
+  }
+}

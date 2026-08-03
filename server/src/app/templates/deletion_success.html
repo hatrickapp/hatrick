@@ -1,0 +1,14 @@
+{% from "_email_base.html" import shell, paragraph, details, detail_row, footnote %}
+{% call shell("Account deleted") %}
+  {% call paragraph() %}
+    As requested, your {{ app_name_html }} account has been deleted.
+  {% endcall %}
+  {% call details() %}
+    {{ detail_row("Device", device) }}
+    {{ detail_row("Location", country) }}
+    {{ detail_row("Time", timestamp) }}
+  {% endcall %}
+  {% call footnote() %}
+    If you did not request this deletion, please contact support immediately.
+  {% endcall %}
+{% endcall %}

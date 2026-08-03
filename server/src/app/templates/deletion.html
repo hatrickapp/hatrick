@@ -1,0 +1,15 @@
+{% from "_email_base.html" import shell, paragraph, otp_code, details, detail_row, footnote %}
+{% call shell("Confirm account deletion") %}
+  {% call paragraph() %}
+    Enter this code to permanently delete your {{ app_name_html }} account.
+  {% endcall %}
+  {{ otp_code(otp) }}
+  {% call details() %}
+    {{ detail_row("Device", device) }}
+    {{ detail_row("Location", country) }}
+    {{ detail_row("Time", timestamp) }}
+  {% endcall %}
+  {% call footnote() %}
+    If you did not request this deletion, we recommend securing your account immediately.
+  {% endcall %}
+{% endcall %}

@@ -1,0 +1,83 @@
+{% macro shell(title) -%}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body style="margin:0; padding:0; background-color:#F9F5F6; background-image:radial-gradient(circle, rgba(227,218,203,0.55) 0 0.7px, transparent 1.1px); background-size:7px 7px; color:#1F2933;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="width:100%; padding:48px 16px; background-color:#F9F5F6; background-image:radial-gradient(circle, rgba(227,218,203,0.55) 0 0.7px, transparent 1.1px); background-size:7px 7px;">
+      <tr>
+        <td align="center">
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="width:100%; max-width:520px; font-family:Futura, 'Futura Condensed Extra Bold', 'Futura Condensed', 'Futura PT', 'Avenir Next Condensed', Arial, sans-serif;">
+            <tr>
+              <td style="padding:0 0 22px 0; text-align:left;">
+                <div style="font-size:13px; font-weight:800; letter-spacing:0.18em; text-transform:uppercase; color:#6B6470;">{{ app_name }}</div>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:0 0 18px 0; text-align:left;">
+                <h1 style="margin:0; font-size:30px; line-height:36px; font-weight:800; color:#1F2933;">{{ title }}</h1>
+              </td>
+            </tr>
+            {{ caller() }}
+            <tr>
+              <td style="padding-top:32px; font-size:12px; line-height:18px; color:#9A938C; text-align:left;">
+                {{ app_name }}
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
+{%- endmacro %}
+
+{% macro paragraph() -%}
+<tr>
+  <td style="padding:0 0 22px 0; font-size:15px; line-height:24px; color:#6B6470; text-align:left;">
+    {{ caller() }}
+  </td>
+</tr>
+{%- endmacro %}
+
+{% macro otp_code(otp) -%}
+<tr>
+  <td style="padding:6px 0 12px 0; text-align:left;">
+    <div style="display:inline-block; padding:16px 20px 14px 20px; background-color:#3F9B0B; border:2px solid #1F2933; box-shadow:6.5px 6.5px 0 #000; font-size:34px; line-height:38px; font-weight:800; letter-spacing:0.18em; color:#1F2933;">
+      {{ otp }}
+    </div>
+  </td>
+</tr>
+<tr>
+  <td style="padding:8px 0 28px 0; font-size:13px; line-height:20px; color:#6B6470; text-align:left;">
+    This code expires in {{ otp_expire_minutes }} minutes.
+  </td>
+</tr>
+{%- endmacro %}
+
+{% macro details() -%}
+<tr>
+  <td style="padding:18px 0 0 0; border-top:1px solid #E3DACB;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+      {{ caller() }}
+    </table>
+  </td>
+</tr>
+{%- endmacro %}
+
+{% macro detail_row(label, value) -%}
+<tr>
+  <td style="padding:8px 0; font-size:11px; line-height:16px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:#9A938C; width:120px; vertical-align:top;">{{ label }}</td>
+  <td style="padding:8px 0; font-size:14px; line-height:20px; font-weight:600; color:#1F2933; text-align:right;">{{ value }}</td>
+</tr>
+{%- endmacro %}
+
+{% macro footnote() -%}
+<tr>
+  <td style="padding-top:28px; font-size:13px; line-height:20px; color:#9A938C; text-align:left;">
+    {{ caller() }}
+  </td>
+</tr>
+{%- endmacro %}

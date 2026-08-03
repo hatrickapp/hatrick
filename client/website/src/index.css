@@ -1,0 +1,98 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 340 25% 97%;
+    --foreground: 210 24% 16%;
+    --card: 0 0% 100%;
+    --card-foreground: 210 24% 16%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 210 24% 16%;
+    --primary: 98 87% 33%;
+    --primary-foreground: 210 24% 16%;
+    --secondary: 98 55% 92%;
+    --secondary-foreground: 98 87% 22%;
+    --muted: 37 35% 90%;
+    --muted-foreground: 281 6% 42%;
+    --accent: 98 55% 92%;
+    --accent-foreground: 98 87% 22%;
+    --destructive: 347 77% 50%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 38 30% 84%;
+    --input: 35 15% 70%;
+    --ring: 98 87% 33%;
+    --radius: 0.5rem;
+    --placeholder: 28 7% 58%;
+    --accent-coral: 281 6% 42%;
+    --accent-coral-hover: 210 24% 16%;
+    --input-background: 40 100% 98%;
+  }
+
+  .dark {
+    --background: 340 25% 97%;
+    --foreground: 210 24% 16%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: Futura, "Futura Condensed Extra Bold", "Futura Condensed", "Futura PT", "Avenir Next Condensed", Arial, sans-serif;
+    background-color: hsl(var(--background)) !important;
+  }
+
+  ::selection {
+    background-color: rgba(63, 155, 11, 0.35);
+    color: inherit;
+  }
+}
+
+html {
+  font-size: 110%;
+}
+
+#root {
+  min-height: 100%;
+}
+
+input {
+  box-shadow: 0 1px 2px rgba(31, 41, 51, 0.05);
+}
+
+@layer utilities {
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-muted-foreground/20;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    @apply bg-muted-foreground/30;
+  }
+
+  .scrollbar-hidden {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .scrollbar-hidden::-webkit-scrollbar {
+    display: none;
+  }
+
+  .dotted-background {
+    background-color: hsl(var(--background));
+    background-image: radial-gradient(circle, rgba(227, 218, 203, 0.52) 0 0.7px, transparent 1.1px);
+    background-position: 0 0;
+    background-size: 7px 7px;
+  }
+}

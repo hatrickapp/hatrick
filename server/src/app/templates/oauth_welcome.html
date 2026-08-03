@@ -1,0 +1,15 @@
+{% from "_email_base.html" import shell, paragraph, details, detail_row, footnote %}
+{% call shell("Welcome") %}
+  {% call paragraph() %}
+    You signed in to your {{ app_name_html }} account using <strong>{{ provider }}</strong>.
+  {% endcall %}
+  {% call details() %}
+    {{ detail_row("Provider", provider) }}
+    {{ detail_row("Device", device) }}
+    {{ detail_row("Location", country) }}
+    {{ detail_row("Time", timestamp) }}
+  {% endcall %}
+  {% call footnote() %}
+    If you do not recognize this activity, we recommend securing your account immediately.
+  {% endcall %}
+{% endcall %}

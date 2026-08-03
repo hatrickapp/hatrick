@@ -1,0 +1,6 @@
+@import "../../../app/src/index.css";
+
+.dotted-background {
+  background-image: radial-gradient(rgba(227, 218, 203, 0.9) 1px, transparent 1px);
+  background-size: 10px 10px;
+}
