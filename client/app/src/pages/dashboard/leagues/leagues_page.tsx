@@ -54,7 +54,7 @@ export function LeaguesPage() {
   }, [profile])
 
   useEffect(() => {
-    setHideTopNavSearch(mode === 'settings')
+    setHideTopNavSearch(mode === 'create' || mode === 'settings')
     if (mode === 'create' || mode === 'settings' || mode === 'invitations') {
       setTopNavBack(() => {
         if (mode === 'settings') {

@@ -20,6 +20,7 @@ export const ROUTES = {
   DASHBOARD_MATCH_DETAIL: '/dashboard/matches/:match_id',
   DASHBOARD_PREDICTIONS: '/dashboard/predictions',
   DASHBOARD_LEAGUES: '/dashboard/leagues',
+  DASHBOARD_SEARCH: '/dashboard/search',
   DASHBOARD_UPGRADE: '/dashboard/upgrade',
   DASHBOARD_PRICING_TERMS: '/dashboard/upgrade/pricing-terms',
   DASHBOARD_USER_PROFILE: '/dashboard/users/:username',

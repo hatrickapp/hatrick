@@ -378,7 +378,7 @@ export function ProfilePage() {
                       className="inline-flex h-6 w-6 items-center justify-center text-[#D4AF37] transition-colors hover:text-[#C9A227]"
                       aria-label="Upgrade to edit username"
                     >
-                      <Link to={ROUTES.DASHBOARD_UPGRADE}>
+                      <Link to={ROUTES.DASHBOARD_UPGRADE} state={{ from: ROUTES.DASHBOARD_PROFILE }}>
                         <Pencil className="h-4 w-4" />
                       </Link>
                     </Button>

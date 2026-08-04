@@ -6,15 +6,9 @@ import {
   Search,
   Settings,
 } from "lucide-react"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
 import { Button } from "@/components/ui/button"
 import { AppMark } from "@/components/shared/app_mark"
 import { LoadingSpinner } from "@/components/shared/loading_spinner"
-import { UserSearch } from "@/components/shared/user_search"
 import { handle_logout } from "@/controllers/auth_controller"
 import { ROUTES } from "@/lib/constants"
 import { load_profile } from "@/controllers/dashboard_controller"
@@ -37,6 +31,7 @@ export function TopNav() {
 
   const isProfileSection = location.pathname.startsWith('/dashboard/users/')
   const isSettingsSection = location.pathname.startsWith('/dashboard/settings')
+  const isSearchSection = location.pathname === ROUTES.DASHBOARD_SEARCH
 
   async function signOut() {
     if (signingOut) return
@@ -72,18 +67,20 @@ export function TopNav() {
         )}
 
         <div className="flex items-center justify-end gap-3 shrink-0">
-          {!hideTopNavSearch && (
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="icon" className="h-10 w-10 rounded-lg">
-                  <Search className="h-5 w-5" />
-                  <span className="sr-only">Search users</span>
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="mt-1 w-[min(calc(100vw-2rem),20rem)] rounded-xl border-border/60 p-3 shadow-xl">
-                <UserSearch compact contained />
-              </DropdownMenuContent>
-            </DropdownMenu>
+          {!hideTopNavSearch && !isSearchSection && (
+            <Button
+              type="button"
+              variant="ghost"
+              size="icon"
+              className="h-10 w-10 rounded-lg"
+              onClick={() => {
+                const from = `${location.pathname}${location.search}${location.hash}`
+                navigate(ROUTES.DASHBOARD_SEARCH, { state: { from } })
+              }}
+            >
+              <Search className="h-5 w-5" />
+              <span className="sr-only">Search users</span>
+            </Button>
           )}
           {isSettingsSection && (
             <Button

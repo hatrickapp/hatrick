@@ -17,6 +17,7 @@ const MatchesPage = lazy(() => import('@/pages/dashboard/matches/matches_page').
 const MatchDetailPage = lazy(() => import('@/pages/dashboard/matches/match_detail_page').then(m => ({ default: m.MatchDetailPage })))
 const PredictionsPage = lazy(() => import('@/pages/dashboard/predictions/predictions_page').then(m => ({ default: m.PredictionsPage })))
 const LeaguesPage = lazy(() => import('@/pages/dashboard/leagues/leagues_page').then(m => ({ default: m.LeaguesPage })))
+const SearchPage = lazy(() => import('@/pages/dashboard/search/search_page').then(m => ({ default: m.SearchPage })))
 const UpgradePage = lazy(() => import('@/pages/dashboard/upgrade/upgrade_page').then(m => ({ default: m.UpgradePage })))
 const PricingTermsPage = lazy(() => import('@/pages/dashboard/upgrade/pricing_terms_page').then(m => ({ default: m.PricingTermsPage })))
 const PrivacyPolicyPage = lazy(() => import('@/pages/legal/privacy_policy_page').then(m => ({ default: m.PrivacyPolicyPage })))
@@ -80,6 +81,7 @@ export const router = createBrowserRouter([
           { path: 'matches/:match_id', element: <RouteTitle title={`${APP_NAME} | Match`}><MatchDetailPage /></RouteTitle> },
           { path: 'predictions', element: <RouteTitle title={`${APP_NAME} | Predictions`}><PredictionsPage /></RouteTitle> },
           { path: 'leagues', element: <RouteTitle title={`${APP_NAME} | Leagues`}><LeaguesPage /></RouteTitle> },
+          { path: 'search', element: <RouteTitle title={`${APP_NAME} | Search`}><SearchPage /></RouteTitle> },
           { path: 'users/:username', element: <RouteTitle title={`${APP_NAME} | User Profile`}><PublicUserProfilePage /></RouteTitle> },
           {
             path: 'settings',
