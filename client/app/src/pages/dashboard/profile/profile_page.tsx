@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { AtSign, BadgeCheck, CalendarDays, Check, Eye, Globe2, KeyRound, Pencil, User, X } from 'lucide-react'
+import { Link } from 'react-router-dom'
 import { Avatar, AvatarFallback, AvatarImage, AvatarPlaceholder } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -8,6 +9,7 @@ import { ProfileSkeleton } from '@/components/shared/dashboard_skeletons'
 import { ErrorAlert } from '@/components/shared/error_alert'
 import { LoadingSpinner } from '@/components/shared/loading_spinner'
 import { handle_update_profile_name, handle_update_profile_timezone, handle_update_profile_username, handle_update_profile_visibility, load_profile } from '@/controllers/dashboard_controller'
+import { ROUTES } from '@/lib/constants'
 import { is_valid_username, sanitize_username_input } from '@/lib/username_validation'
 import { use_dashboard_store } from '@/store/dashboard_store'
 
@@ -368,6 +370,17 @@ export function ProfilePage() {
                       }}
                     >
                       <Pencil className="h-4 w-4" />
+                    </Button>
+                  ) : !canChangeUsername ? (
+                    <Button
+                      asChild
+                      variant="ghost"
+                      className="inline-flex h-6 w-6 items-center justify-center text-[#D4AF37] transition-colors hover:text-[#C9A227]"
+                      aria-label="Upgrade to edit username"
+                    >
+                      <Link to={ROUTES.DASHBOARD_UPGRADE}>
+                        <Pencil className="h-4 w-4" />
+                      </Link>
                     </Button>
                   ) : (
                     canChangeUsername && (
