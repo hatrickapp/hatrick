@@ -6,8 +6,8 @@ import { competitions } from '../landing_data'
 const leagueFeatures = [
   {
     icon: Shield,
-    label: 'Private invite code',
-    text: 'Create a league, share the code, and keep the competition between your people',
+    label: 'In-app invitations',
+    text: 'Create a league, search a username, and invite players directly inside Hatrick',
   },
   {
     icon: SlidersHorizontal,
@@ -51,7 +51,7 @@ export function LeaguesSection() {
             <div key={item.label} className="flex flex-col items-center gap-2 px-2">
               <item.icon className="h-5 w-5 text-primary" />
               <p className="text-[13px] font-medium leading-4">
-                {item.label === 'Private invite code' ? 'Private code' : item.label}
+                {item.label === 'In-app invitations' ? 'In-app invites' : item.label}
               </p>
             </div>
           ))}

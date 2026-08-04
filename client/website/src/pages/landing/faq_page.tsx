@@ -69,7 +69,7 @@ const sections = [
   },
   {
     title: 'How do private leagues work?',
-    body: 'Private leagues let users compete with a custom group. A host can create a league, choose allowed competitions, choose which prediction points count, set the period, choose player limits, and share an invitation code. Members join with that code and standings update from settled predictions.',
+    body: 'Private leagues let users compete with a custom group. A host can create a league, choose allowed competitions, choose which prediction points count, set the period, choose player limits, and invite users directly inside the app. Members accept invitations in Hatrick and standings update from settled predictions.',
   },
   {
     title: 'What can a league host control?',

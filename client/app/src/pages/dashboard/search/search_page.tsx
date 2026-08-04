@@ -101,7 +101,9 @@ export function SearchPage() {
   return (
     <main className="fixed inset-0 z-[60] flex h-svh flex-col overflow-hidden overscroll-none bg-background px-4 pb-[calc(env(safe-area-inset-bottom)+2rem)] pt-[calc(env(safe-area-inset-top)+1rem)] text-foreground animate-upgrade-page-in sm:px-6">
       <div className="mx-auto flex min-h-0 w-full max-w-md flex-1 flex-col">
-        <BackIconButton onClick={() => navigate(backPath)} className="-ml-2" />
+        <div className="mb-5 flex">
+          <BackIconButton onClick={() => navigate(backPath)} />
+        </div>
 
         <div className="relative">
           <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground/40" />

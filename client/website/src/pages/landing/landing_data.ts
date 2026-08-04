@@ -30,10 +30,10 @@ export const predictionRules = [
 export const ranks = [
   { name: 'Bronze', points: 0, color: '#C47A3D', icon: BronzeRankShieldIcon },
   { name: 'Silver', points: 150, color: '#9CA3AF', icon: SilverRankShieldIcon },
-  { name: 'Gold', points: 350, color: '#D6A400', icon: GoldRankShieldIcon },
-  { name: 'Platinum', points: 700, color: '#2D9CDB', icon: RankDiamondIcon },
-  { name: 'All Star', points: 1200, color: '#E7B416', icon: RankStarIcon },
-  { name: 'Hatrick Hero', points: 2000, color: '#C62828', icon: HatrickHeroMedalIcon },
-  { name: 'Legend', points: 3500, color: '#C69214', icon: RankCrownIcon },
-  { name: 'Hall of Fame', points: 5000, color: '#5B3FD6', icon: RankChampionsCupIcon },
+  { name: 'Gold', points: 400, color: '#D6A400', icon: GoldRankShieldIcon },
+  { name: 'Platinum', points: 900, color: '#2D9CDB', icon: RankDiamondIcon },
+  { name: 'All Star', points: 1800, color: '#E7B416', icon: RankStarIcon },
+  { name: 'Hatrick Hero', points: 3500, color: '#C62828', icon: HatrickHeroMedalIcon },
+  { name: 'Legend', points: 6500, color: '#C69214', icon: RankCrownIcon },
+  { name: 'Hall of Fame', points: 10000, color: '#5B3FD6', icon: RankChampionsCupIcon },
 ]

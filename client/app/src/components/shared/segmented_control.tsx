@@ -31,7 +31,7 @@ export function SegmentedControl<TValue extends string>({
   return (
     <div
       className={cn(
-        'grid border border-border/50 text-sm font-medium',
+        'grid divide-x divide-border/50 border border-border/50 text-sm font-medium',
         columns === 2 ? 'grid-cols-2' : columns === 4 ? 'grid-cols-4' : 'grid-cols-3',
         className,
       )}
@@ -40,17 +40,17 @@ export function SegmentedControl<TValue extends string>({
         const active = item.value === value
         const Icon = item.icon
         const buttonClassName = cn(
-          'min-h-10 touch-manipulation rounded-none px-4 text-sm font-medium shadow-none ',
+          'min-h-10 touch-manipulation rounded-none px-3 text-sm font-medium shadow-none',
           active
-            ? 'bg-primary text-primary-foreground  '
-            : cn('text-muted-foreground/45 ', item.tone === 'destructive' && 'text-destructive'),
+            ? 'bg-primary text-primary-foreground'
+            : cn('text-muted-foreground/40', item.tone === 'destructive' && 'text-destructive'),
           itemClassName,
         )
 
         const content = (
           <>
             {Icon && <Icon className="h-4 w-4 shrink-0" />}
-            <span>{item.label}</span>
+            <span className="truncate">{item.label}</span>
           </>
         )
 

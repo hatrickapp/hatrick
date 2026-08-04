@@ -1,4 +1,4 @@
-import { BarChart3, Target, Trophy } from 'lucide-react'
+import { Percent, Trophy } from 'lucide-react'
 
 const predictionRatioExample = [
   { label: 'Winner / Draw', correct: 214, total: 360, percent: 59 },
@@ -14,17 +14,16 @@ export function GlobalRankingSection() {
         <p className="text-[11px] font-medium uppercase tracking-widest text-muted-foreground/60">Global Ranking</p>
         <h2 className="mx-auto mt-4 max-w-2xl text-3xl font-medium tracking-tight">Every settled point moves your position</h2>
         <p className="mx-auto mt-4 hidden max-w-2xl text-sm leading-7 text-muted-foreground sm:block">
-          Hatrick ranks every player forever using settled points first, Hatricks second, and correct scorers third. Your page shows your global rank, top percentage, best rank reached, and the next milestone ahead.
+          Hatrick shows your global rank, top percentage, and prediction ratios so your profile reflects both season position and pick accuracy.
         </p>
         <p className="mx-auto mt-4 max-w-sm text-sm leading-7 text-muted-foreground sm:hidden">
-          Track your global position, top percentage, and next milestone
+          Track your global position, top percentage, and prediction ratios.
         </p>
 
-        <div className="mx-auto mt-8 grid max-w-md grid-cols-3 border-y border-border/40 py-4 sm:mt-10 sm:max-w-3xl sm:gap-5 sm:border-y-0 sm:py-0">
+        <div className="mx-auto mt-8 grid max-w-md grid-cols-2 border-y border-border/40 py-4 sm:mt-10 sm:max-w-xl sm:gap-5 sm:border-y-0 sm:py-0">
           {[
             { icon: Trophy, label: 'Global Rank', value: '#128' },
-            { icon: BarChart3, label: 'Top Percentage', value: 'Top 18%' },
-            { icon: Target, label: 'Next Milestone', value: 'Top 10%' },
+            { icon: Percent, label: 'Top Percentage', value: 'Top 18%' },
           ].map((item) => (
             <div key={item.label} className="px-2 py-1 text-center sm:border-y sm:border-border/40 sm:py-5">
               <item.icon className="mx-auto h-5 w-5 text-primary" />
@@ -34,19 +33,9 @@ export function GlobalRankingSection() {
           ))}
         </div>
 
-        <div className="mx-auto mt-8 max-w-xl">
-          <div className="flex items-center justify-between text-sm">
-            <span className="font-medium">Distance to Top 10%</span>
-            <span className="font-medium text-primary">82%</span>
-          </div>
-          <div className="mt-3 h-2 bg-border/50">
-            <div className="h-full bg-primary" style={{ width: '82%' }} />
-          </div>
-        </div>
-
-        <div className="mx-auto mt-12 max-w-3xl border-t border-border/40 pt-8">
+        <div className="mx-auto mt-10 max-w-3xl border-t border-border/40 pt-8">
           <p className="text-[11px] font-medium uppercase tracking-widest text-muted-foreground/60">Prediction Ratios</p>
-          <h3 className="mx-auto mt-3 max-w-xl text-2xl font-medium tracking-tight">Hundreds of picks show your strongest pattern</h3>
+          <h3 className="mx-auto mt-3 max-w-xl text-2xl font-medium tracking-tight">Your profile shows which picks land most often</h3>
           <div className="mt-8 grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-4">
             {predictionRatioExample.map((item) => (
               <div key={item.label} className="flex min-w-0 flex-col items-center border-t border-border/30 pt-5">
@@ -64,7 +53,7 @@ export function GlobalRankingSection() {
             ))}
           </div>
           <p className="mx-auto mt-6 max-w-xl text-sm leading-7 text-muted-foreground">
-            In this sample, BTTS is the strongest pick type because it landed 238 correct predictions from 310 locked picks.
+            Ratios separate outcome picks, both teams to score, scorer calls, and Hatricks so strong prediction habits are easy to scan.
           </p>
         </div>
       </div>

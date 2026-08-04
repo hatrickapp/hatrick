@@ -37,7 +37,7 @@ const seo = {
   },
   privateFootballLeagues: {
     title: `Private Football Prediction Leagues | ${APP_NAME}`,
-    description: 'Create private football prediction leagues in Hatrick with invite codes, custom scoring, supported competitions, and live standings.',
+    description: 'Create private football prediction leagues in Hatrick with in-app invitations, custom scoring, supported competitions, and live standings.',
   },
   footballPredictionRules: {
     title: `Football Prediction Rules And Points | ${APP_NAME}`,

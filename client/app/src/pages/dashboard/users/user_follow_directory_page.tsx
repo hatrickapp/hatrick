@@ -4,6 +4,7 @@ import { Search } from 'lucide-react'
 import { Avatar, AvatarFallback, AvatarImage, AvatarPlaceholder } from '@/components/ui/avatar'
 import { BackIconButton } from '@/components/shared/back_icon_button'
 import { SettingsListSkeleton } from '@/components/shared/dashboard_skeletons'
+import { SegmentedControl } from '@/components/shared/segmented_control'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import {
@@ -153,26 +154,26 @@ export function UserFollowDirectoryPage() {
   return (
     <main className="fixed inset-0 z-[60] flex h-svh flex-col overflow-hidden overscroll-none bg-background px-4 pb-[calc(env(safe-area-inset-bottom)+2rem)] pt-[calc(env(safe-area-inset-top)+1rem)] text-foreground animate-upgrade-page-in sm:px-6">
       <div className="mx-auto flex min-h-0 w-full max-w-md flex-1 flex-col">
-        <BackIconButton onClick={() => navigate(backPath)} className="-ml-2" />
-
-        <div className="mt-2 grid grid-cols-2 border border-border/40">
-          <Button
-            type="button"
-            variant="ghost"
-            className={mode === 'followers' ? 'h-12 rounded-none bg-primary text-primary-foreground shadow-none' : 'h-12 rounded-none shadow-none'}
-            onClick={() => setMode('followers')}
-          >
-            Followers ({format_count(profile?.followers_count ?? 0)})
-          </Button>
-          <Button
-            type="button"
-            variant="ghost"
-            className={mode === 'following' ? 'h-12 rounded-none bg-primary text-primary-foreground shadow-none' : 'h-12 rounded-none shadow-none'}
-            onClick={() => setMode('following')}
-          >
-            Following ({format_count(profile?.following_count ?? 0)})
-          </Button>
+        <div className="mb-5 flex">
+          <BackIconButton onClick={() => navigate(backPath)} />
         </div>
+
+        <SegmentedControl
+          items={[
+            {
+              value: 'followers',
+              label: `Followers (${format_count(profile?.followers_count ?? 0)})`,
+            },
+            {
+              value: 'following',
+              label: `Following (${format_count(profile?.following_count ?? 0)})`,
+            },
+          ]}
+          value={mode}
+          onValueChange={setMode}
+          columns={2}
+          itemClassName="min-h-11 px-3 text-sm"
+        />
 
         <div className="relative mt-4">
           <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground/40" />

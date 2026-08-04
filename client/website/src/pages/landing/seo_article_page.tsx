@@ -76,11 +76,11 @@ export function PrivateFootballLeaguesPage() {
     <SeoArticlePage
       eyebrow="Private football leagues"
       title="Create private football prediction leagues with friends"
-      intro="Hatrick private leagues let football groups run their own prediction table with invite codes, custom scoring, supported competitions, and live standings."
+      intro="Hatrick private leagues let football groups run their own prediction table with in-app invitations, custom scoring, supported competitions, and live standings."
       sections={[
         {
           title: 'Built for football circles',
-          body: 'Private leagues are made for friends, classrooms, offices, group chats, and football communities that want one clean table for matchweek predictions. Members join with an invite code and compete through settled points.',
+          body: 'Private leagues are made for friends, classrooms, offices, group chats, and football communities that want one clean table for matchweek predictions. Hosts invite users inside the app, and members compete through settled points.',
         },
         {
           title: 'Control the league format',

@@ -42,7 +42,7 @@ export function SettingsPage() {
             }))}
             value={mobileNavItems.find((item) => item.active)?.href ?? ROUTES.DASHBOARD_PROFILE}
             columns={3}
-            itemClassName="min-h-12 px-5 text-[15px] sm:px-7"
+            itemClassName="min-h-11 px-4 text-sm sm:px-6"
           />
 
           <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
