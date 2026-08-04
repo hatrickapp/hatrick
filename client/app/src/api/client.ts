@@ -31,8 +31,7 @@ function handle_session_expired(): never {
 
     use_auth_store.getState().clear()
     const ds = use_dashboard_store.getState()
-    ds.set_profile(null)
-    ds.set_sessions([])
+    ds.clear_dashboard()
 
     window.dispatchEvent(new Event('session-expired'))
   }

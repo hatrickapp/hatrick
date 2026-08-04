@@ -5,7 +5,9 @@ const path = require('path')
 const rootDir = path.resolve(__dirname, '..')
 const appDir = path.join(rootDir, 'client/app')
 const { PNG } = require(path.join(appDir, 'node_modules/pngjs'))
-const logoPath = path.join(appDir, 'src/assets/logo.png')
+const iconSourcePath = process.env.MOBILE_ICON_SOURCE
+  ? path.resolve(process.env.MOBILE_ICON_SOURCE)
+  : path.join(appDir, 'src/assets/app-logo.png')
 const iosIconDir = path.join(appDir, 'builds/ios/App/App/Assets.xcassets/AppIcon.appiconset')
 const androidResDir = path.join(appDir, 'builds/android/app/src/main/res')
 
@@ -62,7 +64,7 @@ function writeText(filePath, contents) {
   }
 }
 
-const icon = compositeOverWhite(readPng(logoPath))
+const icon = compositeOverWhite(readPng(iconSourcePath))
 
 if (fs.existsSync(path.dirname(iosIconDir))) {
   ensureDir(iosIconDir)

@@ -51,17 +51,6 @@ export interface UserProfileResponse extends BaseResponse {
   points_to_next_rank: number | null
 }
 
-export interface UserSessionItem {
-  session_id: string
-  country: string
-  created_at: string
-  expires_at: string
-}
-
-export interface UserSessionsResponse extends BaseResponse {
-  sessions: UserSessionItem[]
-}
-
 export interface UpdateProfileNameRequest {
   name: string
 }

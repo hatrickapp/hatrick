@@ -3,7 +3,7 @@ import { Check, ChevronLeft } from 'lucide-react'
 import { Link, useLocation } from 'react-router-dom'
 import logoSrc from '@/assets/logo.png'
 import { Button } from '@/components/ui/button'
-import { handle_purchase_plus, handle_restore_purchases } from '@/controllers/billing_controller'
+import { handle_purchase_plus } from '@/controllers/billing_controller'
 import { get_cached_leagues_config, load_leagues_config } from '@/controllers/leagues_controller'
 import { APP_BOOT_TYPING_SPEED_MS } from '@/lib/animation_constants'
 import { ROUTES } from '@/lib/constants'
@@ -19,7 +19,6 @@ export function UpgradePage() {
   const hasTyped = Boolean((window as Window & { __hatrickUpgradeTitleTyped?: boolean }).__hatrickUpgradeTitleTyped)
   const [offering, setOffering] = useState<PlusOfferingItem | null>(get_cached_leagues_config()?.plus_offering ?? null)
   const [purchaseLoading, setPurchaseLoading] = useState(false)
-  const [restoreLoading, setRestoreLoading] = useState(false)
   const [message, setMessage] = useState<string | null>(null)
   const typedUpgrade = useTypingEffect(hasTyped ? '' : 'Upgrade to Plus', APP_BOOT_TYPING_SPEED_MS)
   const title = hasTyped ? 'Upgrade to Plus' : typedUpgrade
@@ -64,20 +63,6 @@ export function UpgradePage() {
       }
     } finally {
       setPurchaseLoading(false)
-    }
-  }
-
-  const restore_purchases = async () => {
-    if (!user?.user_id) return
-    setMessage(null)
-    setRestoreLoading(true)
-    try {
-      const result = await handle_restore_purchases(user.user_id)
-      setMessage(result.active ? 'Purchases restored. Hatrick Plus is active.' : 'No active Plus subscription was found for this store account.')
-    } catch (error) {
-      setMessage(error instanceof Error ? error.message : 'Could not restore purchases.')
-    } finally {
-      setRestoreLoading(false)
     }
   }
 
@@ -136,19 +121,10 @@ export function UpgradePage() {
           <Button
             type="button"
             onClick={buy_plus}
-            disabled={purchaseLoading || restoreLoading}
+            disabled={purchaseLoading}
             className="mt-4 h-11 w-full border-black bg-[#D4AF37] text-foreground shadow-[1.5px_1.5px_0_#000]  min-[390px]:h-12"
           >
             {purchaseLoading ? 'Opening Store...' : offering?.cta_label ?? 'Get Hatrick Plus'}
-          </Button>
-          <Button
-            type="button"
-            variant="ghost"
-            onClick={restore_purchases}
-            disabled={purchaseLoading || restoreLoading}
-            className="mt-2 h-10 w-full text-xs font-medium text-muted-foreground"
-          >
-            {restoreLoading ? 'Restoring...' : 'Restore Purchases'}
           </Button>
           {message && (
             <p className="mx-auto mt-2 max-w-xs text-center text-xs font-medium leading-5 text-foreground">

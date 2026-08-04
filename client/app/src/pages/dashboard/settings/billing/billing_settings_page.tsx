@@ -1,18 +1,18 @@
 import { useEffect, useState } from 'react'
 import { ExternalLink, RefreshCw, Sparkles } from 'lucide-react'
 import { Link } from 'react-router-dom'
+import { BillingSettingsSkeleton } from '@/components/shared/dashboard_skeletons'
 import { Button } from '@/components/ui/button'
 import { handle_restore_purchases, handle_revenuecat_management_url, load_billing_status } from '@/controllers/billing_controller'
 import { ROUTES } from '@/lib/constants'
 import { use_auth_store } from '@/store/auth_store'
 import { use_dashboard_store } from '@/store/dashboard_store'
-import type { BillingStatusResponse } from '@/types/billing_types'
 
 export function BillingSettingsPage() {
   const user = use_auth_store((state) => state.user)
   const profile = use_dashboard_store((state) => state.profile)
-  const [status, setStatus] = useState<BillingStatusResponse | null>(null)
-  const [loadingStatus, setLoadingStatus] = useState(true)
+  const status = use_dashboard_store((state) => state.billing_status)
+  const [loadingStatus, setLoadingStatus] = useState(!status)
   const [loadingRestore, setLoadingRestore] = useState(false)
   const [loadingManage, setLoadingManage] = useState(false)
   const [message, setMessage] = useState<string | null>(null)
@@ -24,13 +24,10 @@ export function BillingSettingsPage() {
       return
     }
     let cancelled = false
-    setLoadingStatus(true)
+    setLoadingStatus(!status)
     load_billing_status()
-      .then((result) => {
-        if (!cancelled) setStatus(result)
-      })
       .catch(() => {
-        if (!cancelled) setStatus(null)
+        return undefined
       })
       .finally(() => {
         if (!cancelled) setLoadingStatus(false)
@@ -38,7 +35,7 @@ export function BillingSettingsPage() {
     return () => {
       cancelled = true
     }
-  }, [user?.user_id])
+  }, [status, user?.user_id])
 
   const restore = async () => {
     if (!user?.user_id) return
@@ -46,8 +43,7 @@ export function BillingSettingsPage() {
     setLoadingRestore(true)
     try {
       const result = await handle_restore_purchases(user.user_id)
-      const nextStatus = await load_billing_status()
-      setStatus(nextStatus)
+      await load_billing_status(true)
       setMessage(result.active ? 'Purchases restored. Plus is active.' : 'No active Plus subscription was found for this store account.')
     } catch (error) {
       setMessage(error instanceof Error ? error.message : 'Could not restore purchases.')
@@ -85,44 +81,44 @@ export function BillingSettingsPage() {
         <p className="text-sm text-muted-foreground/60">Manage your Plus store subscription.</p>
       </div>
 
-      <div className="max-w-sm space-y-5">
-        <div className="border-y border-border/30 py-4">
-          <p className="text-[11px] font-medium uppercase tracking-[0.14em] text-muted-foreground/40">Current Plan</p>
-          <p className={active ? 'mt-2 text-xl font-medium tracking-tight text-[#D4AF37]' : 'mt-2 text-xl font-medium tracking-tight'}>
-            {loadingStatus ? 'Checking...' : planLabel}
+      {loadingStatus && !status ? (
+        <BillingSettingsSkeleton />
+      ) : (
+        <div className="max-w-sm space-y-5">
+          <div className="border-y border-border/30 py-4">
+            <p className="text-[11px] font-medium uppercase tracking-[0.14em] text-muted-foreground/40">Current Plan</p>
+            <p className={active ? 'mt-2 text-xl font-medium tracking-tight text-[#D4AF37]' : 'mt-2 text-xl font-medium tracking-tight'}>
+              {planLabel}
+            </p>
+          </div>
+
+          <div className="grid gap-3">
+            {active ? (
+              <Button type="button" onClick={manage} disabled={loadingRestore || loadingManage || loadingStatus} className={manageButtonClassName}>
+                <ExternalLink className="size-4" />
+                {loadingManage ? 'Opening...' : 'Manage Subscription'}
+              </Button>
+            ) : hasRestorablePurchase ? (
+              <Button type="button" onClick={restore} disabled={loadingRestore || loadingManage || loadingStatus} className={goldButtonClassName}>
+                <RefreshCw className="size-4" />
+                {loadingRestore ? 'Restoring...' : 'Restore Purchases'}
+              </Button>
+            ) : (
+              <Button asChild className={goldButtonClassName}>
+                <Link to={ROUTES.DASHBOARD_UPGRADE}>
+                  <Sparkles className="size-4" />
+                  Upgrade to Plus
+                </Link>
+              </Button>
+            )}
+          </div>
+
+          {message && <p className="text-sm font-medium leading-6 text-foreground">{message}</p>}
+          <p className="text-xs leading-5 text-muted-foreground/60">
+            Store subscriptions are managed by Apple App Store or Google Play. Restoring re-checks purchases for the signed in Hatrick account.
           </p>
         </div>
-
-        <div className="grid gap-3">
-          {loadingStatus ? (
-            <Button type="button" disabled className={goldButtonClassName}>
-              Checking...
-            </Button>
-          ) : active ? (
-            <Button type="button" onClick={manage} disabled={loadingRestore || loadingManage || loadingStatus} className={manageButtonClassName}>
-              <ExternalLink className="size-4" />
-              {loadingManage ? 'Opening...' : 'Manage Subscription'}
-            </Button>
-          ) : hasRestorablePurchase ? (
-            <Button type="button" onClick={restore} disabled={loadingRestore || loadingManage || loadingStatus} className={goldButtonClassName}>
-              <RefreshCw className="size-4" />
-              {loadingRestore ? 'Restoring...' : 'Restore Purchases'}
-            </Button>
-          ) : (
-            <Button asChild className={goldButtonClassName}>
-              <Link to={ROUTES.DASHBOARD_UPGRADE}>
-                <Sparkles className="size-4" />
-                Upgrade to Plus
-              </Link>
-            </Button>
-          )}
-        </div>
-
-        {message && <p className="text-sm font-medium leading-6 text-foreground">{message}</p>}
-        <p className="text-xs leading-5 text-muted-foreground/60">
-          Store subscriptions are managed by Apple App Store or Google Play. Restoring re-checks purchases for the signed in Hatrick account.
-        </p>
-      </div>
+      )}
     </div>
   )
 }

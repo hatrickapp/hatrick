@@ -47,8 +47,7 @@ export async function handle_logout(): Promise<void> {
   await log_out_revenuecat()
   use_auth_store.getState().clear()
   const ds = use_dashboard_store.getState()
-  ds.set_profile(null)
-  ds.set_sessions([])
+  ds.clear_dashboard()
 }
 
 export async function handle_google_native_sign_in(): Promise<AuthenticatedUser | null> {

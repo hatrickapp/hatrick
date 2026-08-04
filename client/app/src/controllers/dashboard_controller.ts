@@ -7,9 +7,16 @@ import { use_dashboard_store } from '@/store/dashboard_store'
 import { load_authenticated_profile } from '@/controllers/profile_bootstrap'
 
 let profile_request: Promise<void> | null = null
-let sessions_request: Promise<void> | null = null
+const PROFILE_CACHE_TTL_MS = 60_000
 
-export async function load_profile(syncBilling = true): Promise<void> {
+function profile_cache_is_fresh(): boolean {
+  const store = use_dashboard_store.getState()
+  return Boolean(store.profile && Date.now() - store.profile_updated_at < PROFILE_CACHE_TTL_MS)
+}
+
+export async function load_profile(syncBilling = true, force = false): Promise<void> {
+  if (!force && profile_cache_is_fresh()) return
+
   if (!profile_request) {
     profile_request = load_authenticated_profile(syncBilling)
       .then(() => undefined)
@@ -23,38 +30,25 @@ export async function load_profile(syncBilling = true): Promise<void> {
 export async function handle_update_profile_name(name: string): Promise<void> {
   const key = generate_idempotency_key()
   await auth_api.update_profile_name({ name }, key)
-  await load_profile()
+  await load_profile(false, true)
 }
 
 export async function handle_update_profile_username(username: string): Promise<void> {
   const key = generate_idempotency_key()
   await auth_api.update_profile_username({ username }, key)
-  await load_profile()
+  await load_profile(false, true)
 }
 
 export async function handle_update_profile_visibility(show_name_publicly: boolean): Promise<void> {
   const key = generate_idempotency_key()
   await auth_api.update_profile_visibility({ show_name_publicly }, key)
-  await load_profile()
+  await load_profile(false, true)
 }
 
 export async function handle_update_profile_timezone(timezone: string): Promise<void> {
   const key = generate_idempotency_key()
   await auth_api.update_profile_timezone({ timezone }, key)
-  await load_profile()
-}
-
-export async function load_sessions(): Promise<void> {
-  if (!sessions_request) {
-    sessions_request = auth_api.get_sessions()
-      .then((result) => {
-        use_dashboard_store.getState().set_sessions(result.sessions)
-      })
-      .finally(() => {
-        sessions_request = null
-      })
-  }
-  return sessions_request
+  await load_profile(false, true)
 }
 
 export async function handle_account_delete_initiate(): Promise<void> {
@@ -69,6 +63,5 @@ export async function handle_account_delete_complete(otp: string): Promise<void>
   await log_out_revenuecat()
   use_auth_store.getState().clear()
   const ds = use_dashboard_store.getState()
-  ds.set_profile(null)
-  ds.set_sessions([])
+  ds.clear_dashboard()
 }

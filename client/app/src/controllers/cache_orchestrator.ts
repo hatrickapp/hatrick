@@ -1,3 +1,5 @@
+import { load_billing_status } from '@/controllers/billing_controller'
+import { load_profile } from '@/controllers/dashboard_controller'
 import { get_cached_leagues_home, league_ids_from_home, load_league_detail, load_league_invitations, load_league_standings, load_leagues_config, load_leagues_home } from '@/controllers/leagues_controller'
 import { load_prediction_history } from '@/controllers/predictions_controller'
 import { get_cached_matches, load_competitions, load_match_detail, load_matches } from '@/controllers/sports_controller'
@@ -22,6 +24,8 @@ export async function warm_hatrick_data_caches(force = false): Promise<void> {
       load_prediction_history(null, force),
       load_leagues_config(force),
       load_league_invitations(force),
+      load_profile(false, force),
+      load_billing_status(force),
     ])
 
     const matchRows = matchesResult.status === 'fulfilled'

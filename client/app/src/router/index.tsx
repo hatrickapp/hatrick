@@ -12,7 +12,6 @@ import { UsernameSetupPage } from '@/pages/username/username_setup_page'
 import { APP_NAME, ROUTES } from '@/lib/constants'
 
 const SettingsPage = lazy(() => import('@/pages/dashboard/settings/settings_page').then(m => ({ default: m.SettingsPage })))
-const SessionsPage = lazy(() => import('@/pages/dashboard/sessions/sessions_page').then(m => ({ default: m.SessionsPage })))
 const ProfilePage = lazy(() => import('@/pages/dashboard/profile/profile_page').then(m => ({ default: m.ProfilePage })))
 const MatchesPage = lazy(() => import('@/pages/dashboard/matches/matches_page').then(m => ({ default: m.MatchesPage })))
 const MatchDetailPage = lazy(() => import('@/pages/dashboard/matches/match_detail_page').then(m => ({ default: m.MatchDetailPage })))
@@ -24,7 +23,6 @@ const PrivacyPolicyPage = lazy(() => import('@/pages/legal/privacy_policy_page')
 const TermsOfServicePage = lazy(() => import('@/pages/legal/terms_of_service_page').then(m => ({ default: m.TermsOfServicePage })))
 const PublicUserProfilePage = lazy(() => import('@/pages/dashboard/users/public_user_profile_page').then(m => ({ default: m.PublicUserProfilePage })))
 const DeleteAccountPage = lazy(() => import('@/pages/dashboard/settings/delete/delete_account_page').then(m => ({ default: m.DeleteAccountPage })))
-const SecuritySettingsPage = lazy(() => import('@/pages/dashboard/settings/security/security_settings_page').then(m => ({ default: m.SecuritySettingsPage })))
 const BillingSettingsPage = lazy(() => import('@/pages/dashboard/settings/billing/billing_settings_page').then(m => ({ default: m.BillingSettingsPage })))
 
 export const router = createBrowserRouter([
@@ -90,8 +88,6 @@ export const router = createBrowserRouter([
               { index: true, element: <Navigate to="profile" replace /> },
               { path: 'profile', element: <RouteTitle title={`${APP_NAME} | Account Profile`}><ProfilePage /></RouteTitle> },
               { path: 'billing', element: <RouteTitle title={`${APP_NAME} | Billing`}><BillingSettingsPage /></RouteTitle> },
-              { path: 'security', element: <RouteTitle title={`${APP_NAME} | Security`}><SecuritySettingsPage /></RouteTitle> },
-              { path: 'sessions', element: <RouteTitle title={`${APP_NAME} | Sessions`}><SessionsPage /></RouteTitle> },
               { path: 'delete', element: <RouteTitle title={`${APP_NAME} | Delete Account`}><DeleteAccountPage /></RouteTitle> },
             ],
           },

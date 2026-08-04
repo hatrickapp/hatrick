@@ -1,4 +1,5 @@
-import type { AuthenticatedUser, UserProfileResponse, UserSessionItem } from './authentication_types'
+import type { AuthenticatedUser, UserProfileResponse } from './authentication_types'
+import type { BillingStatusResponse } from './billing_types'
 
 export interface AuthStoreState {
   user: AuthenticatedUser | null
@@ -11,9 +12,12 @@ export interface AuthStoreState {
 
 export interface DashboardStoreState {
   profile: UserProfileResponse | null
-  sessions: UserSessionItem[]
+  profile_updated_at: number
+  billing_status: BillingStatusResponse | null
+  billing_status_updated_at: number
   set_profile: (profile: UserProfileResponse | null) => void
-  set_sessions: (sessions: UserSessionItem[]) => void
+  set_billing_status: (status: BillingStatusResponse | null) => void
+  clear_dashboard: () => void
 }
 
 export interface UiStoreState {

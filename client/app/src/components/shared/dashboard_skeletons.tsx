@@ -118,6 +118,24 @@ export function ProfileSkeleton() {
   )
 }
 
+export function BillingSettingsSkeleton() {
+  return (
+    <SkeletonSection className="min-h-[28vh] border-t-0 pt-0">
+      <div className="max-w-sm space-y-5">
+        <div className="border-y border-border/30 py-4">
+          <SkeletonLine className="h-2.5 w-24" />
+          <SkeletonLine className="mt-3 h-6 w-20" />
+        </div>
+        <SkeletonLine className="h-11 w-full" />
+        <div className="space-y-2">
+          <SkeletonLine className="w-full" />
+          <SkeletonLine className="w-4/5" />
+        </div>
+      </div>
+    </SkeletonSection>
+  )
+}
+
 export function PublicProfileSkeleton() {
   return (
     <SkeletonSection className="min-h-[50vh] border-t-0 pt-0">

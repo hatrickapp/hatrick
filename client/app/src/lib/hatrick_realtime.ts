@@ -55,7 +55,7 @@ export async function start_hatrick_realtime() {
           refresh_users_caches_silently(),
         ])
       } else if (payload.type === 'refresh' && payload.scope === 'profile') {
-        void load_profile()
+        void load_profile(false, true)
       }
     } catch (error) {
       void error

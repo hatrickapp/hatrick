@@ -109,7 +109,7 @@ function VisibilityChoice({
 
 export function ProfilePage() {
   const profile = use_dashboard_store((s) => s.profile)
-  const [loading, set_loading] = useState(true)
+  const [loading, set_loading] = useState(!profile)
   const [nameEditing, setNameEditing] = useState(false)
   const [nameValue, setNameValue] = useState('')
   const [nameLoading, setNameLoading] = useState(false)
@@ -121,8 +121,27 @@ export function ProfilePage() {
   const [profileError, setProfileError] = useState<string | null>(null)
 
   useEffect(() => {
-    load_profile().finally(() => set_loading(false))
-  }, [])
+    let cancelled = false
+
+    if (profile) {
+      set_loading(false)
+      load_profile(false).catch(() => undefined)
+      return () => {
+        cancelled = true
+      }
+    }
+
+    set_loading(true)
+    load_profile()
+      .catch(() => undefined)
+      .finally(() => {
+        if (!cancelled) set_loading(false)
+      })
+
+    return () => {
+      cancelled = true
+    }
+  }, [profile])
 
   useEffect(() => {
     if (profile) {
