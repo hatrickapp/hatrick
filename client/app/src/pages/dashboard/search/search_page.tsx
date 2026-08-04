@@ -2,11 +2,11 @@ import { useEffect, useRef, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { Search } from 'lucide-react'
 import { Avatar, AvatarFallback, AvatarImage, AvatarPlaceholder } from '@/components/ui/avatar'
+import { BackIconButton } from '@/components/shared/back_icon_button'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import * as users_api from '@/api/users_api'
 import { ROUTES } from '@/lib/constants'
-import { use_ui_store } from '@/store/ui_store'
 import type { PublicUserSearchItem } from '@/types/user_types'
 
 type SearchRouteState = {
@@ -31,7 +31,6 @@ function return_path(state: unknown): string {
 export function SearchPage() {
   const location = useLocation()
   const navigate = useNavigate()
-  const setTopNavBack = use_ui_store((state) => state.set_top_nav_back)
   const [query, setQuery] = useState('')
   const [users, setUsers] = useState<PublicUserSearchItem[]>([])
   const [nextCursor, setNextCursor] = useState<string | null>(null)
@@ -41,11 +40,18 @@ export function SearchPage() {
   const backPath = return_path(location.state)
 
   useEffect(() => {
-    setTopNavBack(() => navigate(backPath))
     window.setTimeout(() => inputRef.current?.focus(), 220)
+  }, [])
 
-    return () => setTopNavBack(null)
-  }, [backPath, navigate, setTopNavBack])
+  useEffect(() => {
+    document.documentElement.classList.add('hatrick-upgrade-lock')
+    document.body.classList.add('hatrick-upgrade-lock')
+
+    return () => {
+      document.documentElement.classList.remove('hatrick-upgrade-lock')
+      document.body.classList.remove('hatrick-upgrade-lock')
+    }
+  }, [])
 
   useEffect(() => {
     if (!canSearch) {
@@ -93,8 +99,10 @@ export function SearchPage() {
   }
 
   return (
-    <div className="flex min-h-0 flex-1 animate-in slide-in-from-right-8 fade-in duration-300">
-      <div className="flex min-h-0 w-full flex-col bg-background px-4 pb-8 pt-3 sm:px-6">
+    <main className="fixed inset-0 z-[60] flex h-svh flex-col overflow-hidden overscroll-none bg-background px-4 pb-[calc(env(safe-area-inset-bottom)+2rem)] pt-[calc(env(safe-area-inset-top)+1rem)] text-foreground animate-upgrade-page-in sm:px-6">
+      <div className="mx-auto flex min-h-0 w-full max-w-md flex-1 flex-col">
+        <BackIconButton onClick={() => navigate(backPath)} className="-ml-2" />
+
         <div className="relative">
           <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground/40" />
           <Input
@@ -110,7 +118,7 @@ export function SearchPage() {
           />
         </div>
 
-        <div
+        <section
           className="mt-4 min-h-0 flex-1 overflow-y-auto overscroll-contain border-t border-border/30"
           onScroll={dismissKeyboard}
           onTouchMove={dismissKeyboard}
@@ -154,8 +162,8 @@ export function SearchPage() {
               )}
             </div>
           )}
-        </div>
+        </section>
       </div>
-    </div>
+    </main>
   )
 }

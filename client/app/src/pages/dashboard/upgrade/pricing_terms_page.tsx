@@ -1,7 +1,6 @@
 import { useEffect } from 'react'
-import { ChevronLeft } from 'lucide-react'
-import { Link, useLocation } from 'react-router-dom'
-import { Button } from '@/components/ui/button'
+import { useLocation } from 'react-router-dom'
+import { BackIconButton } from '@/components/shared/back_icon_button'
 import { ROUTES } from '@/lib/constants'
 
 const sections = [
@@ -58,16 +57,7 @@ export function PricingTermsPage() {
   return (
     <main className="min-h-svh overflow-y-auto bg-background bg-dot-grid px-5 pb-5 pt-[calc(env(safe-area-inset-top)+1rem)] text-foreground">
       <div className="mx-auto w-full max-w-md">
-        <Button
-          variant="ghost"
-          asChild
-          className="h-10 w-fit -ml-2 px-2 py-0 text-sm font-medium text-muted-foreground shadow-none"
-        >
-          <Link to={backTo}>
-            <ChevronLeft className="size-4" />
-            Back
-          </Link>
-        </Button>
+        <BackIconButton to={backTo} className="-ml-2" />
 
         <article className="mt-7 space-y-8 pb-[calc(env(safe-area-inset-bottom)+2.5rem)]">
           <header className="border-b border-border/40 pb-7">

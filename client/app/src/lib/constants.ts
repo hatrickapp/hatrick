@@ -24,6 +24,7 @@ export const ROUTES = {
   DASHBOARD_UPGRADE: '/dashboard/upgrade',
   DASHBOARD_PRICING_TERMS: '/dashboard/upgrade/pricing-terms',
   DASHBOARD_USER_PROFILE: '/dashboard/users/:username',
+  DASHBOARD_USER_FOLLOWS: '/dashboard/users/:username/follows',
   DASHBOARD_SETTINGS: '/dashboard/settings',
   DASHBOARD_PROFILE: '/dashboard/settings/profile',
   DASHBOARD_SETTINGS_BILLING: '/dashboard/settings/billing',

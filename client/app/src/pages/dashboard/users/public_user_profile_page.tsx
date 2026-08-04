@@ -3,29 +3,19 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { Sparkles } from 'lucide-react'
 import { Avatar, AvatarFallback, AvatarImage, AvatarPlaceholder } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog'
-import { Input } from '@/components/ui/input'
-import { PublicProfileSkeleton, SettingsListSkeleton } from '@/components/shared/dashboard_skeletons'
+import { PublicProfileSkeleton } from '@/components/shared/dashboard_skeletons'
 import { LoadingSpinner } from '@/components/shared/loading_spinner'
 import { PredictionRankIcon } from '@/components/shared/prediction_rank_icon'
 import { ApiRequestError } from '@/api/client'
 import {
   USERS_CACHE_UPDATED_EVENT,
-  get_cached_follow_list,
   get_cached_public_user_profile,
-  load_follow_list,
   load_public_user_profile,
   set_public_user_follow,
 } from '@/controllers/users_controller'
 import { use_dashboard_store } from '@/store/dashboard_store'
 import type { RankingAccuracyItem } from '@/types/prediction_types'
-import type { FollowUserItem, PublicUserProfileResponse, UserProfileRank } from '@/types/user_types'
+import type { PublicUserProfileResponse, UserProfileRank } from '@/types/user_types'
 
 function Metric({ label, value, green = false }: { label: string; value: string | number; green?: boolean }) {
   return (
@@ -63,157 +53,6 @@ function accuracy_from_ranking(ranking: PublicUserProfileResponse['ranking']): R
     row('scorer', 'Scorers', ranking.correct_scorers),
     row('hatrick', 'Hatricks', ranking.hatricks),
   ]
-}
-
-function FollowDirectoryDialog({
-  open,
-  mode,
-  username,
-  onOpenChange,
-}: {
-  open: boolean
-  mode: 'followers' | 'following'
-  username: string
-  onOpenChange: (open: boolean) => void
-}) {
-  const navigate = useNavigate()
-  const [query, setQuery] = useState('')
-  const [users, setUsers] = useState<FollowUserItem[]>([])
-  const [nextCursor, setNextCursor] = useState<string | null>(null)
-  const [loading, setLoading] = useState(false)
-  const [loadingMore, setLoadingMore] = useState(false)
-
-  useEffect(() => {
-    if (!open) return
-    const controller = new AbortController()
-    const cached = get_cached_follow_list(username, mode, query, null)
-    if (cached) {
-      setUsers(cached.users)
-      setNextCursor(cached.next_cursor)
-      setLoading(false)
-    }
-    const timeout = window.setTimeout(() => {
-      if (!cached) setLoading(true)
-      load_follow_list(username, mode, query, null, false, controller.signal)
-        .then((response) => {
-          setUsers(response.users)
-          setNextCursor(response.next_cursor)
-        })
-        .catch(() => {
-          if (!controller.signal.aborted) {
-            setUsers([])
-            setNextCursor(null)
-          }
-        })
-        .finally(() => {
-          if (!controller.signal.aborted) setLoading(false)
-        })
-    }, 220)
-
-    return () => {
-      window.clearTimeout(timeout)
-      controller.abort()
-    }
-  }, [mode, open, query, username])
-
-  useEffect(() => {
-    if (!open) return
-
-    function syncFromCache() {
-      const cached = get_cached_follow_list(username, mode, query, null)
-      if (!cached) return
-      setUsers(cached.users)
-      setNextCursor(cached.next_cursor)
-    }
-
-    window.addEventListener(USERS_CACHE_UPDATED_EVENT, syncFromCache)
-    return () => window.removeEventListener(USERS_CACHE_UPDATED_EVENT, syncFromCache)
-  }, [mode, open, query, username])
-
-  useEffect(() => {
-    if (!open) {
-      setQuery('')
-      setUsers([])
-      setNextCursor(null)
-      setLoading(false)
-      setLoadingMore(false)
-    }
-  }, [open])
-
-  async function loadMore() {
-    if (!nextCursor || loadingMore) return
-    setLoadingMore(true)
-    try {
-      const response = await load_follow_list(username, mode, query, nextCursor)
-      setUsers((current) => [...current, ...response.users])
-      setNextCursor(response.next_cursor)
-    } finally {
-      setLoadingMore(false)
-    }
-  }
-
-  function openProfile(targetUsername: string) {
-    onOpenChange(false)
-    navigate(`/dashboard/users/${targetUsername}`)
-  }
-
-  return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="top-[calc(env(safe-area-inset-top)+2rem)] max-h-[min(64svh,calc(100svh-env(safe-area-inset-top)-13rem))] w-[calc(100vw-2rem)] max-w-lg translate-y-0 gap-5 overflow-hidden rounded-none border-border/50 p-6 sm:top-[12%] sm:rounded-lg">
-        <DialogHeader className="space-y-2 text-left">
-          <DialogTitle className="text-xl font-medium tracking-tight">{mode === 'followers' ? 'Followers' : 'Following'}</DialogTitle>
-          <DialogDescription>
-            Search {mode === 'followers' ? `${username}'s followers` : `accounts ${username} follows`}
-          </DialogDescription>
-        </DialogHeader>
-        <Input
-          value={query}
-          onChange={(event) => setQuery(event.target.value.toLowerCase().replace(/[^a-z0-9_]/g, '').slice(0, 20))}
-          placeholder="Search usernames"
-          className="h-11 rounded-md border-border/70 bg-background shadow-none"
-        />
-        <div className="min-h-52 overflow-y-auto border-y border-border/40">
-          {loading ? (
-            <SettingsListSkeleton />
-          ) : users.length === 0 ? (
-            <div className="flex h-52 flex-col items-center justify-center text-center">
-              <p className="text-sm font-medium">No users found</p>
-              <p className="mt-2 text-xs text-muted-foreground/60">Public accounts will appear here</p>
-            </div>
-          ) : (
-            <div className="divide-y divide-border/30">
-              {users.map((user) => (
-                <Button
-                  key={`${mode}-${user.user_id}`}
-                  type="button"
-                  variant="ghost"
-                  className="flex h-auto w-full justify-start gap-3 rounded-none py-4 text-left shadow-none  "
-                  onClick={() => openProfile(user.username)}
-                >
-                  <Avatar className="h-10 w-10 border border-border shadow-none">
-                    {user.avatar_url && <AvatarImage src={user.avatar_url} alt={user.username} />}
-                    <AvatarFallback>
-                      <AvatarPlaceholder />
-                    </AvatarFallback>
-                  </Avatar>
-                  <span className="min-w-0 flex-1">
-                    <span className="block truncate text-sm font-medium tracking-tight text-foreground">{user.username}</span>
-                    {user.name && <span className="mt-1 block truncate text-xs text-muted-foreground">{user.name}</span>}
-                  </span>
-                  {user.is_following && <span className="text-[11px] font-medium uppercase tracking-[0.14em] sm:text-xs sm:tracking-widest text-primary">Following</span>}
-                </Button>
-              ))}
-            </div>
-          )}
-        </div>
-        {nextCursor && (
-          <Button type="button" variant="outline" className="h-9 w-full shadow-none" disabled={loadingMore} onClick={loadMore}>
-            {loadingMore ? 'Loading' : 'Load more'}
-          </Button>
-        )}
-      </DialogContent>
-    </Dialog>
-  )
 }
 
 function PredictionRankStat({
@@ -287,13 +126,13 @@ function AccuracyColumn({ item }: { item: RankingAccuracyItem }) {
 
 export function PublicUserProfilePage() {
   const { username } = useParams()
+  const navigate = useNavigate()
   const currentProfile = use_dashboard_store((store) => store.profile)
   const [state, setState] = useState<{
     username: string | null
     profile: PublicUserProfileResponse | null
     error: string | null
   }>({ username: null, profile: null, error: null })
-  const [followList, setFollowList] = useState<'followers' | 'following' | null>(null)
   const [followLoading, setFollowLoading] = useState(false)
   const followLoadingRef = useRef(false)
 
@@ -397,10 +236,20 @@ export function PublicUserProfilePage() {
           </div>
           {profile.name && <p className="mt-2 text-sm font-medium text-muted-foreground">{profile.name}</p>}
           <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 sm:mt-4 sm:gap-x-5">
-            <Button type="button" variant="ghost" className="h-auto p-0 text-left text-xs text-muted-foreground shadow-none  " onClick={() => setFollowList('followers')}>
+            <Button
+              type="button"
+              variant="ghost"
+              className="h-auto p-0 text-left text-xs text-muted-foreground shadow-none"
+              onClick={() => navigate(`/dashboard/users/${profile.username}/follows?tab=followers`)}
+            >
               <span className="font-semibold text-foreground">{format_count(profile.followers_count)}</span> followers
             </Button>
-            <Button type="button" variant="ghost" className="h-auto p-0 text-left text-xs text-muted-foreground shadow-none  " onClick={() => setFollowList('following')}>
+            <Button
+              type="button"
+              variant="ghost"
+              className="h-auto p-0 text-left text-xs text-muted-foreground shadow-none"
+              onClick={() => navigate(`/dashboard/users/${profile.username}/follows?tab=following`)}
+            >
               <span className="font-semibold text-foreground">{format_count(profile.following_count)}</span> following
             </Button>
           </div>
@@ -469,12 +318,6 @@ export function PublicUserProfilePage() {
           ))}
         </div>
       </section>
-      <FollowDirectoryDialog
-        open={followList !== null}
-        mode={followList ?? 'followers'}
-        username={profile.username}
-        onOpenChange={(open) => setFollowList(open ? (followList ?? 'followers') : null)}
-      />
       </div>
     </div>
   )

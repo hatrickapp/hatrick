@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react"
 import { useNavigate, useLocation, Link } from "react-router-dom"
 import {
-  ArrowLeft,
   LogOut,
   Search,
   Settings,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { AppMark } from "@/components/shared/app_mark"
+import { BackIconButton } from "@/components/shared/back_icon_button"
 import { LoadingSpinner } from "@/components/shared/loading_spinner"
 import { handle_logout } from "@/controllers/auth_controller"
 import { ROUTES } from "@/lib/constants"
@@ -50,16 +50,7 @@ export function TopNav() {
     <header className="sticky top-0 z-50 w-full bg-background/95 pt-[env(safe-area-inset-top)] backdrop-blur-md">
       <div className="mx-auto grid h-14 w-full max-w-[430px] grid-cols-[1fr_auto] items-center gap-4 px-4 sm:h-16 sm:max-w-[520px] sm:px-6 md:max-w-[720px] lg:max-w-[920px]">
         {topNavBack ? (
-          <Button
-            type="button"
-            variant="ghost"
-            size="icon"
-            onClick={topNavBack}
-            aria-label="Back"
-            className="h-10 w-10 rounded-lg text-foreground sm:h-12 sm:w-12"
-          >
-            <ArrowLeft className="h-6 w-6 sm:h-7 sm:w-7" />
-          </Button>
+          <BackIconButton onClick={topNavBack} className="text-foreground" />
         ) : (
           <Link to={ROUTES.DASHBOARD} className="flex h-full shrink-0 items-center  transition-all duration-300">
             <AppMark markClassName="h-10 w-10 sm:h-12 sm:w-12" textClassName="hidden text-lg sm:inline" />

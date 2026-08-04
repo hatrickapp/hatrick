@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
-import { Check, ChevronLeft } from 'lucide-react'
+import { Check } from 'lucide-react'
 import { Link, useLocation } from 'react-router-dom'
 import logoSrc from '@/assets/logo.png'
+import { BackIconButton } from '@/components/shared/back_icon_button'
 import { Button } from '@/components/ui/button'
 import { handle_purchase_plus } from '@/controllers/billing_controller'
 import { get_cached_leagues_config, load_leagues_config } from '@/controllers/leagues_controller'
@@ -69,16 +70,7 @@ export function UpgradePage() {
   return (
     <main className="fixed inset-0 z-[60] h-svh overflow-hidden overscroll-none bg-background bg-dot-grid px-5 pb-[calc(env(safe-area-inset-bottom)+1.25rem)] pt-[calc(env(safe-area-inset-top)+1rem)] text-foreground animate-upgrade-page-in">
       <div className="mx-auto flex h-full w-full max-w-md flex-col">
-        <Button
-          variant="ghost"
-          asChild
-          className="relative z-10 -ml-2 h-10 w-fit px-2 py-0 text-sm font-medium text-muted-foreground shadow-none"
-        >
-          <Link to={returnPath} state={returnState}>
-            <ChevronLeft className="size-4" />
-            Back
-          </Link>
-        </Button>
+        <BackIconButton to={returnPath} state={returnState} className="relative z-10 -ml-2" />
 
         <section className="flex min-h-0 flex-1 flex-col justify-center">
           <div className="-translate-y-3">

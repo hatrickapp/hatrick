@@ -23,6 +23,7 @@ const PricingTermsPage = lazy(() => import('@/pages/dashboard/upgrade/pricing_te
 const PrivacyPolicyPage = lazy(() => import('@/pages/legal/privacy_policy_page').then(m => ({ default: m.PrivacyPolicyPage })))
 const TermsOfServicePage = lazy(() => import('@/pages/legal/terms_of_service_page').then(m => ({ default: m.TermsOfServicePage })))
 const PublicUserProfilePage = lazy(() => import('@/pages/dashboard/users/public_user_profile_page').then(m => ({ default: m.PublicUserProfilePage })))
+const UserFollowDirectoryPage = lazy(() => import('@/pages/dashboard/users/user_follow_directory_page').then(m => ({ default: m.UserFollowDirectoryPage })))
 const DeleteAccountPage = lazy(() => import('@/pages/dashboard/settings/delete/delete_account_page').then(m => ({ default: m.DeleteAccountPage })))
 const BillingSettingsPage = lazy(() => import('@/pages/dashboard/settings/billing/billing_settings_page').then(m => ({ default: m.BillingSettingsPage })))
 
@@ -82,6 +83,7 @@ export const router = createBrowserRouter([
           { path: 'predictions', element: <RouteTitle title={`${APP_NAME} | Predictions`}><PredictionsPage /></RouteTitle> },
           { path: 'leagues', element: <RouteTitle title={`${APP_NAME} | Leagues`}><LeaguesPage /></RouteTitle> },
           { path: 'search', element: <RouteTitle title={`${APP_NAME} | Search`}><SearchPage /></RouteTitle> },
+          { path: 'users/:username/follows', element: <RouteTitle title={`${APP_NAME} | Follows`}><UserFollowDirectoryPage /></RouteTitle> },
           { path: 'users/:username', element: <RouteTitle title={`${APP_NAME} | User Profile`}><PublicUserProfilePage /></RouteTitle> },
           {
             path: 'settings',
