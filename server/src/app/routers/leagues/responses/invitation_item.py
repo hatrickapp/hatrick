@@ -9,7 +9,6 @@ def invitation_item(invitation: LeagueInvitationRow) -> LeagueInvitationItem:
         invited_by_user_id=invitation.invited_by_user_id,
         invited_by_username=invitation.invited_by_username,
         invited_by_name=invitation.invited_by_name,
-        invited_by_avatar_url=invitation.invited_by_avatar_url,
         invited_by_plan=invitation.invited_by_plan,
         status=invitation.status,
         created_at=invitation.created_at,

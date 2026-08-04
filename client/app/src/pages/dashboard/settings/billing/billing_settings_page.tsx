@@ -76,16 +76,11 @@ export function BillingSettingsPage() {
 
   return (
     <div className="space-y-6 animate-in fade-in duration-500">
-      <div className="flex flex-col gap-1">
-        <h2 className="text-lg font-medium tracking-tight">Billing</h2>
-        <p className="text-sm text-muted-foreground/60">Manage your Plus store subscription.</p>
-      </div>
-
       {loadingStatus && !status ? (
         <BillingSettingsSkeleton />
       ) : (
         <div className="max-w-sm space-y-5">
-          <div className="border-y border-border/30 py-4">
+          <div className="border-b border-border/30 pb-4">
             <p className="text-[11px] font-medium uppercase tracking-[0.14em] text-muted-foreground/40">Current Plan</p>
             <p className={active ? 'mt-2 text-xl font-medium tracking-tight text-[#D4AF37]' : 'mt-2 text-xl font-medium tracking-tight'}>
               {planLabel}

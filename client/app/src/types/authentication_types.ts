@@ -42,7 +42,6 @@ export interface UserProfileResponse extends BaseResponse {
   account_status: string
   plan: 'free' | 'plus'
   provider: string
-  avatar_url: string | null
   timezone: string
   created_at: string
   stats: UserProfileStats

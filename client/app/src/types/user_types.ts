@@ -23,7 +23,6 @@ export interface PublicUserSearchItem {
   user_id: string
   username: string
   name: string | null
-  avatar_url: string | null
   plan: 'free' | 'plus'
 }
 
@@ -36,7 +35,6 @@ export interface FollowUserItem {
   user_id: string
   username: string
   name: string | null
-  avatar_url: string | null
   is_following: boolean
 }
 
@@ -55,7 +53,6 @@ export interface PublicUserProfileResponse extends BaseResponse {
   user_id: string
   username: string
   name: string | null
-  avatar_url: string | null
   followers_count: number
   following_count: number
   is_following: boolean

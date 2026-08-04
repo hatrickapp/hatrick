@@ -43,7 +43,6 @@ def map_invitation(row, competitions: list[CompetitionRow]) -> LeagueInvitationR
         invited_by_user_id=row["invited_by_user_id"],
         invited_by_username=row["invited_by_username"],
         invited_by_name=row["invited_by_name"],
-        invited_by_avatar_url=row["invited_by_avatar_url"],
         invited_by_plan=row["invited_by_plan"],
         status=row["invitation_status"],
         created_at=row["invitation_created_at"],

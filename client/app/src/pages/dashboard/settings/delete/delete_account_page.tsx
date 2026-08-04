@@ -40,12 +40,6 @@ export function DeleteAccountPage() {
 
   return (
     <div className="space-y-4 animate-in fade-in duration-500">
-      <div className="flex flex-col gap-1">
-        <h2 className="text-lg font-medium tracking-tight text-destructive">Delete Account</h2>
-        <p className="text-sm text-muted-foreground/60">Permanently remove your account and all associated data.</p>
-      </div>
-      <div className="border-t border-border/40" />
-
       <div className="max-w-sm space-y-8">
         <div className="space-y-6">
           <div className="flex items-center gap-2.5 text-destructive/80">

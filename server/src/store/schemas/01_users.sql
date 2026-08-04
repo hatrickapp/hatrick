@@ -16,7 +16,6 @@ CREATE TABLE users (
   plan TEXT NOT NULL DEFAULT 'free',
   provider TEXT NOT NULL DEFAULT 'google', CHECK (provider IN ('google', 'apple')),
   oauth_subject TEXT,
-  avatar_url TEXT,
   timezone TEXT NOT NULL DEFAULT 'UTC',
 
   -- Timestamps

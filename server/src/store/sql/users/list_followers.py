@@ -18,7 +18,6 @@ class FollowUserItem:
     user_id: UUID
     username: str
     name: str | None
-    avatar_url: str | None
     is_following: bool
 
 async def list_followers(
@@ -51,7 +50,6 @@ async def list_followers(
             u.user_id,
             u.username,
             CASE WHEN u.show_name_publicly THEN u.name ELSE NULL END AS name,
-            u.avatar_url,
             EXISTS (
                 SELECT 1
                 FROM user_follows vf
@@ -95,7 +93,6 @@ async def list_followers(
             u.user_id,
             u.username,
             CASE WHEN u.show_name_publicly THEN u.name ELSE NULL END AS name,
-            u.avatar_url,
             EXISTS (
                 SELECT 1
                 FROM user_follows vf

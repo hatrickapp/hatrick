@@ -17,14 +17,12 @@ class PublicUserSearchItem:
     user_id: UUID
     username: str
     name: str | None
-    avatar_url: str | None
     plan: str
 @dataclass
 class PublicUserProfile:
     user_id: UUID
     username: str
     name: str | None
-    avatar_url: str | None
     followers_count: int
     following_count: int
     is_following: bool

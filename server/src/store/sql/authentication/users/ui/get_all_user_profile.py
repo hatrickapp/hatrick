@@ -20,7 +20,6 @@ class UserProfile:
     account_status: str
     plan: str
     provider: str
-    avatar_url: str | None
     timezone: str
     created_at: datetime
     total_points: int
@@ -70,7 +69,6 @@ async def get_user_profile(conn: Connection, user_id: UUID) -> UserProfile | Non
         u.account_status,
         u.plan,
         u.provider,
-        u.avatar_url,
         u.timezone,
         u.created_at,
         COALESCE(ps.total_points, 0) AS total_points,
@@ -134,7 +132,6 @@ async def get_user_profile(conn: Connection, user_id: UUID) -> UserProfile | Non
         account_status=row["account_status"],
         plan=row["plan"],
         provider=row["provider"],
-        avatar_url=row["avatar_url"],
         timezone=row["timezone"],
         created_at=row["created_at"],
         total_points=row["total_points"],

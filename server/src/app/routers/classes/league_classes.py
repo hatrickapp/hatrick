@@ -95,7 +95,6 @@ class LeagueInvitationItem(BaseModel):
     invited_by_user_id: UUID
     invited_by_username: str
     invited_by_name: str | None
-    invited_by_avatar_url: str | None
     invited_by_plan: str
     status: str
     created_at: datetime
@@ -107,7 +106,6 @@ class LeagueStandingItem(BaseModel):
     user_id: UUID
     username: str
     name: str | None
-    avatar_url: str | None
     plan: str
     rank: int
     points: int

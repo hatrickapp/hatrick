@@ -36,7 +36,6 @@ export interface LeagueInvitationItem {
   invited_by_user_id: string
   invited_by_username: string
   invited_by_name: string | null
-  invited_by_avatar_url: string | null
   invited_by_plan: 'free' | 'plus'
   status: 'pending' | 'accepted' | 'rejected'
   created_at: string
@@ -48,7 +47,6 @@ export interface LeagueStandingItem {
   user_id: string
   username: string
   name: string | null
-  avatar_url: string | null
   plan: 'free' | 'plus'
   rank: number
   points: number

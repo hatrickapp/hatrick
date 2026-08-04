@@ -9,7 +9,6 @@ class PublicProfileRanking:
     user_id: UUID
     username: str
     name: str | None
-    avatar_url: str | None
     followers_count: int
     following_count: int
     is_following: bool

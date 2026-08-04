@@ -10,7 +10,6 @@ class PublicUserSearchItem(BaseModel):
     user_id: UUID
     username: str
     name: str | None
-    avatar_url: str | None
     plan: str
 
 
@@ -23,7 +22,6 @@ class FollowUserItem(BaseModel):
     user_id: UUID
     username: str
     name: str | None
-    avatar_url: str | None
     is_following: bool
 
 
@@ -42,7 +40,6 @@ class PublicUserProfileResponse(BaseResponse):
     user_id: UUID
     username: str
     name: str | None
-    avatar_url: str | None
     followers_count: int
     following_count: int
     is_following: bool

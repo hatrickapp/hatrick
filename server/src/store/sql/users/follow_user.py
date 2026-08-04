@@ -16,7 +16,6 @@ class FollowUserItem:
     user_id: UUID
     username: str
     name: str | None
-    avatar_url: str | None
     is_following: bool
 
 async def follow_user(conn: Connection, follower_user_id: UUID, followed_username: str) -> FollowCounts | None:

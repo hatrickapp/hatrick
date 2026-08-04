@@ -17,7 +17,7 @@ const sections = [
   },
   {
     title: 'How do public profiles work?',
-    body: 'Hatrick usernames, profile pictures if added, ranking statistics, prediction statistics, follower counts, following counts, followers lists, and following lists are public to signed in users. Your full name is public only if you enable public name visibility in your profile. Public profile features are part of the Hatrick experience and allow users to search accounts, view prediction progress, and follow other users.',
+    body: 'Hatrick usernames, ranking statistics, prediction statistics, follower counts, following counts, followers lists, and following lists are public to signed in users. Your full name is public only if you enable public name visibility in your profile. Public profile features are part of the Hatrick experience and allow users to search accounts, view prediction progress, and follow other users.',
   },
   {
     title: 'How does following work?',

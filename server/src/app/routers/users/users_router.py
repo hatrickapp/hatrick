@@ -33,7 +33,6 @@ async def search_users_endpoint(
                 user_id=row.user_id,
                 username=row.username,
                 name=row.name,
-                avatar_url=row.avatar_url,
                 plan=row.plan,
             )
             for row in rows
@@ -103,7 +102,6 @@ async def public_user_profile_endpoint(username: str, pool: PoolDep, user_id: Us
         user_id=profile.user_id,
         username=profile.username,
         name=profile.name,
-        avatar_url=profile.avatar_url,
         followers_count=profile.followers_count,
         following_count=profile.following_count,
         is_following=profile.is_following,
@@ -172,7 +170,6 @@ def _follow_list_response(rows, limit: int) -> FollowListResponse:
                 user_id=row.user_id,
                 username=row.username,
                 name=row.name,
-                avatar_url=row.avatar_url,
                 is_following=row.is_following,
             )
             for row in rows

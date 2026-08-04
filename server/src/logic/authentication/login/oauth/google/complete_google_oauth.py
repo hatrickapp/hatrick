@@ -49,8 +49,6 @@ async def complete_native_google_oauth(
         raise OAuthProviderError()
 
     name = claims.get("name") if isinstance(claims.get("name"), str) else None
-    avatar_url = claims.get("picture") if isinstance(claims.get("picture"), str) else None
-
     result = await complete_oauth_session(
         pool,
         cache,
@@ -61,7 +59,6 @@ async def complete_native_google_oauth(
         email=normalized_email,
         country=country,
         name=name,
-        avatar_url=avatar_url,
     )
 
     timestamp = datetime.now(timezone.utc).strftime("%B %d, %Y at %H:%M UTC")

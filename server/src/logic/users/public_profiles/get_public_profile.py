@@ -17,7 +17,6 @@ async def get_public_profile(pool: Pool, username: str, viewer_user_id: UUID) ->
         user_id=profile.user_id,
         username=profile.username,
         name=profile.name,
-        avatar_url=profile.avatar_url,
         followers_count=profile.followers_count,
         following_count=profile.following_count,
         is_following=profile.is_following,

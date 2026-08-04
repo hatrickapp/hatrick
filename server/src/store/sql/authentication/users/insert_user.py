@@ -23,7 +23,6 @@ async def insert_user(
     username: str | None,
     username_hash: str | None,
     name: str | None = None,
-    avatar_url: str | None = None,
     oauth_subject: str | None = None,
 ) -> InsertedUser:
     email_encrypted = encrypt(email)
@@ -39,13 +38,12 @@ async def insert_user(
         email_hash,
         provider,
         name,
-        avatar_url,
         oauth_subject,
         username,
         username_hash,
         username_setup_completed
     )
-    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, FALSE)
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, FALSE)
     RETURNING user_id
     """
 
@@ -56,7 +54,6 @@ async def insert_user(
         email_hash,
         provider,
         name,
-        avatar_url,
         oauth_subject,
         username,
         username_hash,

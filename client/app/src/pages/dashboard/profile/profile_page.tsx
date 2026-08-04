@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { AtSign, BadgeCheck, CalendarDays, Check, Eye, Globe2, KeyRound, Pencil, User, X } from 'lucide-react'
 import { Link } from 'react-router-dom'
-import { Avatar, AvatarFallback, AvatarImage, AvatarPlaceholder } from '@/components/ui/avatar'
+import { Avatar, AvatarFallback, AvatarPlaceholder } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
@@ -165,7 +165,6 @@ export function ProfilePage() {
     )
   }
 
-  const avatarSrc = profile.avatar_url ?? null
   const canEditName = profile.provider === 'google' || profile.provider === 'apple' || !profile.name
   const usernameNextChangeAt = profile.username_next_change_at ? new Date(profile.username_next_change_at) : null
   const canChangeUsername = profile.plan === 'plus'
@@ -239,18 +238,9 @@ export function ProfilePage() {
 
   return (
     <div className="space-y-4">
-      <div className="flex flex-col gap-1">
-        <h2 className="text-lg font-medium tracking-tight">Account Profile</h2>
-        <p className="text-sm text-muted-foreground/60">Manage the account details used for sign-in and security.</p>
-      </div>
-      <div className="border-t border-border/40" />
-
       <div className="flex items-center gap-4 py-2 sm:gap-6 sm:py-4">
         <div className="flex shrink-0 flex-col items-start gap-2 sm:w-24 sm:items-center">
-          <Avatar key={avatarSrc ?? 'empty-profile-avatar'} className="h-16 w-16 border border-border shadow-none sm:h-20 sm:w-20">
-            {avatarSrc && (
-              <AvatarImage src={avatarSrc} alt={profile.name ?? profile.email} />
-            )}
+          <Avatar className="h-16 w-16 border border-border shadow-none sm:h-20 sm:w-20">
             <AvatarFallback>
               <AvatarPlaceholder />
             </AvatarFallback>

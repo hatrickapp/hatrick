@@ -65,7 +65,6 @@ async def get_user_profile_endpoint(pool: PoolDep, user_id: UserDep):
         account_status=profile.account_status,
         plan=profile.plan,
         provider=profile.provider,
-        avatar_url=profile.avatar_url,
         timezone=profile.timezone,
         created_at=profile.created_at,
         stats=UserProfileStats(

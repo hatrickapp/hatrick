@@ -20,14 +20,12 @@ class PublicUserSearchItem:
     user_id: UUID
     username: str
     name: str | None
-    avatar_url: str | None
     plan: str
 @dataclass
 class PublicUserProfile:
     user_id: UUID
     username: str
     name: str | None
-    avatar_url: str | None
     followers_count: int
     following_count: int
     is_following: bool
@@ -71,7 +69,6 @@ async def select_public_user_profile(conn: Connection, username: str, viewer_use
             u.user_id,
             u.username,
             CASE WHEN u.show_name_publicly THEN u.name ELSE NULL END AS name,
-            u.avatar_url,
             (SELECT COUNT(*)::int FROM user_follows uf WHERE uf.followed_user_id = u.user_id) AS followers_count,
             (SELECT COUNT(*)::int FROM user_follows uf WHERE uf.follower_user_id = u.user_id) AS following_count,
             EXISTS (
@@ -138,7 +135,6 @@ async def select_public_user_profile(conn: Connection, username: str, viewer_use
         user_id,
         username,
         name,
-        avatar_url,
         followers_count,
         following_count,
         is_following,
@@ -177,7 +173,6 @@ async def select_public_user_profile(conn: Connection, username: str, viewer_use
         user_id=row["user_id"],
         username=row["username"],
         name=row["name"],
-        avatar_url=row["avatar_url"],
         followers_count=row["followers_count"],
         following_count=row["following_count"],
         is_following=row["is_following"],

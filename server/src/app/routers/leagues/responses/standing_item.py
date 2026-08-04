@@ -6,7 +6,6 @@ def standing_item(row: LeagueStandingRow) -> LeagueStandingItem:
         user_id=row.user_id,
         username=row.username,
         name=row.name,
-        avatar_url=row.avatar_url,
         plan=row.plan,
         rank=row.rank,
         points=row.points,

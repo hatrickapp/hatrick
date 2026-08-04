@@ -32,7 +32,7 @@ export function SettingsPage() {
           <p className="text-sm text-muted-foreground/60 mt-2">Manage your profile, billing, and account preferences</p>
         </div>
 
-        <div className="flex flex-col gap-7 sm:gap-12">
+        <div>
           <SegmentedControl
             items={mobileNavItems.map((item) => ({
               value: item.href,
@@ -45,7 +45,7 @@ export function SettingsPage() {
             itemClassName="min-h-11 px-4 text-sm sm:px-6"
           />
 
-          <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+          <div className="mt-4 border-t border-border/30 pt-6 animate-in fade-in slide-in-from-bottom-4 duration-500 sm:pt-8">
             <Outlet />
           </div>
         </div>

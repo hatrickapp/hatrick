@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Search } from 'lucide-react'
-import { Avatar, AvatarFallback, AvatarImage, AvatarPlaceholder } from '@/components/ui/avatar'
+import { Avatar, AvatarFallback, AvatarPlaceholder } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import * as users_api from '@/api/users_api'
@@ -106,7 +106,6 @@ export function UserSearch({ compact = false, contained = false }: { compact?: b
                   onClick={() => openProfile(user.username)}
                 >
                   <Avatar className="h-8 w-8 border border-border/40">
-                    {user.avatar_url && <AvatarImage src={user.avatar_url} alt={user.username} />}
                     <AvatarFallback>
                       <AvatarPlaceholder />
                     </AvatarFallback>

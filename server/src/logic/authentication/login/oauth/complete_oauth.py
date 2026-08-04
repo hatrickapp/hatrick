@@ -29,7 +29,6 @@ async def complete_oauth_session(
     email: str | None,
     country: str,
     name: str | None = None,
-    avatar_url: str | None = None,
 ) -> OAuthCompleteResult:
     async with pool.acquire() as conn:
         existing = await lookup_oauth_identity(conn, provider, provider_subject, email)
@@ -49,7 +48,6 @@ async def complete_oauth_session(
                     provider=provider,
                     country=country,
                     name=name,
-                    avatar_url=avatar_url,
                     oauth_subject=provider_subject,
                 )
                 session = bootstrap.session

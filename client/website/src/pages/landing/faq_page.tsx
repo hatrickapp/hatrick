@@ -57,7 +57,7 @@ const sections = [
   },
   {
     title: 'How do public profiles work?',
-    body: 'Public profiles show a username, profile picture if available, follower counts, following counts, prediction stats, ratios, global rank details, and prediction rank progress. Full names are only shown publicly when the user enables that option in account settings.',
+    body: 'Public profiles show a username, follower counts, following counts, prediction stats, ratios, global rank details, and prediction rank progress. Full names are only shown publicly when the user enables that option in account settings.',
   },
   {
     title: 'Can I change my username?',

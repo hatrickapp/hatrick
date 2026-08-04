@@ -16,7 +16,6 @@ class FollowUserItem:
     user_id: UUID
     username: str
     name: str | None
-    avatar_url: str | None
     is_following: bool
 
 def follow_user_item(row) -> FollowUserItem:
@@ -25,6 +24,5 @@ def follow_user_item(row) -> FollowUserItem:
         user_id=row["user_id"],
         username=row["username"],
         name=row["name"],
-        avatar_url=row["avatar_url"],
         is_following=row["is_following"],
     )

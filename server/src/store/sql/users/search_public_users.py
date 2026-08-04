@@ -17,14 +17,12 @@ class PublicUserSearchItem:
     user_id: UUID
     username: str
     name: str | None
-    avatar_url: str | None
     plan: str
 @dataclass
 class PublicUserProfile:
     user_id: UUID
     username: str
     name: str | None
-    avatar_url: str | None
     followers_count: int
     following_count: int
     is_following: bool
@@ -63,7 +61,6 @@ async def search_public_users(
         u.user_id,
         u.username,
         CASE WHEN u.show_name_publicly THEN u.name ELSE NULL END AS name,
-        u.avatar_url,
         u.plan
     FROM users u
     LEFT JOIN cursor_user cu ON TRUE
@@ -85,7 +82,6 @@ async def search_public_users(
             user_id=row["user_id"],
             username=row["username"],
             name=row["name"],
-            avatar_url=row["avatar_url"],
             plan=row["plan"],
         )
         for row in rows

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { Sparkles } from 'lucide-react'
-import { Avatar, AvatarFallback, AvatarImage, AvatarPlaceholder } from '@/components/ui/avatar'
+import { Avatar, AvatarFallback, AvatarPlaceholder } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 import { PublicProfileSkeleton } from '@/components/shared/dashboard_skeletons'
 import { LoadingSpinner } from '@/components/shared/loading_spinner'
@@ -224,7 +224,6 @@ export function PublicUserProfilePage() {
       <section className="flex flex-col gap-5 pb-1 sm:flex-row sm:items-center sm:justify-between sm:gap-8 sm:pb-2">
         <div className="grid min-w-0 grid-cols-[5rem_minmax(0,1fr)] items-center gap-4 sm:flex sm:items-center sm:gap-8">
         <Avatar className="h-20 w-20 border border-border shadow-none sm:h-28 sm:w-28">
-          {profile.avatar_url && <AvatarImage src={profile.avatar_url} alt={profile.username} />}
           <AvatarFallback>
             <AvatarPlaceholder />
           </AvatarFallback>

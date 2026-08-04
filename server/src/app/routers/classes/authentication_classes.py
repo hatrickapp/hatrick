@@ -109,7 +109,6 @@ class UserProfileResponse(BaseResponse):
     account_status: str
     plan: str
     provider: str
-    avatar_url: str | None
     timezone: str
     created_at: datetime
     stats: UserProfileStats

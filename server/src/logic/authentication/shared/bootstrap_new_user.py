@@ -26,7 +26,6 @@ async def bootstrap_new_user(
     provider: Provider,
     country: str,
     name: str | None = None,
-    avatar_url: str | None = None,
     oauth_subject: str | None = None,
 ) -> BootstrappedUser:
     user = None
@@ -40,7 +39,6 @@ async def bootstrap_new_user(
                 username=username,
                 username_hash=username_hash(username),
                 name=name,
-                avatar_url=avatar_url,
                 oauth_subject=oauth_subject,
             )
             break

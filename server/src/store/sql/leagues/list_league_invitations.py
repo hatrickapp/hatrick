@@ -20,7 +20,6 @@ async def list_league_invitations(conn: Connection, invited_user_id: UUID) -> li
             li.invited_by_user_id,
             inviter.username AS invited_by_username,
             CASE WHEN inviter.show_name_publicly THEN inviter.name ELSE NULL END AS invited_by_name,
-            inviter.avatar_url AS invited_by_avatar_url,
             inviter.plan AS invited_by_plan,
             li.status AS invitation_status,
             li.created_at AS invitation_created_at,

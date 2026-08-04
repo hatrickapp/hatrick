@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { Ban, Check, Clock, UsersRound, X } from 'lucide-react'
-import { Avatar, AvatarFallback, AvatarImage, AvatarPlaceholder } from '@/components/ui/avatar'
+import { Ban, Check, Clock, Send, X } from 'lucide-react'
+import { Avatar, AvatarFallback, AvatarPlaceholder } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 import { ErrorAlert } from '@/components/shared/error_alert'
 import { LoadingSpinner } from '@/components/shared/loading_spinner'
@@ -88,7 +88,7 @@ export function LeagueInvitations({
       <div className="mt-4 border-t border-border/30">
         {filteredInvitations.length === 0 && (
           <div className="flex min-h-[32vh] flex-col items-center justify-center py-10 text-center">
-            <UsersRound className="h-6 w-6 text-primary" />
+            <Send className="h-6 w-6 text-primary" />
             <p className="mt-4 text-sm font-medium">{emptyMessage.title}</p>
             <p className="mt-3 max-w-sm text-xs leading-5 text-muted-foreground/60">{emptyMessage.description}</p>
           </div>
@@ -109,7 +109,6 @@ export function LeagueInvitations({
                 >
                   <div className="grid w-full grid-cols-[2.25rem_minmax(0,1fr)] items-center gap-3">
                     <Avatar className="h-9 w-9 border border-border/40">
-                      {invitation.invited_by_avatar_url && <AvatarImage src={invitation.invited_by_avatar_url} alt={invitation.invited_by_username} />}
                       <AvatarFallback><AvatarPlaceholder /></AvatarFallback>
                     </Avatar>
                     <div className="min-w-0 text-left">

@@ -68,7 +68,6 @@ async def complete_native_apple_oauth(
             email=normalized_email,
             country=country,
             name=full_name,
-            avatar_url=None,
         )
     except ValueError as exc:
         raise OAuthProviderError() from exc

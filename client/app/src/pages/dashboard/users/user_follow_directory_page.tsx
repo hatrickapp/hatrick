@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { Search } from 'lucide-react'
-import { Avatar, AvatarFallback, AvatarImage, AvatarPlaceholder } from '@/components/ui/avatar'
+import { Avatar, AvatarFallback, AvatarPlaceholder } from '@/components/ui/avatar'
 import { BackIconButton } from '@/components/shared/back_icon_button'
 import { SettingsListSkeleton } from '@/components/shared/dashboard_skeletons'
 import { SegmentedControl } from '@/components/shared/segmented_control'
@@ -213,7 +213,6 @@ export function UserFollowDirectoryPage() {
                   onClick={() => navigate(`/dashboard/users/${user.username}`)}
                 >
                   <Avatar className="h-10 w-10 border border-border shadow-none">
-                    {user.avatar_url && <AvatarImage src={user.avatar_url} alt={user.username} />}
                     <AvatarFallback>
                       <AvatarPlaceholder />
                     </AvatarFallback>
