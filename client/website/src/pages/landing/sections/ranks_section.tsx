@@ -29,9 +29,39 @@ function CurvedArrow({ direction }: { direction: 'right' | 'left' }) {
   )
 }
 
+function MobileRankCard({
+  rank,
+  index,
+}: {
+  rank: (typeof ranks)[number]
+  index: number
+}) {
+  const Icon = rank.icon
+
+  return (
+    <div className="relative flex min-h-[8.5rem] flex-col justify-between border border-border/45 bg-background px-4 py-4">
+      <div className="flex items-start justify-between gap-3">
+        <div>
+          <p className="text-[10px] font-medium uppercase tracking-[0.16em] text-muted-foreground/45">
+            Rank {index + 1}
+          </p>
+          <p className="mt-2 text-sm font-medium leading-tight">{rank.name}</p>
+        </div>
+        <Icon className="h-9 w-9 shrink-0" style={{ color: rank.color }} />
+      </div>
+      <div>
+        <p className="text-lg font-medium leading-none" style={{ color: rank.color }}>
+          {rank.points.toLocaleString()}
+        </p>
+        <p className="mt-1 text-[11px] font-medium text-muted-foreground/55">settled points</p>
+      </div>
+    </div>
+  )
+}
+
 export function RanksSection() {
   return (
-    <section id="ranks" className="hidden scroll-mt-24 border-b border-border/40 sm:block">
+    <section id="ranks" className="scroll-mt-24 border-b border-border/40">
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         <div className="mx-auto flex max-w-3xl flex-col items-center gap-4 text-center">
           <div>
@@ -42,7 +72,19 @@ export function RanksSection() {
             Build from Bronze to Hall of Fame through settled predictions, correct scorers, and matchweek consistency.
           </p>
         </div>
-        <div className="mx-auto mt-9 max-w-xl border-y border-border/40 py-5">
+
+        <div className="mt-8 sm:hidden">
+          <div className="grid grid-cols-2 gap-3">
+            {ranks.map((rank, index) => (
+              <MobileRankCard key={rank.name} rank={rank} index={index} />
+            ))}
+          </div>
+          <p className="mx-auto mt-5 max-w-xs text-center text-xs leading-5 text-muted-foreground/55">
+            Each tier unlocks through total settled points, so every correct pick moves your season forward.
+          </p>
+        </div>
+
+        <div className="mx-auto mt-9 hidden max-w-xl border-y border-border/40 py-5 sm:block">
           {ranks.map((rank, index) => {
             const Icon = rank.icon
             const side = index % 2 === 0 ? 'left' : 'right'
