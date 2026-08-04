@@ -24,7 +24,6 @@ export interface PlayerItem {
   player_id: string
   team_id: string | null
   name: string
-  photo_url: string | null
   position: string | null
   shirt_number: number | null
   source: 'squad' | null

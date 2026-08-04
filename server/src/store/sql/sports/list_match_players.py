@@ -14,7 +14,6 @@ async def list_match_players(conn: Connection, match_id: UUID) -> list[MatchPlay
         mpp.team_id,
         p.player_id,
         p.name,
-        p.photo_url,
         p.position AS position,
         mpp.shirt_number,
         mpp.source

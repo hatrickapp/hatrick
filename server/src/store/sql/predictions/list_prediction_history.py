@@ -21,7 +21,6 @@ async def list_prediction_history(
         sp.player_id AS selected_player_id,
         smpp.team_id AS selected_team_id,
         sp.name AS selected_player_name,
-        sp.photo_url AS selected_player_photo_url,
         sp.position AS selected_player_position,
         smpp.shirt_number AS selected_player_shirt_number,
         COALESCE(smpp.source, 'squad') AS selected_player_source
@@ -47,7 +46,6 @@ async def list_prediction_history(
             player_id=row["selected_player_id"],
             team_id=row["selected_team_id"],
             name=row["selected_player_name"],
-            photo_url=row["selected_player_photo_url"],
             position=row["selected_player_position"],
             shirt_number=row["selected_player_shirt_number"],
             source=row["selected_player_source"],

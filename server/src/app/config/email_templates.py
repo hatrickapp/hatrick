@@ -55,14 +55,3 @@ class AccountDeletionSuccessTemplate(BaseTemplate):
     @property
     def subject(self) -> str:
         return f"Your {settings.app.name} account has been deleted"
-
-@dataclass
-class OAuthWelcomeTemplate(BaseTemplate):
-    provider: str
-    country: str
-    timestamp: str
-    template_file = "oauth_welcome.html"
-
-    @property
-    def subject(self) -> str:
-        return f"Welcome to {settings.app.name} — signed in via {self.provider}"

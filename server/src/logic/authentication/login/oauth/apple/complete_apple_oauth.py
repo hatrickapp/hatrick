@@ -1,14 +1,10 @@
-from datetime import datetime, timezone
-
 from asyncpg import Pool
 import httpx
 from redis.asyncio import Redis
 
 from src.app.config.apple_http import verify_apple_id_token
-from src.app.config.email_templates import OAuthWelcomeTemplate
 from src.app.config.lua_manager import LuaScriptManager
 from src.app.errors.domains.authentication_errors import OAuthEmailNotVerifiedError, OAuthProviderError
-from src.app.events.event_emitter import event_emitter
 from src.app.events.pubsub.event_publisher import RedisEventPublisher
 from src.app.logging.logger_setup import get_logger
 from src.app.validation.validate_email import validate_email
@@ -71,18 +67,5 @@ async def complete_native_apple_oauth(
         )
     except ValueError as exc:
         raise OAuthProviderError() from exc
-
-    if normalized_email is not None:
-        timestamp = datetime.now(timezone.utc).strftime("%B %d, %Y at %H:%M UTC")
-        template = OAuthWelcomeTemplate(
-            provider="Apple",
-            country=country,
-            timestamp=timestamp,
-        )
-        await event_emitter(cache, "SEND_EMAIL_MESSAGE", {
-            "email": normalized_email,
-            "subject": template.subject,
-            "message": template.html,
-        })
 
     return result

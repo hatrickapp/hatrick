@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react'
 import { Navigate, useLocation, useNavigate } from 'react-router-dom'
 import { AppMark } from '@/components/shared/app_mark'
+import { BackIconButton } from '@/components/shared/back_icon_button'
 import { Button } from '@/components/ui/button'
 import {
   InputOTP,
@@ -70,6 +71,10 @@ export function OtpPage() {
 
   return (
     <div className="flex flex-col gap-6 -mt-12">
+      <div className="flex">
+        <BackIconButton to={ROUTES.DASHBOARD_SETTINGS_DELETE} />
+      </div>
+
       <div className="flex flex-col items-center gap-2 text-center">
         <div className="mb-0">
           <AppMark className="h-32" markClassName="h-24 w-24" textClassName="sr-only" />
@@ -108,10 +113,11 @@ export function OtpPage() {
 
         <Button
           type="submit"
+          variant="destructive"
           className="w-full h-10 font-medium "
           disabled={loading || otp.length < 6}
         >
-          {loading ? <LoadingSpinner size="sm" className="mr-2" /> : "Verify"}
+          {loading ? <LoadingSpinner size="sm" className="mr-2" /> : "Confirm permanent deletion"}
         </Button>
 
         <ErrorAlert message={error} onDismiss={() => set_error(null)} />

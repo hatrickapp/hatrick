@@ -29,7 +29,6 @@ class PlayerItem(BaseModel):
     player_id: UUID
     team_id: UUID | None = None
     name: str
-    photo_url: str | None
     position: str | None
     shirt_number: int | None = None
     source: str | None = None

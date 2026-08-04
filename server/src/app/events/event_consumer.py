@@ -15,7 +15,7 @@ async def event_consumer(
 ) -> None:
     raw_data = b""
     try:
-        result = await redis.brpop("events:queue", timeout=3)
+        result = await redis.brpop("events:queue", timeout=60)
         if not result:
             return
         

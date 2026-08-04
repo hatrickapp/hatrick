@@ -21,7 +21,7 @@ def start_background_workers(
     redis: Redis,
     redis_pubsub: Redis,
     http: httpx.AsyncClient,
-    concurrency: int = 3,
+    concurrency: int = 1,
 ) -> list[asyncio.Task]:
     lua_manager = app.state.lua_manager
     handlers = {
