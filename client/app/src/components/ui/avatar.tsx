@@ -50,4 +50,29 @@ function AvatarPlaceholder({ className }: { className?: string }) {
   )
 }
 
-export { Avatar, AvatarFallback, AvatarPlaceholder }
+function PlusAvatarRing({
+  children,
+  className,
+  active,
+}: {
+  children: React.ReactNode
+  className?: string
+  active?: boolean
+}) {
+  if (!active) return <>{children}</>
+
+  return (
+    <span
+      className={cn(
+        "inline-flex shrink-0 rounded-full bg-[conic-gradient(from_215deg,#FFF7C2_0deg,#FFE66D_42deg,#F8D84F_88deg,#E8C03B_132deg,#D4AF37_178deg,#B89320_226deg,#D4AF37_274deg,#FFE66D_318deg,#FFF7C2_360deg)] p-[2px] shadow-[0_0_0_1px_rgba(0,0,0,0.08),0_0_14px_rgba(212,175,55,0.26)]",
+        className
+      )}
+    >
+      <span className="rounded-full bg-background p-[2px]">
+        {children}
+      </span>
+    </span>
+  )
+}
+
+export { Avatar, AvatarFallback, AvatarPlaceholder, PlusAvatarRing }

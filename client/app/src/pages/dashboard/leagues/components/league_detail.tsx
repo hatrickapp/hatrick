@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { DoorOpen } from 'lucide-react'
-import { Avatar, AvatarFallback, AvatarPlaceholder } from '@/components/ui/avatar'
+import { Avatar, AvatarFallback, AvatarPlaceholder, PlusAvatarRing } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 import { SettingsListSkeleton } from '@/components/shared/dashboard_skeletons'
 import { LoadingSpinner } from '@/components/shared/loading_spinner'
@@ -79,9 +79,11 @@ export function LeagueDetail({
                 >
                   <p className="text-xs font-semibold text-muted-foreground sm:text-sm">#{row.rank}</p>
                   <div className="flex min-w-0 items-center gap-2 sm:gap-3">
-                    <Avatar className="h-8 w-8 border border-border/40 sm:h-9 sm:w-9">
-                      <AvatarFallback><AvatarPlaceholder /></AvatarFallback>
-                    </Avatar>
+                    <PlusAvatarRing active={row.plan === 'plus'}>
+                      <Avatar className="h-8 w-8 border border-border/40 sm:h-9 sm:w-9">
+                        <AvatarFallback><AvatarPlaceholder /></AvatarFallback>
+                      </Avatar>
+                    </PlusAvatarRing>
                     <div className="min-w-0">
                       <p className="flex min-w-0 items-center gap-2 text-sm font-medium tracking-tight">
                         <span className="truncate">@{row.username}</span>

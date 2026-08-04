@@ -22,6 +22,7 @@ class FollowUserItem(BaseModel):
     user_id: UUID
     username: str
     name: str | None
+    plan: str
     is_following: bool
 
 

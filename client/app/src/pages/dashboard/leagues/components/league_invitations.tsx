@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Ban, Check, Clock, Send, X } from 'lucide-react'
-import { Avatar, AvatarFallback, AvatarPlaceholder } from '@/components/ui/avatar'
+import { Avatar, AvatarFallback, AvatarPlaceholder, PlusAvatarRing } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 import { ErrorAlert } from '@/components/shared/error_alert'
 import { LoadingSpinner } from '@/components/shared/loading_spinner'
@@ -108,9 +108,11 @@ export function LeagueInvitations({
                   className="h-auto min-w-0 rounded-none p-0 text-left shadow-none"
                 >
                   <div className="grid w-full grid-cols-[2.25rem_minmax(0,1fr)] items-center gap-3">
-                    <Avatar className="h-9 w-9 border border-border/40">
-                      <AvatarFallback><AvatarPlaceholder /></AvatarFallback>
-                    </Avatar>
+                    <PlusAvatarRing active={invitation.invited_by_plan === 'plus'}>
+                      <Avatar className="h-9 w-9 border border-border/40">
+                        <AvatarFallback><AvatarPlaceholder /></AvatarFallback>
+                      </Avatar>
+                    </PlusAvatarRing>
                     <div className="min-w-0 text-left">
                       <p className={cn('truncate text-sm font-medium tracking-tight', active ? activeTone : 'text-foreground')}>@{invitation.invited_by_username}</p>
                       <p className="mt-1 truncate text-xs font-medium text-muted-foreground/70">

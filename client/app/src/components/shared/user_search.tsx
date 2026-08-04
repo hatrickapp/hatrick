@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Search } from 'lucide-react'
-import { Avatar, AvatarFallback, AvatarPlaceholder } from '@/components/ui/avatar'
+import { Avatar, AvatarFallback, AvatarPlaceholder, PlusAvatarRing } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import * as users_api from '@/api/users_api'
@@ -105,11 +105,13 @@ export function UserSearch({ compact = false, contained = false }: { compact?: b
                   className="flex h-auto w-full justify-start gap-3 rounded-none px-3 py-2 text-left shadow-none "
                   onClick={() => openProfile(user.username)}
                 >
-                  <Avatar className="h-8 w-8 border border-border/40">
-                    <AvatarFallback>
-                      <AvatarPlaceholder />
-                    </AvatarFallback>
-                  </Avatar>
+                  <PlusAvatarRing active={user.plan === 'plus'}>
+                    <Avatar className="h-8 w-8 border border-border/40">
+                      <AvatarFallback>
+                        <AvatarPlaceholder />
+                      </AvatarFallback>
+                    </Avatar>
+                  </PlusAvatarRing>
                   <div className="min-w-0">
                     <p className="truncate text-sm font-medium text-foreground">{user.username}</p>
                     {user.name && <p className="truncate text-xs text-muted-foreground/60">{user.name}</p>}

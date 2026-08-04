@@ -18,6 +18,7 @@ class FollowUserItem:
     user_id: UUID
     username: str
     name: str | None
+    plan: str
     is_following: bool
 
 async def list_followers(
@@ -50,6 +51,7 @@ async def list_followers(
             u.user_id,
             u.username,
             u.name,
+            u.plan,
             EXISTS (
                 SELECT 1
                 FROM user_follows vf
@@ -93,6 +95,7 @@ async def list_followers(
             u.user_id,
             u.username,
             u.name,
+            u.plan,
             EXISTS (
                 SELECT 1
                 FROM user_follows vf

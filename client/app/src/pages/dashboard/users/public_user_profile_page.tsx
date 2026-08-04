@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { Sparkles } from 'lucide-react'
-import { Avatar, AvatarFallback, AvatarPlaceholder } from '@/components/ui/avatar'
+import { Avatar, AvatarFallback, AvatarPlaceholder, PlusAvatarRing } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 import { PublicProfileSkeleton } from '@/components/shared/dashboard_skeletons'
 import { LoadingSpinner } from '@/components/shared/loading_spinner'
@@ -223,11 +223,13 @@ export function PublicUserProfilePage() {
       <div className="mx-auto w-full space-y-6 px-4 pb-8 pt-4 animate-in fade-in duration-500 sm:space-y-8 sm:px-6 sm:py-8">
       <section className="flex flex-col gap-5 pb-1 sm:flex-row sm:items-center sm:justify-between sm:gap-8 sm:pb-2">
         <div className="grid min-w-0 grid-cols-[5rem_minmax(0,1fr)] items-center gap-4 sm:flex sm:items-center sm:gap-8">
-        <Avatar className="h-20 w-20 border border-border shadow-none sm:h-28 sm:w-28">
-          <AvatarFallback>
-            <AvatarPlaceholder />
-          </AvatarFallback>
-        </Avatar>
+        <PlusAvatarRing active={profile.plan === 'plus'}>
+          <Avatar className="h-20 w-20 border border-border shadow-none sm:h-28 sm:w-28">
+            <AvatarFallback>
+              <AvatarPlaceholder />
+            </AvatarFallback>
+          </Avatar>
+        </PlusAvatarRing>
         <div className="min-w-0">
           <div className="flex min-w-0 flex-wrap items-center gap-x-2 gap-y-1 sm:gap-3">
             <h1 className="min-w-0 break-words text-2xl font-medium leading-tight tracking-tight text-foreground sm:text-3xl">@{profile.username}</h1>

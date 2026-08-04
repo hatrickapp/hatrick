@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { Search } from 'lucide-react'
-import { Avatar, AvatarFallback, AvatarPlaceholder } from '@/components/ui/avatar'
+import { Avatar, AvatarFallback, AvatarPlaceholder, PlusAvatarRing } from '@/components/ui/avatar'
 import { BackIconButton } from '@/components/shared/back_icon_button'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -125,12 +125,7 @@ export function SearchPage() {
           onScroll={dismissKeyboard}
           onTouchMove={dismissKeyboard}
         >
-          {!canSearch ? (
-            <div className="flex min-h-[38vh] flex-col items-center justify-center px-4 py-10 text-center">
-              <Search className="h-7 w-7 text-primary" />
-              <p className="mt-4 text-sm font-medium">Start typing to find players.</p>
-            </div>
-          ) : users.length === 0 && !loading ? (
+          {!canSearch ? null : users.length === 0 && !loading ? (
             <p className="px-2 py-8 text-center text-xs font-medium text-muted-foreground/50">
               No users found.
             </p>
@@ -144,11 +139,13 @@ export function SearchPage() {
                   className="flex h-auto w-full justify-start gap-3 rounded-none px-1 py-3 text-left shadow-none"
                   onClick={() => openProfile(user.username)}
                 >
-                  <Avatar className="h-10 w-10 border border-border/40">
-                    <AvatarFallback>
-                      <AvatarPlaceholder />
-                    </AvatarFallback>
-                  </Avatar>
+                  <PlusAvatarRing active={user.plan === 'plus'}>
+                    <Avatar className="h-10 w-10 border border-border/40">
+                      <AvatarFallback>
+                        <AvatarPlaceholder />
+                      </AvatarFallback>
+                    </Avatar>
+                  </PlusAvatarRing>
                   <div className="min-w-0">
                     <p className="truncate text-sm font-medium text-foreground">{user.username}</p>
                     {user.name && <p className="truncate text-xs text-muted-foreground/60">{user.name}</p>}

@@ -170,6 +170,7 @@ def _follow_list_response(rows, limit: int) -> FollowListResponse:
                 user_id=row.user_id,
                 username=row.username,
                 name=row.name,
+                plan=row.plan,
                 is_following=row.is_following,
             )
             for row in rows

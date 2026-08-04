@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { Search } from 'lucide-react'
-import { Avatar, AvatarFallback, AvatarPlaceholder } from '@/components/ui/avatar'
+import { Avatar, AvatarFallback, AvatarPlaceholder, PlusAvatarRing } from '@/components/ui/avatar'
 import { BackIconButton } from '@/components/shared/back_icon_button'
 import { SettingsListSkeleton } from '@/components/shared/dashboard_skeletons'
 import { SegmentedControl } from '@/components/shared/segmented_control'
@@ -212,11 +212,13 @@ export function UserFollowDirectoryPage() {
                   className="flex h-auto w-full justify-start gap-3 rounded-none px-1 py-3 text-left shadow-none"
                   onClick={() => navigate(`/dashboard/users/${user.username}`)}
                 >
-                  <Avatar className="h-10 w-10 border border-border shadow-none">
-                    <AvatarFallback>
-                      <AvatarPlaceholder />
-                    </AvatarFallback>
-                  </Avatar>
+                  <PlusAvatarRing active={user.plan === 'plus'}>
+                    <Avatar className="h-10 w-10 border border-border shadow-none">
+                      <AvatarFallback>
+                        <AvatarPlaceholder />
+                      </AvatarFallback>
+                    </Avatar>
+                  </PlusAvatarRing>
                   <span className="min-w-0 flex-1">
                     <span className="block truncate text-sm font-medium tracking-tight text-foreground">{user.username}</span>
                     {user.name && <span className="mt-1 block truncate text-xs text-muted-foreground">{user.name}</span>}

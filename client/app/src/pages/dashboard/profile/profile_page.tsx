@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
 import { AtSign, BadgeCheck, CalendarDays, Check, Globe2, KeyRound, X } from 'lucide-react'
 import { Link } from 'react-router-dom'
-import { Avatar, AvatarFallback, AvatarPlaceholder } from '@/components/ui/avatar'
+import { Avatar, AvatarFallback, AvatarPlaceholder, PlusAvatarRing } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Select, SelectContent, SelectItem, SelectLabel, SelectSeparator, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectSeparator, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { ProfileSkeleton } from '@/components/shared/dashboard_skeletons'
 import { ErrorAlert } from '@/components/shared/error_alert'
 import { LoadingSpinner } from '@/components/shared/loading_spinner'
@@ -190,11 +190,13 @@ export function ProfilePage() {
     <div className="space-y-4">
       <div className="flex items-center gap-4 py-2 sm:gap-6 sm:py-4">
         <div className="flex shrink-0 flex-col items-start gap-2 sm:w-24 sm:items-center">
-          <Avatar className="h-16 w-16 border border-border shadow-none sm:h-20 sm:w-20">
-            <AvatarFallback>
-              <AvatarPlaceholder />
-            </AvatarFallback>
-          </Avatar>
+          <PlusAvatarRing active={profile.plan === 'plus'}>
+            <Avatar className="h-16 w-16 border border-border shadow-none sm:h-20 sm:w-20">
+              <AvatarFallback>
+                <AvatarPlaceholder />
+              </AvatarFallback>
+            </Avatar>
+          </PlusAvatarRing>
         </div>
         <div className="min-w-0 flex-1">
           <div className="mb-1 flex flex-wrap items-center gap-x-2 gap-y-2">
@@ -341,7 +343,7 @@ export function ProfilePage() {
                     </SelectTrigger>
                     <SelectContent className="max-h-[320px]">
                       {TIMEZONE_GROUPS.map((group, index) => (
-                        <div key={group.label}>
+                        <SelectGroup key={group.label}>
                           {index > 0 && <SelectSeparator />}
                           {group.label !== 'Default' && <SelectLabel>{group.label}</SelectLabel>}
                           {group.options.map((timezone) => (
@@ -349,7 +351,7 @@ export function ProfilePage() {
                               {timezone.label}
                             </SelectItem>
                           ))}
-                        </div>
+                        </SelectGroup>
                       ))}
                     </SelectContent>
                   </Select>

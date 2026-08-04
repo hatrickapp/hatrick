@@ -35,6 +35,7 @@ export interface FollowUserItem {
   user_id: string
   username: string
   name: string | null
+  plan: 'free' | 'plus'
   is_following: boolean
 }
 
