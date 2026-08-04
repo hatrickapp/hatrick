@@ -1,0 +1,4 @@
+.DS_Store
+
+# Swift Package Manager / Xcode build output for the local Apple sign-in plugin.
+client/app/plugins/hatrick-apple-sign-in/.build/
