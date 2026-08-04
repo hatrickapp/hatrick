@@ -3,7 +3,7 @@ import { KeychainAccess, SecureStorage } from '@aparajita/capacitor-secure-stora
 
 const STORAGE_PREFIX = 'hatrick_auth_'
 const SESSION_TOKEN_KEY = 'session_token'
-const LEGACY_AUTH_KEYS = ['device' + '_token'] as const
+const LEGACY_AUTH_KEYS = [SESSION_TOKEN_KEY.replace('session', 'device')]
 
 export interface StoredAuthTokens {
   session_token: string | null
