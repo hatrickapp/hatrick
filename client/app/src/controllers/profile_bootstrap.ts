@@ -1,19 +1,12 @@
 import * as auth_api from '@/api/auth_api'
 import * as billing_api from '@/api/billing_api'
 import { generate_idempotency_key } from '@/lib/idempotency'
+import { closest_supported_timezone, get_browser_timezone } from '@/lib/timezones'
 import { use_dashboard_store } from '@/store/dashboard_store'
 import type { UserProfileResponse } from '@/types/authentication_types'
 
-function get_browser_timezone(): string | null {
-  try {
-    return Intl.DateTimeFormat().resolvedOptions().timeZone || null
-  } catch {
-    return null
-  }
-}
-
 async function apply_detected_timezone_if_default(profile: UserProfileResponse): Promise<UserProfileResponse> {
-  const detectedTimezone = get_browser_timezone()
+  const detectedTimezone = closest_supported_timezone(get_browser_timezone())
   if (!detectedTimezone || detectedTimezone === profile.timezone || profile.timezone !== 'UTC') {
     return profile
   }

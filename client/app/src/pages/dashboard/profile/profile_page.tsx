@@ -1,30 +1,18 @@
 import { useEffect, useState } from 'react'
-import { AtSign, BadgeCheck, CalendarDays, Check, Globe2, KeyRound, Pencil, X } from 'lucide-react'
+import { AtSign, BadgeCheck, CalendarDays, Check, Globe2, KeyRound, X } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { Avatar, AvatarFallback, AvatarPlaceholder } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { Select, SelectContent, SelectItem, SelectLabel, SelectSeparator, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { ProfileSkeleton } from '@/components/shared/dashboard_skeletons'
 import { ErrorAlert } from '@/components/shared/error_alert'
 import { LoadingSpinner } from '@/components/shared/loading_spinner'
 import { handle_update_profile_name, handle_update_profile_timezone, handle_update_profile_username, load_profile } from '@/controllers/dashboard_controller'
 import { ROUTES } from '@/lib/constants'
+import { AUTOMATIC_TIMEZONE_VALUE, TIMEZONE_GROUPS, closest_supported_timezone, display_timezone, get_browser_timezone } from '@/lib/timezones'
 import { is_valid_username, sanitize_username_input } from '@/lib/username_validation'
 import { use_dashboard_store } from '@/store/dashboard_store'
-
-const TIMEZONES = [
-  'UTC',
-  'Asia/Amman',
-  'Asia/Riyadh',
-  'Europe/London',
-  'Europe/Madrid',
-  'Europe/Rome',
-  'Europe/Berlin',
-  'Europe/Paris',
-  'America/New_York',
-  'America/Los_Angeles',
-]
 
 function format_date(iso: string): string {
   return new Date(iso).toLocaleDateString('en-US', {
@@ -73,7 +61,7 @@ function InfoRow({ icon, label, value }: InfoRowProps) {
   return (
     <div className="flex flex-col gap-2 py-4 group sm:flex-row sm:items-center sm:justify-between sm:py-3">
       <div className="flex items-center gap-3 text-[11px] font-medium uppercase tracking-[0.14em] sm:tracking-widest text-muted-foreground/60 sm:text-xs">
-        <span className="text-muted-foreground/30  transition-colors">{icon}</span>
+        <span className="text-primary/70 transition-colors">{icon}</span>
         {label}
       </div>
       <div className="break-words text-left text-sm font-medium text-foreground sm:text-right">{value}</div>
@@ -160,11 +148,15 @@ export function ProfilePage() {
   }
 
   const updateTimezone = async (timezone: string) => {
-    if (timezone === profile.timezone) return
+    const nextTimezone = timezone === AUTOMATIC_TIMEZONE_VALUE
+      ? closest_supported_timezone(get_browser_timezone())
+      : timezone
+
+    if (nextTimezone === profile.timezone) return
     setTimezoneLoading(true)
     setProfileError(null)
     try {
-      await handle_update_profile_timezone(timezone)
+      await handle_update_profile_timezone(nextTimezone)
     } catch (error) {
       setProfileError(error instanceof Error ? error.message : 'Could not update your timezone.')
     } finally {
@@ -305,24 +297,24 @@ export function ProfilePage() {
                     <Button
                       type="button"
                       variant="ghost"
-                      className="inline-flex h-6 w-5 items-center justify-center px-0 text-primary transition-colors "
+                      className="h-auto px-1 py-0 text-xs font-medium text-[#D4AF37] hover:bg-transparent hover:text-[#C9A227]"
                       aria-label="Edit username"
                       onClick={() => {
                         setUsernameValue(profile.username)
                         setUsernameEditing(true)
                       }}
                     >
-                      <Pencil className="h-4 w-4" />
+                      edit
                     </Button>
                   ) : !canChangeUsername ? (
                     <Button
                       asChild
                       variant="ghost"
-                      className="inline-flex h-6 w-5 items-center justify-center px-0 text-[#D4AF37] transition-colors hover:text-[#C9A227]"
+                      className="h-auto px-1 py-0 text-xs font-medium text-[#D4AF37] hover:bg-transparent hover:text-[#C9A227]"
                       aria-label="Upgrade to edit username"
                     >
                       <Link to={ROUTES.DASHBOARD_UPGRADE} state={{ from: ROUTES.DASHBOARD_PROFILE }}>
-                        <Pencil className="h-4 w-4" />
+                        edit
                       </Link>
                     </Button>
                   ) : (
@@ -343,13 +335,21 @@ export function ProfilePage() {
               value={(
                 <div className="flex items-center justify-start gap-2 sm:justify-end">
                   {timezoneLoading && <LoadingSpinner size="sm" />}
-                  <Select value={profile.timezone} onValueChange={updateTimezone} disabled={timezoneLoading}>
+                  <Select value={closest_supported_timezone(profile.timezone)} onValueChange={updateTimezone} disabled={timezoneLoading}>
                     <SelectTrigger className="h-9 w-full shadow-none sm:w-56">
-                      <SelectValue placeholder="Timezone" />
+                      <SelectValue>{display_timezone(profile.timezone)}</SelectValue>
                     </SelectTrigger>
-                    <SelectContent>
-                      {TIMEZONES.map((timezone) => (
-                        <SelectItem key={timezone} value={timezone}>{timezone}</SelectItem>
+                    <SelectContent className="max-h-[320px]">
+                      {TIMEZONE_GROUPS.map((group, index) => (
+                        <div key={group.label}>
+                          {index > 0 && <SelectSeparator />}
+                          {group.label !== 'Default' && <SelectLabel>{group.label}</SelectLabel>}
+                          {group.options.map((timezone) => (
+                            <SelectItem key={timezone.value} value={timezone.value}>
+                              {timezone.label}
+                            </SelectItem>
+                          ))}
+                        </div>
                       ))}
                     </SelectContent>
                   </Select>
