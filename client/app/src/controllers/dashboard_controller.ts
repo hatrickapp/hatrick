@@ -39,12 +39,6 @@ export async function handle_update_profile_username(username: string): Promise<
   await load_profile(false, true)
 }
 
-export async function handle_update_profile_visibility(show_name_publicly: boolean): Promise<void> {
-  const key = generate_idempotency_key()
-  await auth_api.update_profile_visibility({ show_name_publicly }, key)
-  await load_profile(false, true)
-}
-
 export async function handle_update_profile_timezone(timezone: string): Promise<void> {
   const key = generate_idempotency_key()
   await auth_api.update_profile_timezone({ timezone }, key)

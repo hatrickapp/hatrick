@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { AtSign, BadgeCheck, CalendarDays, Check, Eye, Globe2, KeyRound, Pencil, User, X } from 'lucide-react'
+import { AtSign, BadgeCheck, CalendarDays, Check, Globe2, KeyRound, Pencil, X } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { Avatar, AvatarFallback, AvatarPlaceholder } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
@@ -8,7 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { ProfileSkeleton } from '@/components/shared/dashboard_skeletons'
 import { ErrorAlert } from '@/components/shared/error_alert'
 import { LoadingSpinner } from '@/components/shared/loading_spinner'
-import { handle_update_profile_name, handle_update_profile_timezone, handle_update_profile_username, handle_update_profile_visibility, load_profile } from '@/controllers/dashboard_controller'
+import { handle_update_profile_name, handle_update_profile_timezone, handle_update_profile_username, load_profile } from '@/controllers/dashboard_controller'
 import { ROUTES } from '@/lib/constants'
 import { is_valid_username, sanitize_username_input } from '@/lib/username_validation'
 import { use_dashboard_store } from '@/store/dashboard_store'
@@ -81,34 +81,6 @@ function InfoRow({ icon, label, value }: InfoRowProps) {
   )
 }
 
-function VisibilityChoice({
-  value,
-  selected,
-  disabled,
-  onSelect,
-}: {
-  value: 'Yes' | 'No'
-  selected: boolean
-  disabled: boolean
-  onSelect: () => void
-}) {
-  return (
-    <Button
-      type="button"
-      variant="outline"
-      disabled={disabled}
-      onClick={onSelect}
-      className={[
-        'min-w-24 rounded-none border-border/60 px-5 py-2 text-sm font-medium shadow-none',
-        selected ? 'bg-primary text-primary-foreground border-primary' : 'bg-background text-foreground ',
-        disabled ? 'cursor-not-allowed opacity-60' : '',
-      ].join(' ')}
-    >
-      {value}
-    </Button>
-  )
-}
-
 export function ProfilePage() {
   const profile = use_dashboard_store((s) => s.profile)
   const [loading, set_loading] = useState(!profile)
@@ -119,7 +91,6 @@ export function ProfilePage() {
   const [usernameValue, setUsernameValue] = useState('')
   const [usernameLoading, setUsernameLoading] = useState(false)
   const [timezoneLoading, setTimezoneLoading] = useState(false)
-  const [visibilityLoading, setVisibilityLoading] = useState(false)
   const [profileError, setProfileError] = useState<string | null>(null)
 
   useEffect(() => {
@@ -201,19 +172,6 @@ export function ProfilePage() {
     }
   }
 
-  const updateVisibility = async (showName: boolean) => {
-    if (showName === profile.show_name_publicly) return
-    setVisibilityLoading(true)
-    setProfileError(null)
-    try {
-      await handle_update_profile_visibility(showName)
-    } catch (error) {
-      setProfileError(error instanceof Error ? error.message : 'Could not update public profile settings.')
-    } finally {
-      setVisibilityLoading(false)
-    }
-  }
-
   const submitUsername = async (event: React.FormEvent) => {
     event.preventDefault()
     setProfileError(null)
@@ -247,8 +205,52 @@ export function ProfilePage() {
           </Avatar>
         </div>
         <div className="min-w-0 flex-1">
-          <div className="mb-1 flex flex-wrap items-center gap-x-3 gap-y-2">
-            <h3 className="min-w-0 break-words text-lg font-medium tracking-tight text-foreground sm:text-xl">{profile.name || profile.email.split('@')[0]}</h3>
+          <div className="mb-1 flex flex-wrap items-center gap-x-2 gap-y-2">
+            {nameEditing ? (
+              <form onSubmit={submitName} className="flex min-w-0 flex-1 items-center gap-2">
+                <Input
+                  value={nameValue}
+                  onChange={(event) => setNameValue(event.target.value.replace(/[^A-Za-z .'-]/g, ''))}
+                  maxLength={128}
+                  className="h-9 max-w-sm bg-input-background text-left"
+                  autoFocus
+                />
+                <Button type="submit" size="icon" className="h-8 w-8 shrink-0" disabled={nameLoading || !is_valid_profile_name(nameValue)}>
+                  {nameLoading ? <LoadingSpinner size="sm" /> : <Check className="h-4 w-4" />}
+                </Button>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="icon"
+                  className="h-8 w-8 shrink-0"
+                  disabled={nameLoading}
+                  onClick={() => {
+                    setNameValue(profile.name ?? '')
+                    setNameEditing(false)
+                  }}
+                >
+                  <X className="h-4 w-4" />
+                </Button>
+              </form>
+            ) : (
+              <>
+                <h3 className="min-w-0 break-words text-lg font-medium tracking-tight text-foreground sm:text-xl">{profile.name || profile.email.split('@')[0]}</h3>
+                {canEditName && (
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    className="h-auto px-1 py-0 text-xs font-medium text-primary hover:bg-transparent hover:text-primary/80"
+                    aria-label={profile.name ? 'Edit name' : 'Set name'}
+                    onClick={() => {
+                      setNameValue(profile.name ?? '')
+                      setNameEditing(true)
+                    }}
+                  >
+                    edit
+                  </Button>
+                )}
+              </>
+            )}
           </div>
           <p className="break-words text-sm text-muted-foreground">{profile.email}</p>
           <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2">
@@ -266,55 +268,6 @@ export function ProfilePage() {
       <div className="grid gap-8">
         <div>
           <div className="divide-y divide-border/30">
-            <InfoRow
-              icon={<User className="h-4 w-4" />}
-              label="Full Name"
-              value={nameEditing ? (
-                <form onSubmit={submitName} className="flex w-full max-w-sm items-center gap-2 sm:ml-auto">
-                  <Input
-                    value={nameValue}
-                    onChange={(event) => setNameValue(event.target.value.replace(/[^A-Za-z .'-]/g, ''))}
-                    maxLength={128}
-                    className="h-9 bg-input-background text-left"
-                    autoFocus
-                  />
-                  <Button type="submit" size="icon" className="h-9 w-9 shrink-0" disabled={nameLoading || !is_valid_profile_name(nameValue)}>
-                    {nameLoading ? <LoadingSpinner size="sm" /> : <Check className="h-4 w-4" />}
-                  </Button>
-                  <Button
-                    type="button"
-                    variant="outline"
-                    size="icon"
-                    className="h-9 w-9 shrink-0"
-                    disabled={nameLoading}
-                    onClick={() => {
-                      setNameValue(profile.name ?? '')
-                      setNameEditing(false)
-                    }}
-                  >
-                    <X className="h-4 w-4" />
-                  </Button>
-                </form>
-              ) : (
-                <div className="flex flex-wrap items-center justify-start gap-2 sm:justify-end">
-                  {profile.name && <span>{profile.name}</span>}
-                  {canEditName && (
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      className="inline-flex h-6 w-6 items-center justify-center text-primary transition-colors "
-                      aria-label={profile.name ? 'Edit name' : 'Set name'}
-                      onClick={() => {
-                        setNameValue(profile.name ?? '')
-                        setNameEditing(true)
-                      }}
-                    >
-                      <Pencil className="h-4 w-4" />
-                    </Button>
-                  )}
-                </div>
-              )}
-            />
             <InfoRow
               icon={<AtSign className="h-4 w-4" />}
               label="Hatrick Username"
@@ -346,13 +299,13 @@ export function ProfilePage() {
                   </Button>
                 </form>
               ) : (
-                <div className="flex flex-wrap items-center justify-start gap-2 sm:justify-end">
+                <div className="flex flex-wrap items-center justify-start gap-1 sm:justify-end">
                   <span>{profile.username}</span>
                   {canEditUsername ? (
                     <Button
                       type="button"
                       variant="ghost"
-                      className="inline-flex h-6 w-6 items-center justify-center text-primary transition-colors "
+                      className="inline-flex h-6 w-5 items-center justify-center px-0 text-primary transition-colors "
                       aria-label="Edit username"
                       onClick={() => {
                         setUsernameValue(profile.username)
@@ -365,7 +318,7 @@ export function ProfilePage() {
                     <Button
                       asChild
                       variant="ghost"
-                      className="inline-flex h-6 w-6 items-center justify-center text-[#D4AF37] transition-colors hover:text-[#C9A227]"
+                      className="inline-flex h-6 w-5 items-center justify-center px-0 text-[#D4AF37] transition-colors hover:text-[#C9A227]"
                       aria-label="Upgrade to edit username"
                     >
                       <Link to={ROUTES.DASHBOARD_UPGRADE} state={{ from: ROUTES.DASHBOARD_PROFILE }}>
@@ -379,29 +332,6 @@ export function ProfilePage() {
                       </span>
                     )
                   )}
-                </div>
-              )}
-            />
-            <InfoRow
-              icon={<Eye className="h-4 w-4" />}
-              label="Show Name Publicly"
-              value={(
-                <div className="flex items-center justify-start gap-2 sm:justify-end">
-                  {visibilityLoading && <LoadingSpinner size="sm" />}
-                  <div className="grid grid-cols-2 gap-2">
-                    <VisibilityChoice
-                      value="Yes"
-                      selected={profile.show_name_publicly}
-                      disabled={visibilityLoading}
-                      onSelect={() => updateVisibility(true)}
-                    />
-                    <VisibilityChoice
-                      value="No"
-                      selected={!profile.show_name_publicly}
-                      disabled={visibilityLoading}
-                      onSelect={() => updateVisibility(false)}
-                    />
-                  </div>
                 </div>
               )}
             />

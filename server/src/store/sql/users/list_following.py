@@ -49,7 +49,7 @@ async def list_following(
             u.user_id AS cursor_id,
             u.user_id,
             u.username,
-            CASE WHEN u.show_name_publicly THEN u.name ELSE NULL END AS name,
+            u.name,
             EXISTS (
                 SELECT 1
                 FROM user_follows vf
@@ -92,7 +92,7 @@ async def list_following(
             f.follow_id AS cursor_id,
             u.user_id,
             u.username,
-            CASE WHEN u.show_name_publicly THEN u.name ELSE NULL END AS name,
+            u.name,
             EXISTS (
                 SELECT 1
                 FROM user_follows vf

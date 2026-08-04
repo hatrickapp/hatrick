@@ -1,5 +1,5 @@
 import { api_request } from './client'
-import type { AuthenticatedUserResponse, MobileAuthResponse, NativeAppleOAuthRequest, NativeGoogleOAuthRequest, ProfileVisibilityResponse, ProfileNameResponse, ProfileUsernameResponse, UpdateProfileNameRequest, UpdateProfileTimezoneRequest, UpdateProfileUsernameRequest, UpdateProfileVisibilityRequest, UserIdResponse, UserProfileResponse, ProfileTimezoneResponse } from '@/types/authentication_types'
+import type { AuthenticatedUserResponse, MobileAuthResponse, NativeAppleOAuthRequest, NativeGoogleOAuthRequest, ProfileNameResponse, ProfileUsernameResponse, UpdateProfileNameRequest, UpdateProfileTimezoneRequest, UpdateProfileUsernameRequest, UserIdResponse, UserProfileResponse, ProfileTimezoneResponse } from '@/types/authentication_types'
 import type { BaseResponse } from '@/types/base_types'
 
 const AUTH = '/v1/auth'
@@ -28,17 +28,6 @@ export async function update_profile_username(
   idempotency_key: string,
 ): Promise<ProfileUsernameResponse> {
   return api_request<ProfileUsernameResponse>(`${AUTH}/user/profile/username`, {
-    method: 'POST',
-    body: body as unknown as Record<string, unknown>,
-    idempotency_key,
-  })
-}
-
-export async function update_profile_visibility(
-  body: UpdateProfileVisibilityRequest,
-  idempotency_key: string,
-): Promise<ProfileVisibilityResponse> {
-  return api_request<ProfileVisibilityResponse>(`${AUTH}/user/profile/visibility`, {
     method: 'POST',
     body: body as unknown as Record<string, unknown>,
     idempotency_key,

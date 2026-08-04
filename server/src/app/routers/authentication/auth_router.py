@@ -4,7 +4,7 @@ from fastapi import APIRouter, HTTPException, Response
 
 from src.app.routers.authentication.cookie_policy import remove_session_cookie
 from src.app.routers.authentication.responses.profile_rank import profile_rank
-from src.app.routers.classes.authentication_classes import AuthenticatedUserResponse, CompleteDeletionRequest, CompleteLogoutRequest, InitiateDeletionRequest, MobileAuthResponse, NativeAppleOAuthRequest, NativeGoogleOAuthRequest, ProfileNameResponse, ProfileTimezoneResponse, ProfileUsernameResponse, ProfileVisibilityResponse, UpdateProfileNameRequest, UpdateProfileTimezoneRequest, UpdateProfileUsernameRequest, UpdateProfileVisibilityRequest, UserIdResponse, UserProfileResponse, UserProfileStats, UserSessionItem, UserSessionsResponse
+from src.app.routers.classes.authentication_classes import AuthenticatedUserResponse, CompleteDeletionRequest, CompleteLogoutRequest, InitiateDeletionRequest, MobileAuthResponse, NativeAppleOAuthRequest, NativeGoogleOAuthRequest, ProfileNameResponse, ProfileTimezoneResponse, ProfileUsernameResponse, UpdateProfileNameRequest, UpdateProfileTimezoneRequest, UpdateProfileUsernameRequest, UserIdResponse, UserProfileResponse, UserProfileStats, UserSessionItem, UserSessionsResponse
 from src.app.routers.classes.base import BaseResponse
 from src.app.routers.dependencies.router_dependencies import CountryDep, EventPublisherDep, HTTPDep, LuaManagerDep, OsDep, PoolDep, RedisDep, SessionTokenDep, UserDep
 from src.logic.authentication.deletion.complete_deletion import complete_deletion
@@ -15,7 +15,6 @@ from src.logic.authentication.logout.logout import logout
 from src.logic.authentication.profile.update_profile_name import update_profile_name_logic
 from src.logic.authentication.profile.update_profile_timezone import update_profile_timezone_logic
 from src.logic.authentication.profile.update_profile_username import update_profile_username_logic
-from src.logic.authentication.profile.update_public_name_visibility import update_public_name_visibility_logic
 from src.logic.authentication.shared.resolve_current_user import resolve_current_user
 from src.logic.authentication.shared.ui.get_auth_functions import get_user_profile_data, get_user_sessions_data
 
@@ -59,7 +58,6 @@ async def get_user_profile_endpoint(pool: PoolDep, user_id: UserDep):
         username_changed_at=profile.username_changed_at,
         username_next_change_at=profile.username_changed_at + timedelta(days=30) if profile.username_changed_at and profile.username_setup_completed else None,
         username_setup_completed=profile.username_setup_completed,
-        show_name_publicly=profile.show_name_publicly,
         followers_count=profile.followers_count,
         following_count=profile.following_count,
         account_status=profile.account_status,
@@ -102,11 +100,6 @@ async def update_user_profile_name_endpoint(body: UpdateProfileNameRequest, pool
 async def update_user_profile_username_endpoint(body: UpdateProfileUsernameRequest, pool: PoolDep, user_id: UserDep):
     username = await update_profile_username_logic(pool, user_id, body.username)
     return ProfileUsernameResponse(username=username)
-
-@router.post("/auth/user/profile/visibility", response_model=ProfileVisibilityResponse)
-async def update_user_profile_visibility_endpoint(body: UpdateProfileVisibilityRequest, pool: PoolDep, user_id: UserDep):
-    show_name_publicly = await update_public_name_visibility_logic(pool, user_id, body.show_name_publicly)
-    return ProfileVisibilityResponse(show_name_publicly=show_name_publicly)
 
 @router.post("/auth/user/profile/timezone", response_model=ProfileTimezoneResponse)
 async def update_user_profile_timezone_endpoint(body: UpdateProfileTimezoneRequest, pool: PoolDep, user_id: UserDep):

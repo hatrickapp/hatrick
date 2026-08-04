@@ -20,9 +20,6 @@ class UpdateProfileNameRequest(BaseModel):
 class UpdateProfileUsernameRequest(BaseModel):
     username: str = Field(..., min_length=3, max_length=20)
 
-class UpdateProfileVisibilityRequest(BaseModel):
-    show_name_publicly: bool
-
 class UpdateProfileTimezoneRequest(BaseModel):
     timezone: str = Field(..., min_length=1, max_length=64)
 
@@ -69,9 +66,6 @@ class ProfileNameResponse(BaseResponse):
 class ProfileUsernameResponse(BaseResponse):
     username: str
 
-class ProfileVisibilityResponse(BaseResponse):
-    show_name_publicly: bool
-
 class ProfileTimezoneResponse(BaseResponse):
     timezone: str
 
@@ -103,7 +97,6 @@ class UserProfileResponse(BaseResponse):
     username_changed_at: datetime | None
     username_next_change_at: datetime | None
     username_setup_completed: bool
-    show_name_publicly: bool
     followers_count: int
     following_count: int
     account_status: str

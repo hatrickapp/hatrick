@@ -14,7 +14,6 @@ class UserProfile:
     username: str
     username_changed_at: datetime | None
     username_setup_completed: bool
-    show_name_publicly: bool
     followers_count: int
     following_count: int
     account_status: str
@@ -63,7 +62,6 @@ async def get_user_profile(conn: Connection, user_id: UUID) -> UserProfile | Non
         u.username,
         u.username_changed_at,
         u.username_setup_completed,
-        u.show_name_publicly,
         (SELECT COUNT(*)::int FROM user_follows uf WHERE uf.followed_user_id = u.user_id) AS followers_count,
         (SELECT COUNT(*)::int FROM user_follows uf WHERE uf.follower_user_id = u.user_id) AS following_count,
         u.account_status,
@@ -126,7 +124,6 @@ async def get_user_profile(conn: Connection, user_id: UUID) -> UserProfile | Non
         username=row["username"],
         username_changed_at=row["username_changed_at"],
         username_setup_completed=row["username_setup_completed"],
-        show_name_publicly=row["show_name_publicly"],
         followers_count=row["followers_count"],
         following_count=row["following_count"],
         account_status=row["account_status"],

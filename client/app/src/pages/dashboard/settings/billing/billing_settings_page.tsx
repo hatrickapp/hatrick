@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { ExternalLink, RefreshCw, Sparkles } from 'lucide-react'
+import { ExternalLink, RefreshCw } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { BillingSettingsSkeleton } from '@/components/shared/dashboard_skeletons'
 import { Button } from '@/components/ui/button'
@@ -101,8 +101,7 @@ export function BillingSettingsPage() {
             ) : (
               <Button asChild className={goldButtonClassName}>
                 <Link to={ROUTES.DASHBOARD_UPGRADE}>
-                  <Sparkles className="size-4" />
-                  Upgrade to Plus
+                  View Hatrick Plus
                 </Link>
               </Button>
             )}

@@ -12,7 +12,7 @@ from src.store.sql.sports.read_models import CompetitionRow
 
 async def list_user_leagues(conn: Connection, viewer_user_id: UUID) -> tuple[list[LeagueRow], list[LeagueRow]]:
     query = league_select(viewer_user_id) + """
-    GROUP BY l.league_id, hu.username, hu.show_name_publicly, hu.name, user_standing.rank, user_standing.points
+    GROUP BY l.league_id, hu.username, hu.name, user_standing.rank, user_standing.points
     ORDER BY
         CASE WHEN l.status = 'finished' THEN 1 ELSE 0 END,
         l.ends_at ASC,

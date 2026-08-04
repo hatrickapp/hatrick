@@ -14,7 +14,7 @@ from src.store.sql.sports.read_models import CompetitionRow
 async def select_league_detail(conn: Connection, league_id: UUID, viewer_user_id: UUID) -> LeagueRow | None:
     query = league_select(viewer_user_id) + """
       AND l.league_id = $2
-    GROUP BY l.league_id, hu.username, hu.show_name_publicly, hu.name, user_standing.rank, user_standing.points
+    GROUP BY l.league_id, hu.username, hu.name, user_standing.rank, user_standing.points
     """
     row = await conn.fetchrow(query, viewer_user_id, league_id)
     if row is None:

@@ -68,7 +68,7 @@ async def select_public_user_profile(conn: Connection, username: str, viewer_use
         SELECT
             u.user_id,
             u.username,
-            CASE WHEN u.show_name_publicly THEN u.name ELSE NULL END AS name,
+            u.name,
             (SELECT COUNT(*)::int FROM user_follows uf WHERE uf.followed_user_id = u.user_id) AS followers_count,
             (SELECT COUNT(*)::int FROM user_follows uf WHERE uf.follower_user_id = u.user_id) AS following_count,
             EXISTS (

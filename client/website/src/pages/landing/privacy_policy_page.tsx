@@ -5,15 +5,15 @@ import { LandingNav } from './sections/landing_nav'
 const sections = [
   {
     title: 'What information does Hatrick collect?',
-    body: 'Hatrick collects the information needed to create and protect your account, run predictions, show rankings, and keep the app reliable. This may include your name, email address provided by Google or Apple, authentication provider, timezone, account status, session records, and basic request details. Hatrick also stores your username, username history controls, temporary username reservations, predictions, prediction revisions, points, match results, rank progress, public profile settings, follower and following relationships, and account activity timestamps.',
+    body: 'Hatrick collects the information needed to create and protect your account, run predictions, show rankings, and keep the app reliable. This may include your name, email address provided by Google or Apple, authentication provider, timezone, account status, session records, and basic request details. Hatrick also stores your username, username history controls, temporary username reservations, predictions, prediction revisions, points, match results, rank progress, follower and following relationships, and account activity timestamps.',
   },
   {
     title: 'What profile information is public?',
-    body: 'Hatrick is built with public football profiles. Your username, prediction rank, public ranking statistics, prediction accuracy information, follower count, following count, followers list, and following list may be visible to other signed in users. Your full name is shown publicly only if you choose to enable the public name setting in your profile. Email address, session records, authentication details, and security information are not shown on public profiles.',
+    body: 'Hatrick is built with public football profiles. Your username, full name, prediction rank, public ranking statistics, prediction accuracy information, follower count, following count, followers list, and following list may be visible to other signed in users. Email address, session records, authentication details, and security information are not shown on public profiles.',
   },
   {
     title: 'How do user search and following work?',
-    body: 'Signed in users may search public usernames and view public profiles. Search results may show a username and public name when the user has enabled public name visibility. Followers and following lists are public, searchable, and shown with pagination so users can browse accounts connected through the following system. Following another account does not require that account to follow back.',
+    body: 'Signed in users may search public usernames and view public profiles. Search results may show a username and full name. Followers and following lists are public, searchable, and shown with pagination so users can browse accounts connected through the following system. Following another account does not require that account to follow back.',
   },
   {
     title: 'How do we use your information?',

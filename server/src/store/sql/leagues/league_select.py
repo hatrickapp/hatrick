@@ -15,7 +15,7 @@ def league_select(viewer_user_id: UUID) -> str:
         l.league_id,
         l.host_user_id,
         hu.username AS host_username,
-        CASE WHEN hu.show_name_publicly THEN hu.name ELSE NULL END AS host_name,
+        hu.name AS host_name,
         l.name,
         l.status,
         l.starts_at,

@@ -26,7 +26,7 @@ async def list_league_standings(conn: Connection, league_id: UUID, viewer_user_i
         SELECT
             ls.user_id,
             u.username,
-            CASE WHEN u.show_name_publicly THEN u.name ELSE NULL END AS name,
+            u.name,
             u.plan,
             ls.rank,
             ls.points,

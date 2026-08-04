@@ -36,7 +36,6 @@ export interface UserProfileResponse extends BaseResponse {
   username_changed_at: string | null
   username_next_change_at: string | null
   username_setup_completed: boolean
-  show_name_publicly: boolean
   followers_count: number
   following_count: number
   account_status: string
@@ -64,14 +63,6 @@ export interface UpdateProfileUsernameRequest {
 
 export interface ProfileUsernameResponse extends BaseResponse {
   username: string
-}
-
-export interface UpdateProfileVisibilityRequest {
-  show_name_publicly: boolean
-}
-
-export interface ProfileVisibilityResponse extends BaseResponse {
-  show_name_publicly: boolean
 }
 
 export interface UpdateProfileTimezoneRequest {

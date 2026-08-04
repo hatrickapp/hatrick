@@ -7,7 +7,6 @@ CREATE TABLE users (
   username_hash TEXT NOT NULL,
   username_changed_at TIMESTAMPTZ,
   username_setup_completed BOOLEAN NOT NULL DEFAULT FALSE,
-  show_name_publicly BOOLEAN NOT NULL DEFAULT FALSE,
   is_deleted BOOLEAN NOT NULL DEFAULT FALSE,
 
   -- Account Information

@@ -16,7 +16,7 @@ async def select_league_detail_for_scoring(conn: Connection, league_id: UUID) ->
             l.league_id,
             l.host_user_id,
             u.username AS host_username,
-            CASE WHEN u.show_name_publicly THEN u.name ELSE NULL END AS host_name,
+            u.name AS host_name,
             l.name,
             l.status,
             l.starts_at,

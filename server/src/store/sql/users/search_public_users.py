@@ -60,7 +60,7 @@ async def search_public_users(
     SELECT
         u.user_id,
         u.username,
-        CASE WHEN u.show_name_publicly THEN u.name ELSE NULL END AS name,
+        u.name,
         u.plan
     FROM users u
     LEFT JOIN cursor_user cu ON TRUE
