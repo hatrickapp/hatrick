@@ -16,7 +16,8 @@ async def select_revenuecat_customer(conn: Connection, user_id: UUID):
       has_purchase_history,
       current_period_ends_at,
       unsubscribe_detected_at,
-      billing_issue_detected_at
+      billing_issue_detected_at,
+      last_event_at
     FROM revenuecat_customers
     WHERE user_id = $1
     """

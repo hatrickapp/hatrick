@@ -33,7 +33,7 @@ async def sync_revenuecat_billing_endpoint(pool: PoolDep, http: HTTPDep, user_id
 
 
 @router.post("/billing/revenuecat/webhook", response_model=BaseResponse)
-async def revenuecat_webhook_endpoint(request: Request, pool: PoolDep):
+async def revenuecat_webhook_endpoint(request: Request, pool: PoolDep, http: HTTPDep):
     raw_body = await request.body()
     verify_revenuecat_webhook(
         raw_body,
@@ -49,5 +49,5 @@ async def revenuecat_webhook_endpoint(request: Request, pool: PoolDep):
     except (orjson.JSONDecodeError, ValueError) as exc:
         raise HTTPException(status_code=400, detail="INVALID_REVENUECAT_WEBHOOK") from exc
 
-    await handle_revenuecat_webhook(pool, event)
+    await handle_revenuecat_webhook(pool, http, event)
     return BaseResponse()

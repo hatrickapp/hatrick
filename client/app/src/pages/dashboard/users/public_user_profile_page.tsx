@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { Sparkles } from 'lucide-react'
 import { Avatar, AvatarFallback, AvatarPlaceholder, PlusAvatarRing } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 import { PublicProfileSkeleton } from '@/components/shared/dashboard_skeletons'
@@ -233,7 +232,6 @@ export function PublicUserProfilePage() {
         <div className="min-w-0">
           <div className="flex min-w-0 flex-wrap items-center gap-x-2 gap-y-1 sm:gap-3">
             <h1 className="min-w-0 break-words text-2xl font-medium leading-tight tracking-tight text-foreground sm:text-3xl">@{profile.username}</h1>
-            {profile.plan === 'plus' && <Sparkles className="h-5 w-5 shrink-0 text-[#D4AF37] sm:h-6 sm:w-6" aria-label="Plus user" />}
           </div>
           {profile.name && <p className="mt-2 text-sm font-medium text-muted-foreground">{profile.name}</p>}
           <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 sm:mt-4 sm:gap-x-5">

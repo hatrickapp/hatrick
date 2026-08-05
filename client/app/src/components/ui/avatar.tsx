@@ -61,15 +61,25 @@ function PlusAvatarRing({
 }) {
   if (!active) return <>{children}</>
 
+  const avatar = React.isValidElement<{ className?: string }>(children)
+    ? React.cloneElement(children, {
+        className: cn(children.props.className, "border-0 shadow-none"),
+      })
+    : children
+
   return (
     <span
       className={cn(
-        "inline-flex shrink-0 rounded-full bg-[conic-gradient(from_215deg,#FFF7C2_0deg,#FFE66D_42deg,#F8D84F_88deg,#E8C03B_132deg,#D4AF37_178deg,#B89320_226deg,#D4AF37_274deg,#FFE66D_318deg,#FFF7C2_360deg)] p-[2px] shadow-[0_0_0_1px_rgba(0,0,0,0.08),0_0_14px_rgba(212,175,55,0.26)]",
+        "relative inline-flex shrink-0 rounded-full leading-none",
         className
       )}
     >
-      <span className="rounded-full bg-background p-[2px]">
-        {children}
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute -inset-[2px] rounded-full bg-[conic-gradient(from_215deg,#FFF3A0_0deg,#FFEA76_36deg,#FFE05A_72deg,#F7D343_108deg,#EBC536_144deg,#DDB82D_180deg,#D4AF37_216deg,#C69D22_252deg,#D4AF37_288deg,#E8C742_324deg,#FFF3A0_360deg)] shadow-[0_0_0_1px_rgba(190,149,25,0.55),0_0_12px_rgba(212,175,55,0.22)]"
+      />
+      <span className="relative flex overflow-hidden rounded-full bg-background">
+        {avatar}
       </span>
     </span>
   )

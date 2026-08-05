@@ -16,10 +16,14 @@ def parse_revenuecat_webhook(payload: dict[str, Any]) -> RevenueCatEvent:
     entitlement_id = event_string(event.get("entitlement_id"))
     if entitlement_id and entitlement_id not in entitlement_ids:
         entitlement_ids.append(entitlement_id)
+    aliases_raw = event.get("aliases")
+    aliases = [value for item in aliases_raw if (value := event_string(item))] if isinstance(aliases_raw, list) else []
 
     return RevenueCatEvent(
         event_id=event_id,
         app_user_id=event_string(event.get("app_user_id")),
+        original_app_user_id=event_string(event.get("original_app_user_id")),
+        aliases=aliases,
         event_type=event_type,
         environment=event_string(event.get("environment")),
         store=event_string(event.get("store")),

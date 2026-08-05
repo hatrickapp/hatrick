@@ -1,4 +1,3 @@
-from datetime import UTC, datetime
 from typing import Any
 from urllib.parse import quote
 from uuid import UUID
@@ -13,6 +12,9 @@ from src.logic.billing.revenuecat_values import datetime_from_ms
 from src.store.sql.billing.select_revenuecat_customer import select_revenuecat_customer
 from src.store.sql.billing.update_user_plan import update_user_plan
 from src.store.sql.billing.upsert_revenuecat_customer import upsert_revenuecat_customer
+
+_entitlement_resource_ids: dict[tuple[str, str], str] = {}
+
 
 async def sync_revenuecat_customer(pool: Pool, http: httpx.AsyncClient, user_id: UUID) -> RevenueCatSyncResult:
     rc_settings = settings.revenuecat
@@ -44,8 +46,8 @@ async def sync_revenuecat_customer(pool: Pool, http: httpx.AsyncClient, user_id:
                 unsubscribe_detected_at=existing["unsubscribe_detected_at"] if existing else None,
                 billing_issue_detected_at=existing["billing_issue_detected_at"] if existing else None,
                 event_id=None,
-                event_type="SERVER_SYNC",
-                event_at=datetime.now(UTC),
+                event_type=None,
+                event_at=None,
             )
             await update_user_plan(conn, user_id, "plus" if is_active else "free")
 
@@ -70,6 +72,7 @@ async def sync_revenuecat_customer_if_ready(pool: Pool, http: httpx.AsyncClient,
 
 
 async def fetch_active_entitlement(http: httpx.AsyncClient, app_user_id: str, entitlement_id: str) -> dict[str, Any]:
+    entitlement_resource_id = await fetch_entitlement_resource_id(http, entitlement_id)
     project_id = quote(settings.revenuecat.project_id, safe="")
     customer_id = quote(app_user_id, safe="")
     url = f"{settings.revenuecat.api_base_url}/projects/{project_id}/customers/{customer_id}/active_entitlements"
@@ -102,7 +105,7 @@ async def fetch_active_entitlement(http: httpx.AsyncClient, app_user_id: str, en
     for item in items:
         if not isinstance(item, dict):
             continue
-        if item.get("entitlement_id") != entitlement_id:
+        if item.get("entitlement_id") != entitlement_resource_id:
             continue
         return {
             "active": True,
@@ -110,3 +113,47 @@ async def fetch_active_entitlement(http: httpx.AsyncClient, app_user_id: str, en
         }
 
     return {"active": False, "expires_at": None}
+
+
+async def fetch_entitlement_resource_id(http: httpx.AsyncClient, lookup_key: str) -> str:
+    cache_key = (settings.revenuecat.project_id, lookup_key)
+    cached = _entitlement_resource_ids.get(cache_key)
+    if cached:
+        return cached
+
+    project_id = quote(settings.revenuecat.project_id, safe="")
+    url = f"{settings.revenuecat.api_base_url}/projects/{project_id}/entitlements"
+
+    try:
+        response = await http.get(
+            url,
+            headers={
+                "Authorization": f"Bearer {settings.revenuecat.secret_api_key}",
+                "Accept": "application/json",
+            },
+            params={"limit": 100},
+        )
+    except httpx.HTTPError as exc:
+        raise BillingProviderError() from exc
+
+    if response.status_code >= 400:
+        raise BillingProviderError()
+
+    try:
+        payload = response.json()
+    except ValueError as exc:
+        raise BillingProviderError() from exc
+    items = payload.get("items") if isinstance(payload, dict) else None
+    if not isinstance(items, list):
+        raise BillingProviderError()
+
+    for item in items:
+        if not isinstance(item, dict) or item.get("lookup_key") != lookup_key:
+            continue
+        resource_id = item.get("id")
+        if not isinstance(resource_id, str) or not resource_id:
+            break
+        _entitlement_resource_ids[cache_key] = resource_id
+        return resource_id
+
+    raise BillingConfigurationError()

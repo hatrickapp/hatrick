@@ -67,6 +67,9 @@ async def upsert_revenuecat_subscription(
       last_event_type = COALESCE(EXCLUDED.last_event_type, revenuecat_subscriptions.last_event_type),
       last_event_at = COALESCE(EXCLUDED.last_event_at, revenuecat_subscriptions.last_event_at),
       updated_at = NOW()
+    WHERE revenuecat_subscriptions.last_event_at IS NULL
+       OR EXCLUDED.last_event_at IS NULL
+       OR EXCLUDED.last_event_at >= revenuecat_subscriptions.last_event_at
     """
     await conn.execute(
         query,

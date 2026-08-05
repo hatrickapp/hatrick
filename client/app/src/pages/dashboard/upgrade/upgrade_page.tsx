@@ -9,7 +9,7 @@ import { get_cached_leagues_config, load_leagues_config } from '@/controllers/le
 import { APP_BOOT_TYPING_SPEED_MS } from '@/lib/animation_constants'
 import { ROUTES } from '@/lib/constants'
 import { get_upgrade_return_path, get_upgrade_return_state } from '@/lib/upgrade_navigation'
-import { RevenueCatUserCancelledError } from '@/lib/revenuecat'
+import { get_plus_price_label, RevenueCatUserCancelledError } from '@/lib/revenuecat'
 import { useTypingEffect } from '@/hooks/use_typing_effect'
 import { use_auth_store } from '@/store/auth_store'
 import type { PlusOfferingItem } from '@/types/league_types'
@@ -20,6 +20,7 @@ export function UpgradePage() {
   const hasTyped = Boolean((window as Window & { __hatrickUpgradeTitleTyped?: boolean }).__hatrickUpgradeTitleTyped)
   const [offering, setOffering] = useState<PlusOfferingItem | null>(get_cached_leagues_config()?.plus_offering ?? null)
   const [purchaseLoading, setPurchaseLoading] = useState(false)
+  const [storePriceLabel, setStorePriceLabel] = useState<string | null>(null)
   const [message, setMessage] = useState<string | null>(null)
   const typedUpgrade = useTypingEffect(hasTyped ? '' : 'Upgrade to Plus', APP_BOOT_TYPING_SPEED_MS)
   const title = hasTyped ? 'Upgrade to Plus' : typedUpgrade
@@ -50,6 +51,19 @@ export function UpgradePage() {
       document.body.classList.remove('hatrick-upgrade-lock')
     }
   }, [])
+
+  useEffect(() => {
+    if (!user?.user_id) return
+    let cancelled = false
+    get_plus_price_label(user.user_id)
+      .then((priceLabel) => {
+        if (!cancelled) setStorePriceLabel(priceLabel)
+      })
+      .catch(() => undefined)
+    return () => {
+      cancelled = true
+    }
+  }, [user?.user_id])
 
   const buy_plus = async () => {
     if (!user?.user_id) return
@@ -106,7 +120,7 @@ export function UpgradePage() {
           </div>
 
           <div className="mt-4 text-center">
-            <p className="text-[2rem] font-medium leading-none tracking-normal text-foreground min-[390px]:text-3xl">{offering?.price_label ?? ''}</p>
+            <p className="text-[2rem] font-medium leading-none tracking-normal text-foreground min-[390px]:text-3xl">{storePriceLabel ?? 'Price shown in store'}</p>
             <p className="mt-1 text-[11px] font-medium uppercase tracking-[0.16em] text-muted-foreground/60">Cancel anytime</p>
           </div>
 

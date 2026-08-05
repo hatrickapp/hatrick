@@ -72,6 +72,10 @@ export function customer_has_plus(customerInfo: CustomerInfo): boolean {
   return Boolean(entitlement?.isActive)
 }
 
+export function customer_plus_expiration(customerInfo: CustomerInfo): string | null {
+  return customerInfo.entitlements.active[PLUS_ENTITLEMENT_ID]?.expirationDate ?? null
+}
+
 export async function get_plus_package(user_id: string): Promise<PurchasesPackage> {
   await ensure_revenuecat_configured(user_id)
   const offerings = await Purchases.getOfferings()
@@ -79,6 +83,22 @@ export async function get_plus_package(user_id: string): Promise<PurchasesPackag
   const pack = offering?.monthly ?? offering?.availablePackages[0]
   if (!pack) throw new RevenueCatUnavailableError('Hatrick Plus is not available yet.')
   return pack
+}
+
+export async function get_plus_price_label(user_id: string): Promise<string> {
+  const pack = await get_plus_package(user_id)
+  const periodLabels: Record<string, string> = {
+    P1W: 'week',
+    P1M: 'month',
+    P2M: '2 months',
+    P3M: '3 months',
+    P6M: '6 months',
+    P1Y: 'year',
+  }
+  const period = pack.product.subscriptionPeriod
+  return period && periodLabels[period]
+    ? `${pack.product.priceString}/${periodLabels[period]}`
+    : pack.product.priceString
 }
 
 export async function purchase_plus_package(user_id: string): Promise<CustomerInfo> {

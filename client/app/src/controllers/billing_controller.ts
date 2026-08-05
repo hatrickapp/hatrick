@@ -1,6 +1,6 @@
 import * as billing_api from '@/api/billing_api'
 import { load_profile } from '@/controllers/dashboard_controller'
-import { customer_has_plus, get_revenuecat_management_url, purchase_plus_package, restore_revenuecat_purchases } from '@/lib/revenuecat'
+import { customer_has_plus, customer_plus_expiration, get_revenuecat_management_url, purchase_plus_package, restore_revenuecat_purchases } from '@/lib/revenuecat'
 import { use_dashboard_store } from '@/store/dashboard_store'
 import type { BillingStatusResponse, BillingSyncResponse } from '@/types/billing_types'
 
@@ -44,7 +44,9 @@ async function sync_billing_profile(): Promise<BillingSyncResponse> {
 export async function handle_purchase_plus(user_id: string): Promise<BillingSyncResponse> {
   const customerInfo = await purchase_plus_package(user_id)
   const result = await sync_billing_profile()
-  if (!result.active && customer_has_plus(customerInfo)) return result
+  if (!result.active && customer_has_plus(customerInfo)) {
+    return { ...result, plan: 'plus', active: true, expires_at: customer_plus_expiration(customerInfo) }
+  }
   return result
 }
 

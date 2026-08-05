@@ -29,6 +29,8 @@ class RevenueCatBillingStatus:
 class RevenueCatEvent:
     event_id: str
     app_user_id: str | None
+    original_app_user_id: str | None
+    aliases: list[str]
     event_type: str
     environment: str | None
     store: str | None
