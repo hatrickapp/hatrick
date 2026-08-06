@@ -11,8 +11,7 @@ import type { CreateLeagueRequest, LeagueLimitItem, LeagueScoringPresetItem, Lea
 import type { CompetitionItem } from '@/types/sports_types'
 import { DateTimeField } from './date_time_field'
 import { LeagueCompetitionSelector, type CompetitionMode } from './league_competition_selector'
-import { LeagueMemberPointsSelector } from './league_member_points_selector'
-import { LeagueScoringSelector } from './league_scoring_selector'
+import { LeagueScoringSelector, type ScoringMode } from './league_scoring_selector'
 import {
   add_days,
   date_time_input,
@@ -49,11 +48,13 @@ export function CreateLeagueForm({
   const [name, setName] = useState('')
   const [competitionMode, setCompetitionMode] = useState<CompetitionMode>('all')
   const [selectedCompetitions, setSelectedCompetitions] = useState<string[]>([])
+  const [scoringMode, setScoringMode] = useState<ScoringMode>('default')
   const defaultScoringPreset = scoringPresets.find((preset) => preset.is_default) ?? scoringPresets[0]
-  const [scoringKey, setScoringKey] = useState(defaultScoringPreset.preset_key)
+  const firstCustomPreset = scoringPresets.find((preset) => !preset.is_default) ?? scoringPresets[0]
+  const [scoringKey, setScoringKey] = useState(firstCustomPreset.preset_key)
   const [startsAt, setStartsAt] = useState(date_time_input(0))
   const [endsAt, setEndsAt] = useState(date_time_input(30))
-  const [includeExisting, setIncludeExisting] = useState(false)
+  const includeExisting = false
   const [maxMembers, setMaxMembers] = useState(String(Math.min(leagueLimits.default_max_members, MAX_LEAGUE_PLAYERS_INPUT)))
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -65,7 +66,7 @@ export function CreateLeagueForm({
   const allCompetitionIds = competitions.map((competition) => competition.competition_id)
   const scoring = scoringPresets.find((preset) => preset.preset_key === scoringKey)?.scoring ?? defaultScoringPreset.scoring
   const effectiveCompetitionIds = !canCustomizeCompetitions || competitionMode === 'all' ? allCompetitionIds : selectedCompetitions
-  const effectiveScoring = canCustomizeScoring ? scoring : defaultScoringPreset.scoring
+  const effectiveScoring = canCustomizeScoring && scoringMode === 'custom' ? scoring : defaultScoringPreset.scoring
   const effectiveIncludeExisting = canCountExistingPoints ? includeExisting : false
   const canSubmit = name.trim().length >= 3 && effectiveCompetitionIds.length > 0 && !submitting
   const startMinDate = start_of_day(new Date())
@@ -159,8 +160,10 @@ export function CreateLeagueForm({
 
         <LeagueScoringSelector
           canCustomize={canCustomizeScoring}
+          mode={scoringMode}
           scoringKey={canCustomizeScoring ? scoringKey : defaultScoringPreset.preset_key}
           scoringPresets={scoringPresets}
+          onModeChange={setScoringMode}
           onChange={(key) => {
             if (canCustomizeScoring || key === defaultScoringPreset.preset_key) setScoringKey(key)
           }}
@@ -194,14 +197,6 @@ export function CreateLeagueForm({
               />
               {fieldErrors.maxMembers && <p className="mt-2 text-xs text-destructive">{fieldErrors.maxMembers}</p>}
             </div>
-            <LeagueMemberPointsSelector
-              canCountExisting={canCountExistingPoints}
-              includeExisting={effectiveIncludeExisting}
-              onChange={(value) => {
-                if (canCountExistingPoints || !value) setIncludeExisting(value)
-              }}
-              onUpgrade={openUpgrade}
-            />
           </div>
         </div>
       </div>
@@ -211,13 +206,13 @@ export function CreateLeagueForm({
           <ErrorAlert message={error} onDismiss={() => setError(null)} />
         </div>
       )}
-      <div className="mt-8 flex justify-end">
+      <div className="mt-6 flex justify-end">
         <Button disabled={!canSubmit} onClick={submit} className="min-w-36">
           {submitting && <LoadingSpinner size="sm" className="mr-2" />}
           {submitting ? 'Creating' : 'Create League'}
         </Button>
       </div>
-      <div className="h-[calc(env(safe-area-inset-bottom)+2rem)] sm:h-6" aria-hidden="true" />
+      <div className="h-4" aria-hidden="true" />
     </section>
   )
 }

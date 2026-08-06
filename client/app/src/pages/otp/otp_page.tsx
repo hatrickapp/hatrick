@@ -55,7 +55,7 @@ export function OtpPage() {
 
     try {
       await handle_account_delete_complete(value)
-      navigate(ROUTES.LOGIN, { replace: true, state: { deleted: true } })
+      navigate(ROUTES.ACCOUNT_DELETED, { replace: true })
     } catch (err) {
       set_error(err instanceof Error ? err.message : 'Invalid code. Please try again.')
       set_otp('')

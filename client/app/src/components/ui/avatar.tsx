@@ -70,14 +70,10 @@ function PlusAvatarRing({
   return (
     <span
       className={cn(
-        "relative inline-flex shrink-0 rounded-full leading-none",
+        "relative inline-flex shrink-0 rounded-full leading-none p-[2px] bg-[conic-gradient(from_215deg,#FFF3A0_0deg,#FFEA76_36deg,#FFE05A_72deg,#F7D343_108deg,#EBC536_144deg,#DDB82D_180deg,#D4AF37_216deg,#C69D22_252deg,#D4AF37_288deg,#E8C742_324deg,#FFF3A0_360deg)]",
         className
       )}
     >
-      <span
-        aria-hidden="true"
-        className="pointer-events-none absolute -inset-[2px] rounded-full bg-[conic-gradient(from_215deg,#FFF3A0_0deg,#FFEA76_36deg,#FFE05A_72deg,#F7D343_108deg,#EBC536_144deg,#DDB82D_180deg,#D4AF37_216deg,#C69D22_252deg,#D4AF37_288deg,#E8C742_324deg,#FFF3A0_360deg)] shadow-[0_0_0_1px_rgba(190,149,25,0.55),0_0_12px_rgba(212,175,55,0.22)]"
-      />
       <span className="relative flex overflow-hidden rounded-full bg-background">
         {avatar}
       </span>

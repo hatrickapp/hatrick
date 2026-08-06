@@ -1,0 +1,64 @@
+# Hatrick
+
+> Hatrick is a social football prediction platform for creating private leagues, predicting real football match outcomes, tracking prediction accuracy, and competing with friends across major domestic and international football competitions.
+
+Hatrick is available at https://hatrick.app/.
+
+Hatrick is a football prediction game, not a sportsbook or gambling platform. Users compete based on the accuracy of their football predictions and earn points according to Hatrick's scoring rules.
+
+Users can predict match outcomes, both teams to score (BTTS), and anytime goalscorers. Correct combinations can earn a Full Hatrick Bonus.
+
+Hatrick supports private football prediction leagues for friends, families, workplaces, online communities, and other groups.
+
+Core prediction types include:
+- Match outcome: Home Win, Draw, or Away Win
+- Both Teams to Score (BTTS): Yes or No
+- Anytime Goalscorer
+- Full Hatrick Bonus: Correctly predicting the required combination of outcome, BTTS, and goalscorer for a match
+
+Hatrick includes football match tracking, prediction statistics, league standings, rankings, head-to-head information, and prediction accuracy metrics.
+
+Supported football competitions include major domestic leagues and international competitions such as the UEFA Champions League, English Premier League, Spanish La Liga, Italian Serie A, German Bundesliga, French Ligue 1, FIFA World Cup, and other international tournaments.
+
+Hatrick offers free access alongside an optional paid subscription with additional features. Current pricing, subscription features, availability, and terms should always be verified on Hatrick's official pricing page.
+
+## Hatrick
+
+- [Hatrick](https://hatrick.app/): Official Hatrick website and social football prediction platform.
+- [About Hatrick](https://hatrick.app/about): Learn about Hatrick and the football prediction platform.
+- [Frequently Asked Questions](https://hatrick.app/faq): Answers to common questions about Hatrick, football predictions, leagues, accounts, and platform features.
+
+## Football Predictions
+
+- [Football Prediction Game](https://hatrick.app/football-prediction-game): Learn how Hatrick's football prediction game works, including match predictions and competitive prediction gameplay.
+- [Football Prediction Rules](https://hatrick.app/rules): Official rules for football predictions, scoring, points, and Hatrick gameplay.
+
+## Private Football Leagues
+
+- [Private Football Leagues](https://hatrick.app/private-football-leagues): Learn about creating and joining private football prediction leagues on Hatrick and competing with friends and communities.
+
+## Pricing & Subscriptions
+
+- [Pricing & Subscriptions](https://hatrick.app/pricing): Current Hatrick pricing, subscription options, premium features, and plan information.
+
+## Download Hatrick
+
+- [Download Hatrick for iOS](https://hatrick.app/download/ios): Download or access Hatrick for iPhone and other supported Apple devices.
+- [Download Hatrick for Android](https://hatrick.app/download/android): Download or access Hatrick for supported Android devices.
+
+## Support
+
+- [Hatrick Support](https://hatrick.app/support): Get help with Hatrick, accounts, football predictions, leagues, subscriptions, and other platform questions.
+- [Frequently Asked Questions](https://hatrick.app/faq): Find answers to frequently asked questions about using Hatrick.
+
+## Legal & Privacy
+
+- [Privacy Policy](https://hatrick.app/privacy): Official Hatrick Privacy Policy describing privacy and data-handling practices.
+- [Terms of Service](https://hatrick.app/terms): Official terms governing the use of Hatrick.
+
+## Optional
+
+- [About Hatrick](https://hatrick.app/about): Additional information about Hatrick and the platform.
+- [Hatrick Support](https://hatrick.app/support): Support resources for Hatrick users.
+- [Privacy Policy](https://hatrick.app/privacy): Hatrick privacy and data-handling information.
+- [Terms of Service](https://hatrick.app/terms): Legal terms governing use of Hatrick.

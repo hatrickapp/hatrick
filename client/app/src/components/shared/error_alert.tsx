@@ -5,12 +5,34 @@ interface ErrorAlertProps {
   onDismiss?: () => void
 }
 
-function format_error(msg: string): string {
+function format_error(msg: string): string | null {
   const normalized = msg.trim()
   const lower = normalized.toLowerCase()
 
-  if (msg.toLowerCase().includes('failed to fetch')) {
-    return 'Unable to connect to our servers. Please check your connection.'
+  // Ignore user cancellation errors silently
+  if (
+    lower.includes('canceled') ||
+    lower.includes('cancelled') ||
+    lower.includes('user_canceled') ||
+    lower.includes('user_cancelled') ||
+    lower.includes('12501') // Google sign-in cancel code
+  ) {
+    return null
+  }
+
+  // Convert technical/backend/network details into clean user-facing error messages
+  if (
+    lower.includes('failed to fetch') ||
+    lower.includes('network error') ||
+    lower.includes('cannot reach backend') ||
+    lower.includes('http://') ||
+    lower.includes('https://')
+  ) {
+    return 'Unable to connect. Please check your internet connection.'
+  }
+
+  if (lower.includes('api key') || lower.includes('unauthorized') || lower.includes('forbidden')) {
+    return 'Authentication error. Please try again.'
   }
 
   if (lower === 'user not found.') {
@@ -46,11 +68,12 @@ export function ErrorAlert({ message, onDismiss }: ErrorAlertProps) {
     return () => window.clearTimeout(timer)
   }, [message, onDismiss])
 
-  if (!visibleMessage) return null
+  const formatted = visibleMessage ? format_error(visibleMessage) : null
+  if (!formatted) return null
 
   return (
-    <p className="mt-4 text-sm font-medium leading-relaxed text-destructive animate-in fade-in duration-300">
-      {format_error(visibleMessage)}
+    <p className="mt-4 text-center text-sm font-medium leading-relaxed text-destructive animate-in fade-in duration-300">
+      {formatted}
     </p>
   )
 }

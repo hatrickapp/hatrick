@@ -29,6 +29,7 @@ export const ROUTES = {
   DASHBOARD_PROFILE: '/dashboard/settings/profile',
   DASHBOARD_SETTINGS_BILLING: '/dashboard/settings/billing',
   DASHBOARD_SETTINGS_DELETE: '/dashboard/settings/delete',
+  ACCOUNT_DELETED: '/account-deleted',
 } as const
 
 export function get_authenticated_home_path(role?: string | null) {

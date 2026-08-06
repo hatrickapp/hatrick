@@ -2,17 +2,6 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { TriangleAlert, Trash2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from '@/components/ui/alert-dialog'
 import { ErrorAlert } from '@/components/shared/error_alert'
 import { LoadingSpinner } from '@/components/shared/loading_spinner'
 import { handle_account_delete_initiate } from '@/controllers/dashboard_controller'
@@ -23,8 +12,17 @@ export function DeleteAccountPage() {
   const navigate = useNavigate()
   const [loading, set_loading] = useState(false)
   const [error, set_error] = useState<string | null>(null)
+  const [confirming, set_confirming] = useState(false)
 
-  const handle_confirm = async () => {
+  const handle_click = async () => {
+    if (!confirming) {
+      set_confirming(true)
+      setTimeout(() => {
+        set_confirming(false)
+      }, 4000)
+      return
+    }
+
     set_error(null)
     set_loading(true)
     try {
@@ -33,6 +31,7 @@ export function DeleteAccountPage() {
       navigate(ROUTES.OTP, { state })
     } catch (err) {
       set_error(err instanceof Error ? err.message : 'Something went wrong.')
+      set_confirming(false)
     } finally {
       set_loading(false)
     }
@@ -70,33 +69,35 @@ export function DeleteAccountPage() {
 
           <ErrorAlert message={error} onDismiss={() => set_error(null)} />
 
-          <AlertDialog>
-            <AlertDialogTrigger asChild>
-              <Button variant="destructive" className="w-full h-10 font-medium transition-all" disabled={loading}>
-                {loading ? <LoadingSpinner size="sm" className="mr-2" /> : <Trash2 className="mr-2 h-4 w-4" />}
-                Delete my account
-              </Button>
-            </AlertDialogTrigger>
-            <AlertDialogContent className="w-[calc(100vw-2rem)] sm:w-full">
-              <AlertDialogHeader>
-                <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-                <AlertDialogDescription>
-                  This will permanently delete your account and all associated data.
-                  Rankings and leagues you host will be deleted automatically.
-                  A verification code will be sent to your email.
-                </AlertDialogDescription>
-              </AlertDialogHeader>
-              <AlertDialogFooter>
-                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                <AlertDialogAction
-                  onClick={handle_confirm}
-                  className="bg-destructive text-destructive-foreground "
+          <Button
+            type="button"
+            variant="destructive"
+            onClick={handle_click}
+            disabled={loading}
+            className="relative w-full h-10 overflow-hidden font-medium transition-all duration-300 active:scale-[0.99]"
+          >
+            {loading ? (
+              <LoadingSpinner size="sm" />
+            ) : (
+              <div className="relative h-full w-full flex items-center justify-center">
+                <span
+                  className={`absolute inset-0 flex items-center justify-center transition-all duration-300 ${
+                    confirming ? 'opacity-0 -translate-y-2 pointer-events-none' : 'opacity-100 translate-y-0'
+                  }`}
                 >
-                  Confirm Delete
-                </AlertDialogAction>
-              </AlertDialogFooter>
-            </AlertDialogContent>
-          </AlertDialog>
+                  <Trash2 className="mr-2 h-4 w-4" />
+                  Delete my account
+                </span>
+                <span
+                  className={`absolute inset-0 flex items-center justify-center font-semibold transition-all duration-300 ${
+                    confirming ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2 pointer-events-none'
+                  }`}
+                >
+                  Are you absolutely sure?
+                </span>
+              </div>
+            )}
+          </Button>
         </div>
       </div>
     </div>

@@ -27,10 +27,16 @@ const UserFollowDirectoryPage = lazy(() => import('@/pages/dashboard/users/user_
 const DeleteAccountPage = lazy(() => import('@/pages/dashboard/settings/delete/delete_account_page').then(m => ({ default: m.DeleteAccountPage })))
 const BillingSettingsPage = lazy(() => import('@/pages/dashboard/settings/billing/billing_settings_page').then(m => ({ default: m.BillingSettingsPage })))
 
+const AccountDeletedPage = lazy(() => import('@/pages/auth/account_deleted_page').then(m => ({ default: m.AccountDeletedPage })))
+
 export const router = createBrowserRouter([
   {
     path: ROUTES.ROOT,
     element: <Navigate to={ROUTES.LOGIN} replace />,
+  },
+  {
+    path: ROUTES.ACCOUNT_DELETED,
+    element: <RouteTitle title={`${APP_NAME} | Account Deleted`}><Suspense fallback={<PageLoader />}><AccountDeletedPage /></Suspense></RouteTitle>,
   },
   {
     path: ROUTES.PRICING_TERMS,

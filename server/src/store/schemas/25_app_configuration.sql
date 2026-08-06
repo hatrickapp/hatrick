@@ -116,7 +116,7 @@ INSERT INTO app_plus_offering (
   features
 ) VALUES (
   'plus',
-  '$1.99/month',
+  '$9.99/year',
   'Get Hatrick Plus',
   ARRAY[
     'Create up to 20 leagues',

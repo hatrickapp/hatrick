@@ -10,7 +10,7 @@ class InvalidLeagueNameError(AppError):
             "INVALID_LEAGUE_NAME": self.message,
             "OFFENSIVE_LEAGUE_NAME": "Choose a league name without offensive words.",
         }
-        super().__init__(messages.get(detail, self.message))
+        super().__init__(detail, messages)
 
 
 class InvalidLeagueSettingsError(AppError):
@@ -33,7 +33,7 @@ class InvalidLeagueSettingsError(AppError):
             "NO_SCORING_RULES": "Choose at least one scoring rule.",
             "APP_CONFIG_MISSING": "League configuration is missing. Apply the app configuration SQL first.",
         }
-        super().__init__(messages.get(detail, self.message))
+        super().__init__(detail, messages)
 
 
 class LeagueLimitReachedError(AppError):
@@ -67,7 +67,7 @@ class LeagueMemberActionError(AppError):
             "LAST_MEMBER": "A league must keep at least one active member.",
             "MEMBER_NOT_FOUND": "This league member could not be found.",
         }
-        super().__init__(messages.get(detail, self.message))
+        super().__init__(detail, messages)
 
 
 class InvalidLeagueInviteError(AppError):

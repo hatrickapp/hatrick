@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Check } from 'lucide-react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import logoSrc from '@/assets/logo.png'
 import { BackIconButton } from '@/components/shared/back_icon_button'
 import { Button } from '@/components/ui/button'
@@ -8,18 +8,23 @@ import { handle_purchase_plus } from '@/controllers/billing_controller'
 import { get_cached_leagues_config, load_leagues_config } from '@/controllers/leagues_controller'
 import { APP_BOOT_TYPING_SPEED_MS } from '@/lib/animation_constants'
 import { ROUTES } from '@/lib/constants'
+import { LoadingSpinner } from '@/components/shared/loading_spinner'
 import { get_upgrade_return_path, get_upgrade_return_state } from '@/lib/upgrade_navigation'
 import { get_plus_price_label, RevenueCatUserCancelledError } from '@/lib/revenuecat'
 import { useTypingEffect } from '@/hooks/use_typing_effect'
 import { use_auth_store } from '@/store/auth_store'
 import type { PlusOfferingItem } from '@/types/league_types'
+import { PlusOnboardingModal } from '@/components/shared/plus_onboarding_modal'
 
 export function UpgradePage() {
   const location = useLocation()
+  const navigate = useNavigate()
   const user = use_auth_store((state) => state.user)
   const hasTyped = Boolean((window as Window & { __hatrickUpgradeTitleTyped?: boolean }).__hatrickUpgradeTitleTyped)
   const [offering, setOffering] = useState<PlusOfferingItem | null>(get_cached_leagues_config()?.plus_offering ?? null)
   const [purchaseLoading, setPurchaseLoading] = useState(false)
+  const [isUpgraded, setIsUpgraded] = useState(false)
+  const [showOnboarding, setShowOnboarding] = useState(false)
   const [storePriceLabel, setStorePriceLabel] = useState<string | null>(null)
   const [message, setMessage] = useState<string | null>(null)
   const typedUpgrade = useTypingEffect(hasTyped ? '' : 'Upgrade to Plus', APP_BOOT_TYPING_SPEED_MS)
@@ -71,30 +76,47 @@ export function UpgradePage() {
     setPurchaseLoading(true)
     try {
       const result = await handle_purchase_plus(user.user_id)
-      setMessage(result.active ? 'Hatrick Plus is active.' : 'Purchase received. Plus will activate as soon as the store confirms it.')
+      if (result.active) {
+        setIsUpgraded(true)
+        setPurchaseLoading(false)
+        setTimeout(() => {
+          setShowOnboarding(true)
+        }, 1500)
+      } else {
+        setMessage('Purchase received. Plus will activate as soon as the store confirms it.')
+        setPurchaseLoading(false)
+      }
     } catch (error) {
       if (!(error instanceof RevenueCatUserCancelledError)) {
         setMessage(error instanceof Error ? error.message : 'Could not start the purchase.')
       }
-    } finally {
       setPurchaseLoading(false)
     }
   }
 
+  const handleOnboardingComplete = () => {
+    setShowOnboarding(false)
+    navigate(returnPath, { state: returnState, replace: true })
+  }
+
+  if (showOnboarding) {
+    return <PlusOnboardingModal onComplete={handleOnboardingComplete} />
+  }
+
   return (
-    <main className="fixed inset-0 z-[60] h-svh overflow-hidden overscroll-none bg-background bg-dot-grid px-5 pb-[calc(env(safe-area-inset-bottom)+1.25rem)] pt-[calc(env(safe-area-inset-top)+1rem)] text-foreground animate-upgrade-page-in">
-      <div className="mx-auto flex h-full w-full max-w-md flex-col">
-        <BackIconButton to={returnPath} state={returnState} className="relative z-10 -ml-2" />
+    <main className="fixed inset-0 z-[60] flex h-svh flex-col overflow-hidden overscroll-none bg-background bg-dot-grid px-5 pb-[calc(env(safe-area-inset-bottom)+1rem)] pt-[calc(env(safe-area-inset-top)+0.75rem)] text-foreground animate-upgrade-page-in">
+      <div className="mx-auto flex h-full w-full max-w-md flex-col justify-between">
+        <div>
+          <BackIconButton to={returnPath} state={returnState} className="relative z-10 -ml-2" />
+        </div>
 
-        <section className="flex min-h-0 flex-1 flex-col justify-center">
-          <div className="-translate-y-3">
-            <div className="flex justify-center">
-              <img src={logoSrc} alt="Hatrick" className="h-16 w-16 object-contain min-[390px]:h-20 min-[390px]:w-20" />
-            </div>
+        <section className="flex flex-1 flex-col justify-evenly py-2">
+          <div className="flex flex-col items-center">
+            <img src={logoSrc} alt="Hatrick" className="h-14 w-14 object-contain min-[390px]:h-16 min-[390px]:w-16" />
 
-            <div className="mt-3 text-center">
+            <div className="mt-2 text-center">
               <p className="text-[11px] font-medium uppercase tracking-[0.16em] text-muted-foreground/60">Hatrick Plus</p>
-              <h1 className="mt-2 flex justify-center text-[2rem] font-medium leading-[1.02] tracking-normal text-foreground min-[390px]:text-4xl">
+              <h1 className="mt-1 flex justify-center text-2xl font-medium leading-tight tracking-normal text-foreground min-[390px]:text-3xl">
                 <span className="relative inline-block whitespace-nowrap">
                   <span className="invisible" aria-hidden="true">
                     Upgrade to <span>Plus</span>
@@ -104,40 +126,48 @@ export function UpgradePage() {
                   </span>
                 </span>
               </h1>
-              <p className="mx-auto mt-3 max-w-sm text-[13px] font-medium leading-5 text-muted-foreground min-[390px]:text-sm">
-                Unlock deeper league controls, stronger profile tools, and more room to build your football circles.
+              <p className="mx-auto mt-2 text-xs font-medium leading-relaxed text-muted-foreground min-[390px]:text-sm">
+                Unlock custom leagues, scoring, and tools.
               </p>
             </div>
-
-            <div className="mt-5 grid gap-3.5 border-y border-border/30 py-4 min-[390px]:gap-4">
-              {(offering?.features ?? []).map((feature) => (
-                <div key={feature} className="flex min-w-0 items-center gap-3">
-                  <Check className="size-3.5 shrink-0 text-[#D4AF37]" />
-                  <span className="text-sm font-medium leading-5 text-foreground">{feature}</span>
-                </div>
-              ))}
-            </div>
           </div>
 
-          <div className="mt-4 text-center">
-            <p className="text-[2rem] font-medium leading-none tracking-normal text-foreground min-[390px]:text-3xl">{storePriceLabel ?? 'Price shown in store'}</p>
-            <p className="mt-1 text-[11px] font-medium uppercase tracking-[0.16em] text-muted-foreground/60">Cancel anytime</p>
+          <div className="grid gap-3 border-y border-border/30 py-3.5 min-[390px]:gap-3.5">
+            {(offering?.features ?? []).map((feature) => (
+              <div key={feature} className="flex min-w-0 items-center gap-3">
+                <Check className="size-4 shrink-0 text-[#D4AF37]" />
+                <span className="text-xs font-medium leading-snug text-foreground min-[390px]:text-sm">{feature}</span>
+              </div>
+            ))}
           </div>
 
+          <div className="text-center">
+            <p className="text-2xl font-medium tracking-tight text-foreground min-[390px]:text-3xl">{storePriceLabel ?? 'Price shown in store'}</p>
+            <p className="mt-0.5 text-[11px] font-medium uppercase tracking-[0.16em] text-muted-foreground/60">Cancel anytime</p>
+          </div>
+        </section>
+
+        <div className="pb-1">
           <Button
             type="button"
             onClick={buy_plus}
-            disabled={purchaseLoading}
-            className="mt-4 h-11 w-full border-black bg-[#D4AF37] text-foreground shadow-[1.5px_1.5px_0_#000]  min-[390px]:h-12"
+            disabled={purchaseLoading || isUpgraded}
+            className="h-11 w-full border-black bg-[#D4AF37] text-foreground shadow-[1.5px_1.5px_0_#000] min-[390px]:h-12 font-medium"
           >
-            {purchaseLoading ? 'Opening Store...' : offering?.cta_label ?? 'Get Hatrick Plus'}
+            {purchaseLoading ? (
+              <LoadingSpinner size="sm" />
+            ) : isUpgraded ? (
+              'Upgraded'
+            ) : (
+              offering?.cta_label ?? 'Get Hatrick Plus'
+            )}
           </Button>
           {message && (
             <p className="mx-auto mt-2 max-w-xs text-center text-xs font-medium leading-5 text-foreground">
               {message}
             </p>
           )}
-          <p className="mx-auto mt-3 max-w-xs text-center text-[11px] font-medium leading-5 text-muted-foreground/60">
+          <p className="mx-auto mt-2 max-w-xs text-center text-[10px] font-medium leading-relaxed text-muted-foreground/60 min-[390px]:text-[11px]">
             Subscription billing is handled through app stores. Review our{' '}
             <Link to={ROUTES.PRIVACY_POLICY} state={{ from: ROUTES.DASHBOARD_UPGRADE }} className="text-foreground underline underline-offset-4">
               Privacy Policy
@@ -148,7 +178,7 @@ export function UpgradePage() {
             </Link>
             .
           </p>
-        </section>
+        </div>
       </div>
     </main>
   )
