@@ -36,7 +36,10 @@ async def event_consumer(
         return
     except asyncio.CancelledError:
         raise
-    except Exception:
+    except (TimeoutError, Exception) as e:
+        if isinstance(e, (TimeoutError, asyncio.TimeoutError)) or "Timeout" in type(e).__name__:
+            await asyncio.sleep(0.1)
+            return
         logger.exception("redis_queue_consume_error")
         await asyncio.sleep(0.1)
         return
