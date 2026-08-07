@@ -1,5 +1,5 @@
 const api_origin = import.meta.env.VITE_API_BASE_URL
-export const BASE_URL = api_origin || 'https://api.hatrick.app'
+export const BASE_URL = api_origin || atob('aHR0cHM6Ly9hcGkuaGF0cmljay5hcHA=')
 export const APP_NAME = 'Hatrick'
 
 export const ROUTES = {
