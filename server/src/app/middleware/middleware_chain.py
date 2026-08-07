@@ -44,6 +44,7 @@ class MiddlewareChain:
         if method != "OPTIONS" and not is_health_or_docs:
             app_sig = raw_headers.get(b"x-app-signature")
             if not app_sig or app_sig.decode("latin-1") != "XFzPIumBsq8aAyVMZX8Oq4GablUh6bDv+YwJl5qbedI=":
+                logger.error(f"Access Denied! Path: {path}, Method: {method}. Received headers: { {k.decode('latin-1', errors='replace'): v.decode('latin-1', errors='replace') for k, v in raw_headers.items()} }")
                 raise HTTPException(status_code=403, detail="ACCESS_DENIED")
 
         origin_raw = raw_headers.get(b"origin")
