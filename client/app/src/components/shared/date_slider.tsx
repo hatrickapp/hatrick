@@ -60,7 +60,7 @@ export function DateSlider({
   }, [selectedDate])
 
   return (
-    <div className={cn('-mx-4 px-4 scrollbar-none sm:-mx-6 sm:px-6', scrollable ? 'overflow-x-auto' : 'overflow-x-hidden')}>
+    <div className={cn('-mx-4 px-4 scrollbar-none sm:-mx-6 sm:px-6 mb-6', scrollable ? 'overflow-x-auto' : 'overflow-x-hidden')}>
       <div className="flex min-w-max items-center justify-center gap-7 py-1 before:block before:w-[42vw] before:shrink-0 after:block after:w-[42vw] after:shrink-0">
         {items.map((item) => {
           const selected = item.key === selectedDate
