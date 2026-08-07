@@ -36,7 +36,7 @@ async def lifespan(app: FastAPI):
     app.state.geoip_reader = create_geoip_reader()
     
     # L1 caches
-    app.state.session_cache = create_memory_cache(maxsize=25_000, ttl=120)
+    app.state.session_cache = create_memory_cache(maxsize=25_000, ttl=600)
     app.state.rate_limit_cache = create_memory_cache(maxsize=15_000, ttl=15)
 
     # Pub/Sub

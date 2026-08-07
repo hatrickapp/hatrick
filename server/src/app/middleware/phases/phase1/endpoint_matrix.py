@@ -6,7 +6,7 @@ from typing import Literal
 @dataclass
 class EndpointConfig:
     access: Literal["authenticated", "authenticated-admin", "authenticated-user", "public"]
-    rate_by: Literal["ip", "user"]
+    rate_by: Literal["ip", "user", "none"]
     rate_hits: int = 0
     rate_window: int = 0
     max_body_bytes: int = 1024
@@ -18,13 +18,13 @@ RouteEntry = tuple[str, str, EndpointConfig]
 
 
 ROUTE_MATRIX: list[RouteEntry] = [
-    ("GET", "/v1/health", EndpointConfig(access="public", rate_by="ip", rate_hits=100, rate_window=60, max_body_bytes=0)),
+    ("GET", "/v1/health", EndpointConfig(access="public", rate_by="none", rate_hits=0, rate_window=0, max_body_bytes=0)),
 
     # --- OpenAPI Docs (dev only) ---
-    ("GET", "/docs", EndpointConfig(access="public", rate_by="ip", rate_hits=100, rate_window=60, max_body_bytes=0)),
-    ("GET", "/docs/oauth2-redirect", EndpointConfig(access="public", rate_by="ip", rate_hits=100, rate_window=60, max_body_bytes=0)),
-    ("GET", "/redoc", EndpointConfig(access="public", rate_by="ip", rate_hits=100, rate_window=60, max_body_bytes=0)),
-    ("GET", "/openapi.json", EndpointConfig(access="public", rate_by="ip", rate_hits=100, rate_window=60, max_body_bytes=0)),
+    ("GET", "/docs", EndpointConfig(access="public", rate_by="none", rate_hits=0, rate_window=0, max_body_bytes=0)),
+    ("GET", "/docs/oauth2-redirect", EndpointConfig(access="public", rate_by="none", rate_hits=0, rate_window=0, max_body_bytes=0)),
+    ("GET", "/redoc", EndpointConfig(access="public", rate_by="none", rate_hits=0, rate_window=0, max_body_bytes=0)),
+    ("GET", "/openapi.json", EndpointConfig(access="public", rate_by="none", rate_hits=0, rate_window=0, max_body_bytes=0)),
 
     # --- Authentication ---
     ("GET", "/v1/auth/user/me", EndpointConfig(access="authenticated", rate_by="user", rate_hits=100, rate_window=60, max_body_bytes=0, csp=True)),
