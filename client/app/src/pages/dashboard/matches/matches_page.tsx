@@ -256,7 +256,7 @@ export function MatchesPage() {
                   </section>
                 ))}
                 {hasNoMatchesLeft && (
-                  <div className="border-t border-border/40 pt-10">
+                  <div>
                     <div className="grid grid-cols-[minmax(0,1fr)_88px_minmax(0,1fr)] items-start gap-3 px-3 sm:grid-cols-[minmax(0,1fr)_96px_minmax(0,1fr)_112px] sm:px-4">
                       <div className="col-span-3 flex w-full max-w-[260px] flex-col items-center gap-3 justify-self-center text-center">
                         <div className="flex h-9 w-9 items-center justify-center rounded-full border border-primary/20 bg-primary/5 text-primary">
