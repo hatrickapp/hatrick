@@ -41,14 +41,7 @@ async def refresh_socket(websocket: WebSocket):
     await connect_user(session.user_id, websocket)
     try:
         while True:
-            await asyncio.sleep(REFRESH_INTERVAL_SECONDS)
-            await websocket.send_json(
-                {
-                    "type": "refresh",
-                    "scope": "dashboard",
-                    "sent_at": datetime.now(timezone.utc).isoformat(),
-                }
-            )
+            await websocket.receive_text()
     except WebSocketDisconnect:
         return
     except asyncio.CancelledError:
