@@ -128,11 +128,11 @@ class Settings(BaseSettings):
 
     @cached_property
     def psql_dsn(self) -> str:
-        return self.PSQL_URL
+        return self.PSQL_URL.strip()
 
     @cached_property
     def redis_url(self) -> str:
-        return self.REDIS_URL
+        return self.REDIS_URL.strip()
 
     @cached_property
     def cors_allowed_origins(self) -> list[str]:
