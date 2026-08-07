@@ -40,11 +40,10 @@ class MiddlewareChain:
         lua_manager = app_state.lua_manager
         raw_headers: dict[bytes, bytes] = {k.lower(): v for k, v in scope.get("headers", [])}
 
-        # Validate App Signature to block direct script access/scraping
         is_health_or_docs = path in ("/v1/health", "/docs", "/docs/oauth2-redirect", "/redoc", "/openapi.json")
         if method != "OPTIONS" and not is_health_or_docs:
             app_sig = raw_headers.get(b"x-app-signature")
-            if not app_sig or app_sig.decode("latin-1") != "hatrick-app-secure-sig-2026":
+            if not app_sig or app_sig.decode("latin-1") != "XFzPIumBsq8aAyVMZX8Oq4GablUh6bDv+YwJl5qbedI=":
                 raise HTTPException(status_code=403, detail="ACCESS_DENIED")
 
         origin_raw = raw_headers.get(b"origin")

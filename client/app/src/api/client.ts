@@ -71,7 +71,7 @@ export async function api_request<T>(path: string, options: RequestOptions = {})
 
   const headers: Record<string, string> = {
     'X-Client-Type': mobile_client ? 'mobile' : 'web',
-    'X-App-Signature': atob('aGF0cmljay1hcHAtc2VjdXJlLXNpZy0yMDI2'),
+    'X-App-Signature': atob('WEZ6UEl1bUJzcThhQXlWTVpYOE9xNEdhYmxVaDZiRHYrWXdKbDVxYmVkST0='),
   }
 
   if (tokens.session_token) {
