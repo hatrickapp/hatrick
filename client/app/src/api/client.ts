@@ -40,6 +40,30 @@ function handle_session_expired(): never {
   throw new ApiRequestError({ code: 'SESSION_EXPIRED', message: 'Your session has expired.' })
 }
 
+async function process_api_response<T>(
+  status: number,
+  ok: boolean,
+  data: any
+): Promise<T> {
+  if (status === 401) {
+    handle_session_expired()
+  }
+
+  if (!ok) {
+    if (data?.error?.code) {
+      throw new ApiRequestError(data.error)
+    }
+    if (data?.detail) {
+      throw new ApiRequestError({ code: data.detail, message: data.detail })
+    }
+    throw new ApiRequestError({ code: 'UNKNOWN_ERROR', message: 'An unexpected error occurred.' })
+  }
+
+  session_expired_handled = false
+  await persist_auth_tokens_from_response(data)
+  return data as T
+}
+
 export async function api_request<T>(path: string, options: RequestOptions = {}): Promise<T> {
   const { method = 'GET', body, idempotency_key, signal } = options
   const mobile_client = is_mobile_client()
@@ -70,27 +94,11 @@ export async function api_request<T>(path: string, options: RequestOptions = {})
         data: body,
       })
 
-      const ok = capResponse.status >= 200 && capResponse.status < 300
-
-      if (capResponse.status === 401) {
-        handle_session_expired()
-      }
-
-      const data = capResponse.data
-
-      if (!ok) {
-        if (data?.error?.code) {
-          throw new ApiRequestError(data.error)
-        }
-        if (data?.detail) {
-          throw new ApiRequestError({ code: data.detail, message: data.detail })
-        }
-        throw new ApiRequestError({ code: 'UNKNOWN_ERROR', message: 'An unexpected error occurred.' })
-      }
-
-      session_expired_handled = false
-      await persist_auth_tokens_from_response(data)
-      return data as T
+      return await process_api_response<T>(
+        capResponse.status,
+        capResponse.status >= 200 && capResponse.status < 300,
+        capResponse.data
+      )
     } catch (err) {
       if (err instanceof ApiRequestError) {
         throw err
@@ -118,23 +126,6 @@ export async function api_request<T>(path: string, options: RequestOptions = {})
     })
   }
 
-  if (response.status === 401) {
-    handle_session_expired()
-  }
-
   const data = await response.json()
-
-  if (!response.ok) {
-    if (data?.error?.code) {
-      throw new ApiRequestError(data.error)
-    }
-    if (data?.detail) {
-      throw new ApiRequestError({ code: data.detail, message: data.detail })
-    }
-    throw new ApiRequestError({ code: 'UNKNOWN_ERROR', message: 'An unexpected error occurred.' })
-  }
-
-  session_expired_handled = false
-  await persist_auth_tokens_from_response(data)
-  return data as T
+  return await process_api_response<T>(response.status, response.ok, data)
 }
