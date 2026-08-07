@@ -13,6 +13,9 @@ const config: CapacitorConfig = {
       resize: 'none',
       resizeOnFullScreen: false,
     },
+    CapacitorHttp: {
+      enabled: true,
+    },
   },
   server: {
     iosScheme: 'https',

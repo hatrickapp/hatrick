@@ -3,6 +3,7 @@ import { clear_session_token, get_auth_tokens, is_mobile_client, persist_auth_to
 import { use_auth_store } from '@/store/auth_store'
 import { use_dashboard_store } from '@/store/dashboard_store'
 import type { ApiError } from '@/types/base_types'
+import { CapacitorHttp } from '@capacitor/core'
 
 interface RequestOptions {
   method?: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH'
@@ -60,11 +61,52 @@ export async function api_request<T>(path: string, options: RequestOptions = {})
     headers['X-Idempotency-Key'] = idempotency_key
   }
 
+  if (mobile_client) {
+    try {
+      const capResponse = await CapacitorHttp.request({
+        url: `${BASE_URL}${path}`,
+        method,
+        headers,
+        data: body,
+      })
+
+      const ok = capResponse.status >= 200 && capResponse.status < 300
+
+      if (capResponse.status === 401) {
+        handle_session_expired()
+      }
+
+      const data = capResponse.data
+
+      if (!ok) {
+        if (data?.error?.code) {
+          throw new ApiRequestError(data.error)
+        }
+        if (data?.detail) {
+          throw new ApiRequestError({ code: data.detail, message: data.detail })
+        }
+        throw new ApiRequestError({ code: 'UNKNOWN_ERROR', message: 'An unexpected error occurred.' })
+      }
+
+      session_expired_handled = false
+      await persist_auth_tokens_from_response(data)
+      return data as T
+    } catch (err) {
+      if (err instanceof ApiRequestError) {
+        throw err
+      }
+      throw new ApiRequestError({
+        code: 'NETWORK_ERROR',
+        message: `Could not reach the API at ${BASE_URL}. Make sure the backend is running on this network.`,
+      })
+    }
+  }
+
   let response: Response
   try {
     response = await fetch(`${BASE_URL}${path}`, {
       method,
-      credentials: mobile_client ? 'omit' : 'include',
+      credentials: 'include',
       headers,
       body: body instanceof FormData ? body : (body ? JSON.stringify(body) : undefined),
       signal,
