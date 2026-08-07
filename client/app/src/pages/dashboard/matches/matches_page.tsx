@@ -232,7 +232,7 @@ export function MatchesPage() {
                             <h2 className="text-base font-medium">{group.competition.name}</h2>
                           </div>
                         </div>
-                        <div className="divide-y divide-border/30 border-b border-border/40">
+                        <div className="divide-y divide-border/30">
                           {group.rows.map((match) => (
                             <Link
                               key={match.match_id}

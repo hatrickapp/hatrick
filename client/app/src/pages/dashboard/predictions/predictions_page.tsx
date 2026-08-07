@@ -254,7 +254,7 @@ export function PredictionsPage() {
                           <h2 className="text-base font-medium">{group.competition.name}</h2>
                         </div>
                       </div>
-                      <div className="divide-y divide-border/30 border-b border-border/40">
+                      <div className="divide-y divide-border/30">
                         {group.rows.map((row) => {
                           const isExpanded = expandedPredictionId === row.prediction.prediction_id
                           const shouldOpenMatchDetail = row.match.status === 'NS' || (!row.match.is_locked && row.prediction.status === 'open')
